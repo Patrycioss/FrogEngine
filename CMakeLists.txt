@@ -8,6 +8,9 @@ file(COPY resources DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
 
 add_subdirectory(${EXT_LIB_PATH}/glm)
 
+add_library(box2D STATIC IMPORTED)
+SET_TARGET_PROPERTIES(box2D PROPERTIES IMPORTED_LOCATION ${EXT_LIB_PATH}/box2D/libbox2d.a)
+
 add_executable(
         FrogEngine
 
@@ -23,21 +26,19 @@ add_executable(
 
         main.cpp
         ShaderProgram.cpp
-        ResourceManager.hpp
         ResourceManager.cpp
         SpriteRenderer.cpp
-        ImGuiManager.hpp
         GlfwManager.hpp
         Texture.cpp
 )
 
-find_package(box2d CONFIG REQUIRED)
+
+target_link_libraries(FrogEngine PRIVATE box2D)
 
 target_link_libraries(
         FrogEngine PRIVATE
-
         ${EXT_LIB_PATH}/glfw/libglfw3.a
-        ${EXT_LIB_PATH}/box2D/box2d.lib
+#        ${EXT_LIB_PATH}/box2D/box2d.lib
         glm::glm
 )
 
