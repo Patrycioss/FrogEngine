@@ -8,7 +8,7 @@
 
 namespace FrogEngine
 {
-  Texture& ResourceManager::LoadTexture(const char* _path, bool _hasAlpha) {
+  Texture* ResourceManager::LoadTexture(const char* _path, bool _hasAlpha) {
 	uint32_t format = GL_RGB;
 
 	if (_hasAlpha) {
@@ -21,11 +21,11 @@ namespace FrogEngine
 	unsigned char* data = stbi_load(_path, &width, &height, &nrChannels, 0);
 	ref.first->second.Generate(width, height, data);
 	stbi_image_free(data);
-	return ref.first->second;
+	return &ref.first->second;
   }
 
-  Texture& ResourceManager::GetTexture(const char* _path) {
-	return loadedTextures.at(_path);
+  Texture* ResourceManager::GetTexture(const char* _path) {
+	return &loadedTextures.at(_path);
   }
 
   bool ResourceManager::UnloadTexture(const char* _path) {

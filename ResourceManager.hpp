@@ -13,8 +13,8 @@ namespace FrogEngine
 	std::unordered_map<const char*, ShaderRef> loadedShaders{};
 
    public:
-	Texture& LoadTexture(const char* _path, bool _hasAlpha);
-	Texture& GetTexture(const char* _path);
+	Texture* LoadTexture(const char* _path, bool _hasAlpha);
+	Texture* GetTexture(const char* _path);
 	[[nodiscard]] ShaderRef CreateShader(const char* _name, const char* _vertexPath, const char* _fragmentPath);
 	[[nodiscard]] ShaderRef GetShader(const char* _name);
 	bool UnloadTexture(const char* _path);

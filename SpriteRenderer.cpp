@@ -4,11 +4,9 @@
 
 namespace FrogEngine
 {
-  SpriteRenderer::SpriteRenderer() {
-	InitRenderData();
-  }
+  uint32_t SpriteRenderer::VAO{};
   
-  void SpriteRenderer::InitRenderData() {
+  void SpriteRenderer::Initialize() {
 	uint32_t VBO;
 	float vertices[] = {
 		// pos      // tex
@@ -34,9 +32,9 @@ namespace FrogEngine
 	glBindVertexArray(0);
   }
 
-  void SpriteRenderer::DrawSprite(Texture& _texture, ShaderRef _shader, glm::vec2 _position, glm::vec2 _size, float _rotate, glm::vec3 _colour) const {
+  void SpriteRenderer::DrawSprite(Texture& _texture, ShaderRef _shader, glm::vec2 _position, glm::vec2 _size, float _rotate, glm::vec3 _colour) {
 	Shader::Use(_shader);
-	
+
 	glm::mat4 model = glm::mat4(1.0f);
 	model = glm::translate(model, glm::vec3(_position, 0.0f));
 
@@ -57,7 +55,7 @@ namespace FrogEngine
 	glBindVertexArray(0);
   }
 
-  SpriteRenderer::~SpriteRenderer() {
+  void SpriteRenderer::Cleanup() {
 	glDeleteVertexArrays(1, &VAO);
   }
 }

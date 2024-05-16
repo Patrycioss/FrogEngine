@@ -3,13 +3,15 @@
 #include "ImGuiManager.hpp"
 #include "GlfwManager.hpp"
 #include "glad/glad.h"
+#include "SpriteRenderer.hpp"
 
 namespace FrogEngine
 {
   void Engine::Start(IGame* _game) {
-
 	window = GlfwManager::Setup();
 	ImGuiManager::Setup(window);
+
+	SpriteRenderer::Initialize();
 
 	glEnable(GL_CULL_FACE);
 
@@ -43,6 +45,7 @@ namespace FrogEngine
 
 	_game->Stop();
 
+	SpriteRenderer::Cleanup();
 	glfwDestroyWindow(window);
 	glfwTerminate();
   }
