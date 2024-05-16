@@ -25,11 +25,17 @@ add_executable(
         ${EXT_LIB_PATH}/imgui/src/imgui_impl_opengl3.cpp
 
         main.cpp
-        ShaderProgram.cpp
+        Shader.cpp
         ResourceManager.cpp
         SpriteRenderer.cpp
-        GlfwManager.hpp
         Texture.cpp
+        Game.cpp
+        IGame.hpp
+        FrogEngine.hpp
+        Engine.cpp
+        Engine.hpp
+        GlfwManager.cpp
+        FrogEngine.cpp
 )
 
 

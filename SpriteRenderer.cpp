@@ -1,61 +1,63 @@
 ﻿#include "SpriteRenderer.hpp"
 
-void SpriteRenderer::InitRenderData() {
-  uint32_t VBO;
-  float vertices[] = {
-	  // pos      // tex
-	  0.0f, 1.0f, 0.0f, 1.0f,
-	  1.0f, 0.0f, 1.0f, 0.0f,
-	  0.0f, 0.0f, 0.0f, 0.0f,
+#include <glad/glad.h>
 
-	  0.0f, 1.0f, 0.0f, 1.0f,
-	  1.0f, 1.0f, 1.0f, 1.0f,
-	  1.0f, 0.0f, 1.0f, 0.0f
-  };
-
-  glGenVertexArrays(1, &VAO);
-  glGenBuffers(1, &VBO);
-
-  glBindBuffer(GL_ARRAY_BUFFER, VBO);
-  glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-
-  glBindVertexArray(VAO);
-  glEnableVertexAttribArray(0);
-  glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void *)0);
-  glBindBuffer(GL_ARRAY_BUFFER, 0);
-  glBindVertexArray(0);
-}
-
-SpriteRenderer::SpriteRenderer(ShaderProgram &shader) :
-	shader(shader) {
-
-  InitRenderData();
-
-}
-
-void SpriteRenderer::DrawSprite(Texture &texture, glm::vec2 position, glm::vec2 size, float rotate, glm::vec3 color) {
-
-  shader.Use();
-  glm::mat4 model = glm::mat4(1.0f);
-  model = glm::translate(model, glm::vec3(position, 0.0f));
-
-  model = glm::translate(model, glm::vec3(0.5f * size.x, 0.5f * size.y, 0.0f));
-  model = glm::rotate(model, glm::radians(rotate), glm::vec3(0.0f, 0.0f, 1.0f));
-  model = glm::translate(model, glm::vec3(-0.5f * size.x, -0.5f * size.y, 0.0f));
-
-  model = glm::scale(model, glm::vec3(size, 1.0f));
+namespace FrogEngine
+{
+  SpriteRenderer::SpriteRenderer() {
+	InitRenderData();
+  }
   
-  shader.SetMatrix4("model", model);
-  shader.SetVec3("spriteColor", color);
+  void SpriteRenderer::InitRenderData() {
+	uint32_t VBO;
+	float vertices[] = {
+		// pos      // tex
+		0.0f, 1.0f, 0.0f, 1.0f,
+		1.0f, 0.0f, 1.0f, 0.0f,
+		0.0f, 0.0f, 0.0f, 0.0f,
 
-  glActiveTexture(GL_TEXTURE0);
-  texture.Bind();
+		0.0f, 1.0f, 0.0f, 1.0f,
+		1.0f, 1.0f, 1.0f, 1.0f,
+		1.0f, 0.0f, 1.0f, 0.0f
+	};
 
-  glBindVertexArray(VAO);
-  glDrawArrays(GL_TRIANGLES, 0, 6);
-  glBindVertexArray(0);
-}
+	glGenVertexArrays(1, &VAO);
+	glGenBuffers(1, &VBO);
 
-SpriteRenderer::~SpriteRenderer() {
-  glDeleteVertexArrays(1, &VAO);
+	glBindBuffer(GL_ARRAY_BUFFER, VBO);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+
+	glBindVertexArray(VAO);
+	glEnableVertexAttribArray(0);
+	glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)0);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	glBindVertexArray(0);
+  }
+
+  void SpriteRenderer::DrawSprite(Texture& _texture, ShaderRef _shader, glm::vec2 _position, glm::vec2 _size, float _rotate, glm::vec3 _colour) const {
+	Shader::Use(_shader);
+	
+	glm::mat4 model = glm::mat4(1.0f);
+	model = glm::translate(model, glm::vec3(_position, 0.0f));
+
+	model = glm::translate(model, glm::vec3(0.5f * _size.x, 0.5f * _size.y, 0.0f));
+	model = glm::rotate(model, glm::radians(_rotate), glm::vec3(0.0f, 0.0f, 1.0f));
+	model = glm::translate(model, glm::vec3(-0.5f * _size.x, -0.5f * _size.y, 0.0f));
+
+	model = glm::scale(model, glm::vec3(_size, 1.0f));
+
+	Shader::SetMatrix4(_shader, "model", model);
+	Shader::SetVec3(_shader, "spriteColor", _colour);
+
+	glActiveTexture(GL_TEXTURE0);
+	_texture.Bind();
+
+	glBindVertexArray(VAO);
+	glDrawArrays(GL_TRIANGLES, 0, 6);
+	glBindVertexArray(0);
+  }
+
+  SpriteRenderer::~SpriteRenderer() {
+	glDeleteVertexArrays(1, &VAO);
+  }
 }
