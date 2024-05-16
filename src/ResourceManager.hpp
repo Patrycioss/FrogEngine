@@ -19,5 +19,7 @@ namespace FrogEngine
 	[[nodiscard]] ShaderRef GetShader(const char* _name);
 	bool UnloadTexture(const char* _path);
 	bool UnloadShader(const char* _name);
+	
+	ResourceManager& operator=(const ResourceManager& other) = delete;
   };
 }

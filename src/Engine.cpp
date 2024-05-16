@@ -20,7 +20,7 @@ namespace FrogEngine
 	int32_t positionIterations = 2;
 
 	OnStart();
-
+	
 	double lastTime = glfwGetTime();
 	float deltaTime = 0;
 

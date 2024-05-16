@@ -5,18 +5,19 @@ Game::Game() : Engine({0.0f, -10.0f}) {
 
 void Game::OnStart() {
 
-  shader = resourceManager.CreateShader("default", "resources/shaders/vertex.glsl", "resources/shaders/fragment.glsl");
-  texture = resourceManager.LoadTexture("resources/textures/awesomeface.png", true);
+  shader = ResourceManager.CreateShader("default", "resources/shaders/vertex.glsl", "resources/shaders/fragment.glsl");
+  texture = ResourceManager.LoadTexture("resources/textures/awesomeface.png", true);
 
   glm::mat4 projection = glm::ortho(0.0f, 800.0f, 600.0f, 0.0f, -1.0f, 1.0f);
-
+  
+  
   FrogEngine::Shader::Use(shader);
   FrogEngine::Shader::SetMatrix4(shader, "projection", projection);
 
   b2BodyDef groundBodyDef;
   groundBodyDef.position.Set(0.0f, -10.0f);
 
-  b2Body* groundBody = world.CreateBody(&groundBodyDef);
+  b2Body* groundBody = World.CreateBody(&groundBodyDef);
 
   b2PolygonShape groundBox;
   groundBox.SetAsBox(50.0f, 10.0f);
@@ -26,7 +27,7 @@ void Game::OnStart() {
   b2BodyDef bodyDef;
   bodyDef.type = b2_dynamicBody;
   bodyDef.position.Set(0.0f, 4.0f);
-  b2Body* body = world.CreateBody(&bodyDef);
+  b2Body* body = World.CreateBody(&bodyDef);
 
   b2PolygonShape dynamicBox;
   dynamicBox.SetAsBox(1.0f, 1.0f);

@@ -10,13 +10,17 @@
 namespace FrogEngine
 {
   class Engine {
-   protected:
+   private:
 	b2World world;
 	ResourceManager resourceManager{};
 	GLFWwindow* window = nullptr;
 
+   protected:
 	explicit Engine(b2Vec2 _gravity) : world(_gravity) {};
-
+	
+	b2World& World = world;
+	ResourceManager& ResourceManager = resourceManager;
+	
    public:
 	virtual void OnStart() = 0;
 	virtual void OnUpdate(float _deltaTime) = 0;
