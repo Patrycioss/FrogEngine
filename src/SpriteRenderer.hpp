@@ -1,7 +1,7 @@
 ﻿#pragma once
 
-#include <glm.hpp>
-#include <ext/matrix_transform.hpp>
+#include "glm.hpp"
+#include "ext/matrix_transform.hpp"
 
 #include "Texture.hpp"
 #include "Shader.hpp"

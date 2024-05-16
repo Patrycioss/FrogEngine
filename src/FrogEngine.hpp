@@ -9,10 +9,9 @@
 #include <imgui.h>
 #include <box2d/box2d.h>
 
-#include "ResourceManager.hpp"
 #include "Engine.hpp"
-#include "Shader.hpp"
 #include "SpriteRenderer.hpp"
+#include "Shader.hpp"
 
 namespace FrogEngine
 {

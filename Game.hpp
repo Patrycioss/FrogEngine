@@ -1,14 +1,14 @@
 ﻿#pragma once
 
-#include "FrogEngine.hpp"
+#include "src/FrogEngine.hpp"
 
-class Game final : public FrogEngine::IGame {
+class Game final : public FrogEngine::Engine {
  private:
   FrogEngine::Texture* texture = nullptr;
   FrogEngine::ShaderRef shader;
  public:
-  explicit Game(FrogEngine::Engine& _engine);
-  void Start() override;
-  void Update(float _deltaTime) override;
-  void Stop() override;
+  explicit Game();
+  void OnStart() override;
+  void OnUpdate(float _deltaTime) override;
+  void OnStop() override;
 };

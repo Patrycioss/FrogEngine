@@ -1,12 +1,12 @@
 ﻿#include "Game.hpp"
 
-Game::Game(FrogEngine::Engine& _engine) : IGame(_engine, {0.0f, -10.0f}) {
+Game::Game() : Engine({0.0f, -10.0f}) {
   }
 
-void Game::Start() {
+void Game::OnStart() {
 
-  shader = engine.ResourceManager.CreateShader("default", "resources/shaders/vertex.glsl", "resources/shaders/fragment.glsl");
-  texture = engine.ResourceManager.LoadTexture("resources/textures/awesomeface.png", true);
+  shader = resourceManager.CreateShader("default", "resources/shaders/vertex.glsl", "resources/shaders/fragment.glsl");
+  texture = resourceManager.LoadTexture("resources/textures/awesomeface.png", true);
 
   glm::mat4 projection = glm::ortho(0.0f, 800.0f, 600.0f, 0.0f, -1.0f, 1.0f);
 
@@ -39,7 +39,7 @@ void Game::Start() {
   body->CreateFixture(&fixtureDef);
 }
 
-void Game::Update(float _deltaTime) {
+void Game::OnUpdate(float _deltaTime) {
   FrogEngine::ClearScreen({0.45f, 0.55f, 0.60f, 1.00f});
 
   // Rendering
@@ -52,7 +52,7 @@ void Game::Update(float _deltaTime) {
   FrogEngine::SpriteRenderer::DrawSprite(*texture, shader, {0,0}, {512,512});
 }
 
-void Game::Stop() {
+void Game::OnStop() {
 
 }
 

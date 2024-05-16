@@ -1,13 +1,12 @@
 ﻿#include "Engine.hpp"
-
-#include "ImGuiManager.hpp"
 #include "GlfwManager.hpp"
-#include "glad/glad.h"
+#include "ImGuiManager.hpp"
 #include "SpriteRenderer.hpp"
+#include "glad/glad.h"
 
 namespace FrogEngine
 {
-  void Engine::Start(IGame* _game) {
+  void Engine::Start() {
 	window = GlfwManager::Setup();
 	ImGuiManager::Setup(window);
 
@@ -20,7 +19,7 @@ namespace FrogEngine
 	int32_t velocityIterations = 6;
 	int32_t positionIterations = 2;
 
-	_game->Start();
+	OnStart();
 
 	double lastTime = glfwGetTime();
 	float deltaTime = 0;
@@ -33,17 +32,17 @@ namespace FrogEngine
 	  deltaTime = (float)(nowTime - lastTime);
 	  lastTime = nowTime;
 
-	  _game->Update(deltaTime);
+	  OnUpdate(deltaTime);
 
 	  for (int32 i = 0; i < 60; ++i) {
-		_game->World.Step(timeStep, velocityIterations, positionIterations);
+		world.Step(timeStep, velocityIterations, positionIterations);
 	  }
 
 	  ImGuiManager::PostFrame();
 	  GlfwManager::PostFrame(window);
 	}
 
-	_game->Stop();
+	OnStop();
 
 	SpriteRenderer::Cleanup();
 	glfwDestroyWindow(window);

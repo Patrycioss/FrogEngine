@@ -24,18 +24,15 @@ add_executable(
         ${EXT_LIB_PATH}/imgui/src/imgui_impl_glfw.cpp
         ${EXT_LIB_PATH}/imgui/src/imgui_impl_opengl3.cpp
 
-        main.cpp
-        Shader.cpp
-        ResourceManager.cpp
-        SpriteRenderer.cpp
-        Texture.cpp
+        src/main.cpp
+        src/Shader.cpp
+        src/ResourceManager.cpp
+        src/SpriteRenderer.cpp
+        src/Texture.cpp
         Game.cpp
-        IGame.hpp
-        FrogEngine.hpp
-        Engine.cpp
-        Engine.hpp
-        GlfwManager.cpp
-        FrogEngine.cpp
+        src/GlfwManager.cpp
+        src/FrogEngine.cpp
+        src/Engine.cpp
 )
 
 

@@ -1,9 +1,9 @@
 ﻿#include "GlfwManager.hpp"
-#include "glad/glad.h"
+
+#include <glad/glad.h>
 
 namespace GlfwManager
 {
-
   GLFWwindow* Setup() {
 	glfwInit();
 
@@ -16,6 +16,7 @@ namespace GlfwManager
 	glfwShowWindow(window);
 	return window;
   }
+
   void PostFrame(GLFWwindow* _window) {
 	int display_w, display_h;
 	glfwGetFramebufferSize(_window, &display_w, &display_h);
