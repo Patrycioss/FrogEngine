@@ -8,7 +8,9 @@ file(COPY resources DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
 
 add_subdirectory(${EXT_LIB_PATH}/glm)
 
-add_library(box2D STATIC IMPORTED)
+add_library(box2D STATIC IMPORTED
+        testgame/Behaviours/TestBehaviour.cpp
+        testgame/Behaviours/TestBehaviour.hpp)
 SET_TARGET_PROPERTIES(box2D PROPERTIES IMPORTED_LOCATION ${EXT_LIB_PATH}/box2D/libbox2d.a)
 
 add_executable(
@@ -29,10 +31,12 @@ add_executable(
         src/ResourceManager.cpp
         src/SpriteRenderer.cpp
         src/Texture.cpp
-        Game.cpp
+        testgame/Game.cpp
         src/GlfwManager.cpp
         src/FrogEngine.cpp
         src/Engine.cpp
+        src/GameObject.cpp
+        testgame/Behaviours/TestBehaviour.cpp
 )
 
 

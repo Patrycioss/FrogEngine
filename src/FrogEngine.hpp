@@ -12,6 +12,7 @@
 #include "Engine.hpp"
 #include "SpriteRenderer.hpp"
 #include "Shader.hpp"
+#include "GameObject.hpp"
 
 namespace FrogEngine
 {

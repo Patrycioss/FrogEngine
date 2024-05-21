@@ -4,6 +4,7 @@
 
 class Game final : public FrogEngine::Engine {
  private:
+  GameObject* gameObject;
   FrogEngine::Texture* texture = nullptr;
   FrogEngine::ShaderRef shader;
  public:

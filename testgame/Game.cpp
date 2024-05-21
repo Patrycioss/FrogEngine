@@ -1,4 +1,6 @@
 ﻿#include "Game.hpp"
+#include "src/GameObject.hpp"
+#include "testgame/Behaviours/TestBehaviour.hpp"
 
 Game::Game() : Engine({0.0f, -10.0f}) {
   }
@@ -10,6 +12,8 @@ void Game::OnStart() {
 
   glm::mat4 projection = glm::ortho(0.0f, 800.0f, 600.0f, 0.0f, -1.0f, 1.0f);
   
+  
+//  World.QueryAABB()
   
   FrogEngine::Shader::Use(shader);
   FrogEngine::Shader::SetMatrix4(shader, "projection", projection);
@@ -38,6 +42,11 @@ void Game::OnStart() {
   fixtureDef.friction = 0.3f;
 
   body->CreateFixture(&fixtureDef);
+
+  gameObject = new GameObject{body};
+//  TestBehaviour* behaviour = gameObject.AddBehaviour<TestBehaviour>();
+  TestBehaviour* testBehaviour = gameObject->AddBehaviour<TestBehaviour>();
+  testBehaviour->Start();
 }
 
 void Game::OnUpdate(float _deltaTime) {
@@ -54,6 +63,6 @@ void Game::OnUpdate(float _deltaTime) {
 }
 
 void Game::OnStop() {
-
+	delete gameObject;
 }
 
