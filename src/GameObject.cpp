@@ -1,10 +1,11 @@
 ﻿#include "GameObject.hpp"
 
-GameObject::GameObject(b2Body* _body) 
-	: body(_body){
-
-}
-
-GameObject::~GameObject() {
+namespace fe
+{
+  GameObject::GameObject() :
+	  Transform(this) {
 	
+  }
+
+  GameObject::~GameObject() = default;
 }

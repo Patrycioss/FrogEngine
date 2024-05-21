@@ -4,7 +4,7 @@
 
 class Game final : public fe::GameTemplate {
  private:
-  GameObject* gameObject;
+  fe::GameObject* gameObject;
   fe::Texture* texture = nullptr;
   fe::ShaderRef shader;
  public:

@@ -42,7 +42,7 @@ void Game::Start() {
 
   body->CreateFixture(&fixtureDef);
 
-  gameObject = new GameObject{body};
+  gameObject = new fe::GameObject{};
 //  TestBehaviour* behaviour = gameObject.AddBehaviour<TestBehaviour>();
   TestBehaviour* testBehaviour = gameObject->AddBehaviour<TestBehaviour>();
   testBehaviour->Start();

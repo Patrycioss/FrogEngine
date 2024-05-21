@@ -2,7 +2,7 @@
 
 #include "src/FrogEngine.hpp"
 
-class TestBehaviour : public Behaviour{
+ class TestBehaviour : public fe::Behaviour{
  public:
   TestBehaviour() = default;
   void Start() override;
