@@ -2,7 +2,7 @@
 
 #include <glad/glad.h>
 
-namespace FrogEngine
+namespace fe
 {
   Texture::Texture(uint32_t _imageFormat, uint32_t _internalFormat)
 	  : imageFormat(_imageFormat), internalFormat(_internalFormat) {

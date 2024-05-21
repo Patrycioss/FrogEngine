@@ -5,7 +5,7 @@
 #define STB_IMAGE_IMPLEMENTATION
 #include <stb_image.h>
 
-namespace FrogEngine
+namespace fe
 {
   Texture* ResourceManager::LoadTexture(const char* _path, bool _hasAlpha) {
 	uint32_t format = GL_RGB;

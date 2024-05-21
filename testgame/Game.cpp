@@ -1,11 +1,10 @@
 ﻿#include "Game.hpp"
-#include "src/GameObject.hpp"
-#include "testgame/Behaviours/TestBehaviour.hpp"
+#include "Behaviours/TestBehaviour.hpp"
 
-Game::Game() : Engine({0.0f, -10.0f}) {
+Game::Game() : GameTemplate({0.0f, -10.0f}) {
   }
 
-void Game::OnStart() {
+void Game::Start() {
 
   shader = ResourceManager.CreateShader("default", "resources/shaders/vertex.glsl", "resources/shaders/fragment.glsl");
   texture = ResourceManager.LoadTexture("resources/textures/awesomeface.png", true);
@@ -15,8 +14,8 @@ void Game::OnStart() {
   
 //  World.QueryAABB()
   
-  FrogEngine::Shader::Use(shader);
-  FrogEngine::Shader::SetMatrix4(shader, "projection", projection);
+  fe::Shader::Use(shader);
+  fe::Shader::SetMatrix4(shader, "projection", projection);
 
   b2BodyDef groundBodyDef;
   groundBodyDef.position.Set(0.0f, -10.0f);
@@ -49,8 +48,8 @@ void Game::OnStart() {
   testBehaviour->Start();
 }
 
-void Game::OnUpdate(float _deltaTime) {
-  FrogEngine::ClearScreen({0.45f, 0.55f, 0.60f, 1.00f});
+void Game::Update(float _deltaTime) {
+  fe::Util::ClearScreen({0.45f, 0.55f, 0.60f, 1.00f});
 
   // Rendering
   ImGui::Begin("Ha");
@@ -59,10 +58,10 @@ void Game::OnUpdate(float _deltaTime) {
   
   ImGui::ShowDemoWindow();
 
-  FrogEngine::SpriteRenderer::DrawSprite(*texture, shader, {0,0}, {512,512});
+  fe::SpriteRenderer::DrawSprite(*texture, shader, {0,0}, {512,512});
 }
 
-void Game::OnStop() {
+void Game::Stop() {
 	delete gameObject;
 }
 

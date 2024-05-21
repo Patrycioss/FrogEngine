@@ -6,7 +6,7 @@
 
 #include "vec2.hpp"
 
-namespace FrogEngine
+namespace fe
 {
   class Texture {
    private:

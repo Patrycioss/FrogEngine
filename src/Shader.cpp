@@ -4,7 +4,7 @@
 #include <fstream>
 #include <glad/glad.h>
 
-namespace FrogEngine::Shader
+namespace fe::Shader
 {
   class ShaderException final : public std::runtime_error {
    public:

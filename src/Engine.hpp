@@ -1,32 +1,24 @@
 ﻿#pragma once
 
-#include "box2d/box2d.h"
-
 #define GLFW_INCLUDE_NONE
-#include "GLFW/glfw3.h"
+#include <glfw/glfw3.h>
 
-#include "ResourceManager.hpp"
+#include <box2d/box2d.h>
+#include <glm.hpp>
 
-namespace FrogEngine
+#include "GameTemplate.hpp"
+
+namespace fe
 {
   class Engine {
    private:
-	b2World world;
-	ResourceManager resourceManager{};
-	GLFWwindow* window = nullptr;
+	static GLFWwindow* window;
+	static b2World world;
 
-   protected:
-	explicit Engine(b2Vec2 _gravity) : world(_gravity) {};
-	
-	b2World& World = world;
-	ResourceManager& ResourceManager = resourceManager;
-	
    public:
-	virtual void OnStart() = 0;
-	virtual void OnUpdate(float _deltaTime) = 0;
-	virtual void OnStop() = 0;
-
-  	void Start();
-  	void Stop();
+	static void Init(GameTemplate& _gameTemplate);
+	static void Stop();
+	static b2Body* CreateBox(b2PolygonShape boxShape);
   };
+
 }

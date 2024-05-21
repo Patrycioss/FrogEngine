@@ -1,6 +1,6 @@
 ﻿#pragma once
 
-#include <../../src/FrogEngine.hpp>
+#include "src/FrogEngine.hpp"
 
 class TestBehaviour : public Behaviour{
  public:

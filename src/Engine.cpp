@@ -1,12 +1,17 @@
 ﻿#include "Engine.hpp"
+
+#include <glad/glad.h>
+
 #include "GlfwManager.hpp"
 #include "ImGuiManager.hpp"
 #include "SpriteRenderer.hpp"
-#include "glad/glad.h"
 
-namespace FrogEngine
+namespace fe
 {
-  void Engine::Start() {
+  b2World Engine::world{{0,0}};
+  GLFWwindow* Engine::window;
+
+  void Engine::Init(GameTemplate& _gameTemplate) {
 	window = GlfwManager::Setup();
 	ImGuiManager::Setup(window);
 
@@ -19,8 +24,8 @@ namespace FrogEngine
 	int32_t velocityIterations = 6;
 	int32_t positionIterations = 2;
 
-	OnStart();
-	
+	_gameTemplate.Start();
+
 	double lastTime = glfwGetTime();
 	float deltaTime = 0;
 
@@ -32,7 +37,7 @@ namespace FrogEngine
 	  deltaTime = (float)(nowTime - lastTime);
 	  lastTime = nowTime;
 
-	  OnUpdate(deltaTime);
+	  _gameTemplate.Update(deltaTime);
 
 	  for (int32 i = 0; i < 60; ++i) {
 		world.Step(timeStep, velocityIterations, positionIterations);
@@ -40,9 +45,10 @@ namespace FrogEngine
 
 	  ImGuiManager::PostFrame();
 	  GlfwManager::PostFrame(window);
+
 	}
 
-	OnStop();
+	_gameTemplate.Stop();
 
 	SpriteRenderer::Cleanup();
 	glfwDestroyWindow(window);
@@ -54,5 +60,9 @@ namespace FrogEngine
 	  glfwSetWindowShouldClose(window, true);
 	  return;
 	}
+  }
+
+  b2Body* Engine::CreateBox(b2PolygonShape boxShape) {
+	
   }
 }

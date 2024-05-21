@@ -2,7 +2,7 @@
 
 #include <glad/glad.h>
 
-namespace FrogEngine
+namespace fe
 {
   uint32_t SpriteRenderer::VAO{};
   

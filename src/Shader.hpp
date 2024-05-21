@@ -4,13 +4,13 @@
 #include <glm.hpp>
 #include <gtc/type_ptr.hpp>
 
-namespace FrogEngine{
+namespace fe{
   struct ShaderRef {
 	uint32_t ID;
   };
 }
 
-namespace FrogEngine::Shader
+namespace fe::Shader
 {
   
   ShaderRef Create(const std::string& _vertexPath, const std::string& _fragmentPath);
