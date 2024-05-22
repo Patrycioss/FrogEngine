@@ -18,4 +18,20 @@ namespace fe
 	  delete behaviour;
 	}
   }
+
+  void GameObject::Start() {
+	for (auto& behaviour : behaviours) {
+	  behaviour->Start();
+	}
+
+	OnStart();
+  }
+
+  void GameObject::Update(float _deltaTime) {
+	for (auto& behaviour : behaviours) {
+	  behaviour->Update(_deltaTime);
+	}
+
+	OnUpdate(_deltaTime);
+  }
 }

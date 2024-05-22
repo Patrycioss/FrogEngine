@@ -4,9 +4,11 @@
 
 class Game final : public fe::GameTemplate {
  private:
-  fe::GameObject* gameObject;
+  fe::GameObject* gameObject{};
   fe::Texture* texture = nullptr;
-  fe::ShaderRef shader;
+  fe::ShaderRef shader{};
+  
+  fe::Scene scene;
  public:
   explicit Game();
   void Start() override;

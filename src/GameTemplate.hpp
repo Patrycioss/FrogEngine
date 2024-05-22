@@ -1,9 +1,9 @@
 ﻿#pragma once
 
-#include "box2d/box2d.h"
+#include <box2d/box2d.h>
 
 #define GLFW_INCLUDE_NONE
-#include "GLFW/glfw3.h"
+#include <glfw/glfw3.h>
 
 #include "ResourceManager.hpp"
 
@@ -17,10 +17,10 @@ namespace fe
 
    protected:
 	explicit GameTemplate(b2Vec2 _gravity) : world(_gravity) {};
-	
+
 	b2World& World = world;
 	ResourceManager& ResourceManager = resourceManager;
-	
+
    public:
 	virtual void Start() = 0;
 	virtual void Update(float _deltaTime) = 0;

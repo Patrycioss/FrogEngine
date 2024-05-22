@@ -8,7 +8,7 @@
 
 namespace fe
 {
-  b2World Engine::world{{0,0}};
+  b2World Engine::world{{0, 0}};
   GLFWwindow* Engine::window;
 
   void Engine::Init(GameTemplate& _gameTemplate) {
@@ -60,9 +60,5 @@ namespace fe
 	  glfwSetWindowShouldClose(window, true);
 	  return;
 	}
-  }
-
-  b2Body* Engine::CreateBox(b2PolygonShape boxShape) {
-	
   }
 }

@@ -1,7 +1,10 @@
 ﻿#include "Game.hpp"
-#include "Behaviours/TestBehaviour.hpp"
+#include "TestObject.hpp"
 
 Game::Game() : GameTemplate({0.0f, -10.0f}) {
+
+  fe::GameObject* test = scene.AddObject<TestObject>();
+  scene.Start();
 }
 
 void Game::Start() {
@@ -39,16 +42,12 @@ void Game::Start() {
 
   body->CreateFixture(&fixtureDef);
 
-  gameObject = new fe::GameObject{};
-//  TestBehaviour* behaviour = gameObject.AddBehaviour<TestBehaviour>();
-  TestBehaviour* testBehaviour = gameObject->AddBehaviour<TestBehaviour>();
-  testBehaviour->Start();
-
-  TestBehaviour* behaviour1 = gameObject->GetComponent<TestBehaviour>();
 }
 
 void Game::Update(float _deltaTime) {
   fe::Util::ClearScreen({0.45f, 0.55f, 0.60f, 1.00f});
+
+  scene.Update(_deltaTime);
 
   // Rendering
   ImGui::Begin("Ha");

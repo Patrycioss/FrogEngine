@@ -18,7 +18,5 @@ namespace fe
    public:
 	static void Init(GameTemplate& _gameTemplate);
 	static void Stop();
-	static b2Body* CreateBox(b2PolygonShape boxShape);
   };
-
 }

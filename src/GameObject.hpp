@@ -13,7 +13,6 @@ concept Derived = std::is_base_of<U, T>::value;
 
 namespace fe
 {
-
   class GameObject {
    private:
 	static uint32_t IDs;
@@ -21,11 +20,21 @@ namespace fe
 
 	std::vector<Behaviour*> behaviours{};
 
+   protected:
+	/* Called after the behaviours are added and started. */
+	virtual void OnStart() {};
+
+	/* Called every frame. */
+	virtual void OnUpdate(float _deltaTime) {};
+
    public:
 	Transform Transform{this};
 
+	void Start();
+	void Update(float _deltaTime);
+
 	GameObject();
-	~GameObject();
+	virtual ~GameObject();
 
 	[[nodiscard]] uint32_t GetID() const;
 
