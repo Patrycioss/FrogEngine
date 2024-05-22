@@ -2,7 +2,7 @@
 #include "Behaviours/TestBehaviour.hpp"
 
 Game::Game() : GameTemplate({0.0f, -10.0f}) {
-  }
+}
 
 void Game::Start() {
 
@@ -10,10 +10,7 @@ void Game::Start() {
   texture = ResourceManager.LoadTexture("resources/textures/awesomeface.png", true);
 
   glm::mat4 projection = glm::ortho(0.0f, 800.0f, 600.0f, 0.0f, -1.0f, 1.0f);
-  
-  
-//  World.QueryAABB()
-  
+
   fe::Shader::Use(shader);
   fe::Shader::SetMatrix4(shader, "projection", projection);
 
@@ -46,6 +43,8 @@ void Game::Start() {
 //  TestBehaviour* behaviour = gameObject.AddBehaviour<TestBehaviour>();
   TestBehaviour* testBehaviour = gameObject->AddBehaviour<TestBehaviour>();
   testBehaviour->Start();
+
+  TestBehaviour* behaviour1 = gameObject->GetComponent<TestBehaviour>();
 }
 
 void Game::Update(float _deltaTime) {
@@ -55,13 +54,13 @@ void Game::Update(float _deltaTime) {
   ImGui::Begin("Ha");
   ImGui::SetWindowSize({300, 300});
   ImGui::End();
-  
+
   ImGui::ShowDemoWindow();
 
-  fe::SpriteRenderer::DrawSprite(*texture, shader, {0,0}, {512,512});
+  fe::SpriteRenderer::DrawSprite(*texture, shader, {0, 0}, {512, 512});
 }
 
 void Game::Stop() {
-	delete gameObject;
+  delete gameObject;
 }
 

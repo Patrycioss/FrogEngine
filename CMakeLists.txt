@@ -41,6 +41,8 @@ add_executable(
         src/FrogEngine.hpp
         src/Transform.cpp
         src/Transform.hpp
+        src/Scene.cpp
+        src/Scene.hpp
 )
 
 

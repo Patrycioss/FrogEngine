@@ -13,21 +13,26 @@ concept Derived = std::is_base_of<U, T>::value;
 
 namespace fe
 {
+
   class GameObject {
    private:
+	static uint32_t IDs;
+	uint32_t ID;
 
-	std::vector<std::unique_ptr<Behaviour>> behaviours{};
+	std::vector<Behaviour*> behaviours{};
 
    public:
-	Transform Transform;
-	explicit GameObject();
+	Transform Transform{this};
 
+	GameObject();
 	~GameObject();
+
+	[[nodiscard]] uint32_t GetID() const;
 
 	template<Derived<Behaviour> T>
 	T* AddBehaviour() {
 	  behaviours.emplace_back(new T());
-	  T * behaviour = dynamic_cast<T*>(behaviours.back().get());
+	  T * behaviour = dynamic_cast<T*>(behaviours.back());
 	  behaviour->GameObject = this;
 	  return behaviour;
 	}
@@ -46,7 +51,7 @@ namespace fe
 	template<class T>
 	T* GetComponent() {
 	  for (auto& behaviour : behaviours) {
-		T* a = dynamic_cast<T*>(behaviour.get());
+		T* a = dynamic_cast<T*>(behaviour);
 		if (a != nullptr) {
 		  return a;
 		}
@@ -54,4 +59,9 @@ namespace fe
 	  return nullptr;
 	};
   };
+
+  inline bool operator==(const GameObject& _left, const GameObject& _right) {
+	return _left.GetID() == _right.GetID();
+  }
+
 }
