@@ -3,6 +3,6 @@
 
 int main() {
   Game game{};
-  fe::Engine::Init(game);
+  fe::Engine::Initialize(game);
   return 0;
 }

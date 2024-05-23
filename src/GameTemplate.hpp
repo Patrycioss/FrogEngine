@@ -6,24 +6,35 @@
 #include <glfw/glfw3.h>
 
 #include "ResourceManager.hpp"
+#include "Settings.hpp"
 
 namespace fe
 {
   class GameTemplate {
    private:
-	b2World world;
 	ResourceManager resourceManager{};
 	GLFWwindow* window = nullptr;
 
    protected:
-	explicit GameTemplate(b2Vec2 _gravity) : world(_gravity) {};
-
-	b2World& World = world;
 	ResourceManager& ResourceManager = resourceManager;
 
+	/* Settings for the engine. */
+	Settings settings{};
+
+	/* Applies all settings in the settings member.*/
+	void ApplyAllSettings() const;
+
+	/* Applies settings selected with the flags.*/
+	void ApplySettings(uint8_t _flags) const;
+
    public:
+	/* Called when the game is started by the engine. */
 	virtual void Start() = 0;
+
+	/* Called every frame by the engine. */
 	virtual void Update(float _deltaTime) = 0;
+
+	/* Called at the end of the game. */
 	virtual void Stop() = 0;
   };
 }
