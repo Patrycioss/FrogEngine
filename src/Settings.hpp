@@ -13,5 +13,9 @@ namespace fe{
 	bool enableFaceCulling = true;
 	uint16_t windowWidth = 800, windowHeight = 600;
 	const char* windowTitle = "My Game";
+	
+	[[nodiscard]] glm::vec2 WindowSize() const {
+	  return {windowWidth, windowHeight};
+	}
   };
 }

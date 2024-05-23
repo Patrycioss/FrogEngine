@@ -1,6 +1,7 @@
 ﻿#pragma once
 
 #include "../src/FrogEngine.hpp"
+#include "src/Camera.hpp"
 
 class Game final : public fe::GameTemplate {
  private:
@@ -8,6 +9,8 @@ class Game final : public fe::GameTemplate {
   fe::Texture* texture = nullptr;
   fe::ShaderRef shader{};
   fe::Scene scene;
+  
+  fe::Camera camera;
 
  public:
   explicit Game();
