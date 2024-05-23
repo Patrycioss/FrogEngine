@@ -30,7 +30,6 @@ add_executable(
         src/SpriteRenderer.cpp
         src/Texture.cpp
         testgame/Game.cpp
-        src/GlfwManager.cpp
         src/Engine.cpp
         src/GameObject.cpp
         testgame/Behaviours/TestBehaviour.cpp
@@ -38,6 +37,7 @@ add_executable(
         src/Transform.cpp
         src/Scene.cpp
         testgame/TestObject.cpp
+        src/GameTemplate.cpp
 )
 
 

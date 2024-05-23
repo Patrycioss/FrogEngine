@@ -1,10 +1,9 @@
 ﻿#include "Game.hpp"
 #include "TestObject.hpp"
 
-Game::Game() : GameTemplate({0.0f, -10.0f}) {
-
-  fe::GameObject* test = scene.AddObject<TestObject>();
-  scene.Start();
+Game::Game() {
+  // Good place to alter settings
+  settings.windowTitle = "My Super Awesome Game!";
 }
 
 void Game::Start() {
@@ -17,31 +16,8 @@ void Game::Start() {
   fe::Shader::Use(shader);
   fe::Shader::SetMatrix4(shader, "projection", projection);
 
-  b2BodyDef groundBodyDef;
-  groundBodyDef.position.Set(0.0f, -10.0f);
-
-  b2Body* groundBody = World.CreateBody(&groundBodyDef);
-
-  b2PolygonShape groundBox;
-  groundBox.SetAsBox(50.0f, 10.0f);
-
-  groundBody->CreateFixture(&groundBox, 0.0f);
-
-  b2BodyDef bodyDef;
-  bodyDef.type = b2_dynamicBody;
-  bodyDef.position.Set(0.0f, 4.0f);
-  b2Body* body = World.CreateBody(&bodyDef);
-
-  b2PolygonShape dynamicBox;
-  dynamicBox.SetAsBox(1.0f, 1.0f);
-
-  b2FixtureDef fixtureDef;
-  fixtureDef.shape = &dynamicBox;
-  fixtureDef.density = 1.0f;
-  fixtureDef.friction = 0.3f;
-
-  body->CreateFixture(&fixtureDef);
-
+  fe::GameObject* test = scene.AddObject<TestObject>();
+  scene.Start();
 }
 
 void Game::Update(float _deltaTime) {
@@ -49,17 +25,10 @@ void Game::Update(float _deltaTime) {
 
   scene.Update(_deltaTime);
 
-  // Rendering
-  ImGui::Begin("Ha");
-  ImGui::SetWindowSize({300, 300});
-  ImGui::End();
-
-  ImGui::ShowDemoWindow();
-
   fe::SpriteRenderer::DrawSprite(*texture, shader, {0, 0}, {512, 512});
+  fe::SpriteRenderer::DrawSprite(*texture, shader, {500, 500}, {512, 512});
 }
 
 void Game::Stop() {
   delete gameObject;
 }
-
