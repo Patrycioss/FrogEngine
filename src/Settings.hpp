@@ -2,11 +2,6 @@
 
 #include <cstdint>
 
-#define FE_SETTINGS_VSYNC 1
-#define FE_SETTINGS_CULL_FACE 2
-#define FE_SETTINGS_WINDOW_SIZE 4
-#define FE_SETTINGS_WINDOW_TITLE 8
-
 namespace fe{
   struct Settings{
 	bool enableVsync = true;
@@ -17,5 +12,10 @@ namespace fe{
 	[[nodiscard]] glm::vec2 WindowSize() const {
 	  return {windowWidth, windowHeight};
 	}
+	
+	const static uint16_t VSYNC = 1;
+	const static uint16_t CULL_FACE = 2;
+	const static uint16_t WINDOW_SIZE = 4;
+	const static uint16_t WINDOW_TITLE = 8;
   };
 }
