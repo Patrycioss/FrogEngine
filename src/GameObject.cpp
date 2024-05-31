@@ -35,4 +35,12 @@ namespace fe
 	OnUpdate(_deltaTime);
   }
 
+  b2Vec2 GameObject::GetPosition() const {
+	return b2Body_GetPosition(body);
+  }
+
+  b2Rot GameObject::GetRotation() const {
+	return b2Body_GetRotation(body);
+  }
+
 }

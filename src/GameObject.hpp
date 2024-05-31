@@ -1,6 +1,6 @@
 ﻿#pragma once
 
-#include <box2d/b2_body.h>
+#include <box2d/box2d.h>
 #include <vector>
 #include <concepts>
 #include <memory>
@@ -19,7 +19,7 @@ namespace fe
 
 	std::vector<Behaviour*> behaviours{};
 
-	b2Body* body;
+	b2BodyId body;
 
    protected:
 	/* Called after the behaviours are added and started. */
@@ -38,8 +38,8 @@ namespace fe
 
 	[[nodiscard]] uint32_t GetID() const;
 	
-	b2Vec2 Position = body->GetPosition();
-	float RotationRad = body->GetAngle();
+	b2Vec2 GetPosition() const;
+	b2Rot GetRotation() const;
 
 	template<Derived<Behaviour> T>
 	T* AddBehaviour() {

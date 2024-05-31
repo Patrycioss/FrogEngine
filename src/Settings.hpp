@@ -8,6 +8,7 @@ namespace fe{
 	bool enableFaceCulling = true;
 	uint16_t windowWidth = 800, windowHeight = 600;
 	const char* windowTitle = "My Game";
+	b2Vec2 gravity = {0,0};
 	
 	[[nodiscard]] glm::vec2 WindowSize() const {
 	  
@@ -19,6 +20,7 @@ namespace fe{
 	  CULL_FACE = 1 << 1,
 	  WINDOW_SIZE = 1 << 2,
 	  WINDOW_TITLE = 1 << 3,
+	  GRAVITY = 1 << 4,
 	};
   };
 }

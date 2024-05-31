@@ -7,6 +7,7 @@
 #include "Texture.hpp"
 #include "Shader.hpp"
 #include "Camera.hpp"
+#include "Colour.hpp"
 
 namespace fe
 {
@@ -20,11 +21,11 @@ namespace fe
 	static void Initialize();
 	static void DrawSprite(Texture* _texture, ShaderRef _shader, b2Vec2 _position,
 						   b2Vec2 _size = {10.0f, 10.0f}, float _rotate = 0.0f,
-						   b2Vec3 _colour = {1.0f, 1.0f, 1.0f});
+						   Colour _colour = {1.0f, 1.0f, 1.0f});
 
 	static void DrawSprite(Texture* _texture, b2Vec2 _position,
 						   b2Vec2 _size = {10.0f, 10.0f}, float _rotate = 0.0f,
-						   b2Vec3 _colour = {1.0f, 1.0f, 1.0f});
+						   Colour _colour = {1.0f, 1.0f, 1.0f});
 	
 	static void Cleanup();
   };

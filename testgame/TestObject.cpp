@@ -14,7 +14,7 @@ void TestObject::OnStart() {
 void TestObject::OnUpdate(float _deltaTime) {
 //  std::cout << "Test Object Update \n";
   
-  fe::SpriteRenderer::DrawSprite(texture, Position, {512,512});
+  fe::SpriteRenderer::DrawSprite(texture, {0,0}, {512,512});
 }
 
 TestObject::~TestObject() {

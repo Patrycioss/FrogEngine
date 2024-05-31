@@ -14,7 +14,7 @@ namespace fe
   class Engine {
    private:
 	static GLFWwindow* window;
-	static b2World world;
+	static b2WorldId world;
 	static bool initCalled;
 	static Settings currentSettings;
 	static Camera camera;
@@ -37,6 +37,6 @@ namespace fe
 	
 	static const Camera& Camera;
 	
-	static b2World& World;
+	static b2WorldId& World;
   };
 }

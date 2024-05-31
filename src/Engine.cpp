@@ -7,7 +7,7 @@
 
 namespace fe
 {
-  b2World Engine::world{{0, 0}};
+  b2WorldId Engine::world{};
   GLFWwindow* Engine::window;
   bool Engine::initCalled = false;
   Settings Engine::currentSettings{};
@@ -15,7 +15,7 @@ namespace fe
   
   const Settings& Engine::CurrentSettings = Engine::currentSettings;
   const Camera& Engine::Camera = Engine::camera;
-  b2World& Engine::World = Engine::world;
+  b2WorldId& Engine::World = Engine::world;
 
   void Engine::Initialize(GameTemplate& _gameTemplate) {
 	if (initCalled) {
@@ -24,6 +24,12 @@ namespace fe
 
 	initCalled = true;
 	currentSettings = _gameTemplate.Settings;
+	
+	b2WorldDef worldDef = b2DefaultWorldDef();
+	worldDef.gravity = currentSettings.gravity;
+	
+	world = b2CreateWorld(&worldDef);
+	
 
 	glfwInit();
 	window = glfwCreateWindow(currentSettings.windowWidth, currentSettings.windowHeight, currentSettings.windowTitle, nullptr, nullptr);
@@ -130,6 +136,11 @@ namespace fe
 	if ((_flags & Settings::WINDOW_TITLE) == Settings::WINDOW_TITLE) {
 	  currentSettings.windowTitle = _settings.windowTitle;
 	  glfwSetWindowTitle(window, currentSettings.windowTitle);
+	}
+	
+	if ((_flags & Settings::GRAVITY) == Settings::GRAVITY){
+	  currentSettings.gravity = _settings.gravity;
+	  b2World_SetGravity(world, currentSettings.gravity);
 	}
   }
 }
