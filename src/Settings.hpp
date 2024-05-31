@@ -10,12 +10,15 @@ namespace fe{
 	const char* windowTitle = "My Game";
 	
 	[[nodiscard]] glm::vec2 WindowSize() const {
+	  
 	  return {windowWidth, windowHeight};
 	}
 	
-	const static uint16_t VSYNC = 1;
-	const static uint16_t CULL_FACE = 2;
-	const static uint16_t WINDOW_SIZE = 4;
-	const static uint16_t WINDOW_TITLE = 8;
+	enum{
+	  VSYNC = 1 << 0,
+	  CULL_FACE = 1 << 1,
+	  WINDOW_SIZE = 1 << 2,
+	  WINDOW_TITLE = 1 << 3,
+	};
   };
 }
