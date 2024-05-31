@@ -39,6 +39,7 @@ add_executable(
         testgame/TestObject.cpp
         src/Camera.cpp
         src/GameTemplate.cpp
+        src/FileUtils.hpp
 )
 
 
