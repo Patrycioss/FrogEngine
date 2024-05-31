@@ -36,5 +36,7 @@ namespace fe
 	static const Settings& CurrentSettings;
 	
 	static const Camera& Camera;
+	
+	static b2World& World;
   };
 }

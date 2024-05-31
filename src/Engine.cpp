@@ -15,6 +15,7 @@ namespace fe
   
   const Settings& Engine::CurrentSettings = Engine::currentSettings;
   const Camera& Engine::Camera = Engine::camera;
+  b2World& Engine::World = Engine::world;
 
   void Engine::Initialize(GameTemplate& _gameTemplate) {
 	if (initCalled) {
