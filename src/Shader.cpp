@@ -85,10 +85,10 @@ namespace fe::Shader
 
   ShaderRef Create(const std::string& _vertexPath, const std::string& _fragmentPath) {
 	const std::string vertexShaderSource = ReadTextFile(_vertexPath);
-	printf("Loaded vertex shader source:\n %s\n", vertexShaderSource.c_str());
+//	printf("Loaded vertex shader source:\n %s\n", vertexShaderSource.c_str());
 
 	const std::string fragmentShaderSource = ReadTextFile(_fragmentPath);
-	printf("Loaded fragment shader source:\n %s\n", fragmentShaderSource.c_str());
+//	printf("Loaded fragment shader source:\n %s\n", fragmentShaderSource.c_str());
 
 	const char* vertSSource = vertexShaderSource.c_str();
 	const char* fragSSource = fragmentShaderSource.c_str();
