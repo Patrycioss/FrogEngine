@@ -9,7 +9,7 @@ file(COPY resources DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
 add_subdirectory(${EXT_LIB_PATH}/glm)
 
 add_library(box2D STATIC IMPORTED)
-SET_TARGET_PROPERTIES(box2D PROPERTIES IMPORTED_LOCATION ${EXT_LIB_PATH}/box2D/new/libbox2d.a)
+SET_TARGET_PROPERTIES(box2D PROPERTIES IMPORTED_LOCATION ${EXT_LIB_PATH}/box2D/libbox2d.a)
 
 add_executable(
         FrogEngine
@@ -57,7 +57,7 @@ target_include_directories(
 
         ${EXT_LIB_PATH}/glad/include
         ${EXT_LIB_PATH}/glfw/include
-        ${EXT_LIB_PATH}/box2D/new/include
+        ${EXT_LIB_PATH}/box2D/include
         ${EXT_LIB_PATH}/imgui/include
         ${EXT_LIB_PATH}/stb/include
         ${EXT_LIB_PATH}/glm
