@@ -1,4 +1,5 @@
 ﻿#include "Camera.hpp"
+#include "Engine.hpp"
 
 fe::Camera::Camera() : Zoom(1.0f) {}
 fe::Camera::Camera(float _zoom) : Zoom(_zoom) {}

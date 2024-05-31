@@ -3,7 +3,6 @@
 #include <vec2.hpp>
 #include <mat4x4.hpp>
 
-#include "Engine.hpp"
 
 namespace fe{
   class Camera {

@@ -7,6 +7,7 @@
 #include <glm.hpp>
 
 #include "GameTemplate.hpp"
+#include "Camera.hpp"
 
 namespace fe
 {
@@ -16,6 +17,7 @@ namespace fe
 	static b2World world;
 	static bool initCalled;
 	static Settings currentSettings;
+	static Camera camera;
 
    public:
 	/* Applies all settings.*/
@@ -32,5 +34,7 @@ namespace fe
 	
 	/* Settings that are currently in use by the engine. */
 	static const Settings& CurrentSettings;
+	
+	static const Camera& Camera;
   };
 }
