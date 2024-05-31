@@ -9,17 +9,14 @@ namespace fe
 {
   class ResourceManager {
    private:
-	std::unordered_map<const char*, Texture> loadedTextures{};
-	std::unordered_map<const char*, ShaderRef> loadedShaders{};
+	static std::unordered_map<std::string, Texture> loadedTextures;
+	static std::unordered_map<std::string, ShaderRef> loadedShaders;
 
    public:
-	Texture* LoadTexture(const char* _path, bool _hasAlpha);
-	Texture* GetTexture(const char* _path);
-	[[nodiscard]] ShaderRef CreateShader(const char* _name, const char* _vertexPath, const char* _fragmentPath);
-	[[nodiscard]] ShaderRef GetShader(const char* _name);
-	bool UnloadTexture(const char* _path);
-	bool UnloadShader(const char* _name);
-	
-	ResourceManager& operator=(const ResourceManager& other) = delete;
+	static Texture* LoadTexture(const std::string& _path);
+	[[nodiscard]] static ShaderRef CreateShader(const std::string& _name, const std::string& _vertexPath, const std::string& _fragmentPath);
+	[[nodiscard]] static ShaderRef GetShader(const std::string& _name);
+	static bool UnloadTexture(const std::string& _path);
+	static bool UnloadShader(const std::string& _name);
   };
 }

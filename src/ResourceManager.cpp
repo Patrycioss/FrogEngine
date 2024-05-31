@@ -5,33 +5,37 @@
 #define STB_IMAGE_IMPLEMENTATION
 #include <stb_image.h>
 
+#include "FileUtils.hpp"
+
 namespace fe
 {
-  Texture* ResourceManager::LoadTexture(const char* _path, bool _hasAlpha) {
-	uint32_t format = GL_RGB;
+  std::unordered_map<std::string, Texture> ResourceManager::loadedTextures{};
+  std::unordered_map<std::string, ShaderRef> ResourceManager::loadedShaders{};
+  
+  Texture* ResourceManager::LoadTexture(const std::string& _path) {
 
-	if (_hasAlpha) {
-	  format = GL_RGBA;
+	if (loadedTextures.contains(_path)){
+	  return &loadedTextures.at(_path);
 	}
-
-	auto ref = loadedTextures.emplace(_path, Texture{format, format});
+	
+	if (!FileUtils::Exists(_path.c_str())){
+	  std::cerr << "Path: '" << _path << "' is invalid!\n";
+	}
+	
+	auto ref = loadedTextures.emplace(_path, Texture{GL_RGBA, GL_RGBA});
 
 	int width, height, nrChannels;
-	unsigned char* data = stbi_load(_path, &width, &height, &nrChannels, 0);
+	unsigned char* data = stbi_load(_path.c_str(), &width, &height, &nrChannels, 0);
 	ref.first->second.Generate(width, height, data);
 	stbi_image_free(data);
 	return &ref.first->second;
   }
 
-  Texture* ResourceManager::GetTexture(const char* _path) {
-	return &loadedTextures.at(_path);
-  }
-
-  bool ResourceManager::UnloadTexture(const char* _path) {
+  bool ResourceManager::UnloadTexture(const std::string& _path) {
 	return loadedTextures.erase(_path) > 0;
   }
 
-  ShaderRef ResourceManager::CreateShader(const char* _name, const char* _vertexPath, const char* _fragmentPath) {
+  ShaderRef ResourceManager::CreateShader(const std::string& _name, const std::string& _vertexPath, const std::string& _fragmentPath) {
 	
 	auto t = loadedShaders.find(_name);
 	ShaderRef shader = Shader::Create(_vertexPath, _fragmentPath);
@@ -47,11 +51,11 @@ namespace fe
 	return shader;
   }
 
-  ShaderRef ResourceManager::GetShader(const char* _name) {
+  ShaderRef ResourceManager::GetShader(const std::string& _name) {
 	return loadedShaders.at(_name);
   }
 
-  bool ResourceManager::UnloadShader(const char* _name) {
+  bool ResourceManager::UnloadShader(const std::string& _name) {
 
 	auto t = loadedShaders.find(_name);
 	
