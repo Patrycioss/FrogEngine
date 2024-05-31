@@ -8,26 +8,38 @@
 
 #include "GameTemplate.hpp"
 #include "Camera.hpp"
+#include "GameObject.hpp"
 
 namespace fe
 {
   class Engine {
+   public:
+	enum class State{
+	  None,
+	  Initialize,
+	  Start
+	};
+	
    private:
+
+	static State state;
 	static GLFWwindow* window;
 	static b2WorldId world;
-	static bool initCalled;
+	static b2WorldDef worldDef;
 	static Settings currentSettings;
 	static Camera camera;
+	
+	/* Uses the index from the body ID to find Objects. */
+	static std::unordered_map<int32_t, GameObject*> objectRegistry;
+	
+	static bool ScreenQueryCallback(b2ShapeId _shape, void* something);
 
    public:
-	/* Applies all settings.*/
-	static void ApplyAllSettings(const Settings& _settings);
-
-	/* Applies settings selected with the flags.*/
-	static void ApplySettings(const Settings& _settings, uint16_t _flags);
-
-	/* Initialize the game using a GameTemplate */
-	static void Initialize(GameTemplate& _gameTemplate);
+	/* Initialize the game */
+	static void Initialize();
+	
+	/* Start the game using a GameTemplate */
+	static void Start(GameTemplate& _gameTemplate);
 	
 	/* Stop the game. */
 	static void Stop();
@@ -38,5 +50,17 @@ namespace fe
 	static const Camera& Camera;
 	
 	static b2WorldId& World;
+	
+	static void RegisterObject(GameObject* _object);
+	
+	
+	[[nodiscard]] static b2BodyId CreateBody(b2BodyDef* _bodyDef);
+	
+	static void SetWindowSize(uint16_t _width, uint16_t _height);
+	static void EnableVsync(bool _enable);
+	static void EnableFaceCulling(bool _enable);
+	static void SetWindowTitle(const char* _title);
+	static void SetGravity(b2Vec2 _gravity);
+	
   };
 }

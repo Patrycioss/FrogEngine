@@ -8,7 +8,9 @@ file(COPY resources DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
 
 add_subdirectory(${EXT_LIB_PATH}/glm)
 
-add_library(box2D STATIC IMPORTED)
+add_library(box2D STATIC IMPORTED
+        games/pong/PongGame.cpp
+        games/pong/PongGame.hpp)
 SET_TARGET_PROPERTIES(box2D PROPERTIES IMPORTED_LOCATION ${EXT_LIB_PATH}/box2D/libbox2d.a)
 
 add_executable(
@@ -29,18 +31,19 @@ add_executable(
         src/ResourceManager.cpp
         src/SpriteRenderer.cpp
         src/Texture.cpp
-        testgame/Game.cpp
+        games/testgame/Game.cpp
         src/Engine.cpp
         src/GameObject.cpp
-        testgame/Behaviours/TestBehaviour.cpp
+        games/testgame/Behaviours/TestBehaviour.cpp
         src/Util.cpp
         src/Scene.cpp
-        testgame/TestObject.cpp
+        games/testgame/TestObject.cpp
         src/Camera.cpp
-        src/GameTemplate.cpp
-        src/FileUtils.hpp
-        src/Colour.hpp
         src/Colour.cpp
+        games/pong/PongGame.hpp
+        games/pong/PongGame.cpp
+        games/pong/Paddle.cpp
+        games/pong/Paddle.hpp
 )
 
 

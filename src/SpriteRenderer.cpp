@@ -10,6 +10,8 @@ namespace fe
   ShaderRef SpriteRenderer::defaultShader;
   Camera SpriteRenderer::camera{};
   
+  // TODO: Experiment with altering the z axis in the vertex buffer to do rendering with priority.
+  
   void SpriteRenderer::Initialize() {
 	
 	defaultShader = ResourceManager::CreateShader("default", "resources/shaders/vertex.glsl", "resources/shaders/fragment.glsl");
@@ -70,5 +72,10 @@ namespace fe
 
   void SpriteRenderer::DrawSprite(Texture* _texture, b2Vec2 _position, b2Vec2 _size, float _rotate, Colour _colour) {
 	DrawSprite(_texture, defaultShader, _position, _size, _rotate, _colour);
+  }
+
+  void SpriteRenderer::DrawSprite(Texture* _texture, b2Transform& _transform, b2Vec2 _size, Colour _colour) {
+	DrawSprite(_texture, _transform.p, _size, b2Rot_GetAngle(_transform.q), _colour);
+
   }
 }

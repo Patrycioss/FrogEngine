@@ -19,7 +19,10 @@ namespace fe
 
 	std::vector<Behaviour*> behaviours{};
 
+   protected:
 	b2BodyId body;
+	b2BodyDef bodyDef = b2DefaultBodyDef();
+	b2ShapeId shape;
 
    protected:
 	/* Called after the behaviours are added and started. */
@@ -32,6 +35,7 @@ namespace fe
 
 	void Start();
 	void Update(float _deltaTime);
+	virtual void Render();
 
 	GameObject();
 	virtual ~GameObject();
@@ -70,6 +74,7 @@ namespace fe
 	  }
 	  return nullptr;
 	};
+	const b2BodyId& GetBody() const;
   };
 
   inline bool operator==(const GameObject& _left, const GameObject& _right) {

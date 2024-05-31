@@ -1,6 +1,6 @@
 ﻿#pragma once
 
-#include "../src/FrogEngine.hpp"
+#include "src/FrogEngine.hpp"
 #include "src/Camera.hpp"
 
 class Game final : public fe::GameTemplate {

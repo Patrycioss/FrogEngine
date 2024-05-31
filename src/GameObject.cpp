@@ -1,11 +1,30 @@
 ﻿#include <iostream>
+
 #include "GameObject.hpp"
+#include "Engine.hpp"
 
 namespace fe
 {
   uint32_t GameObject::IDs = 0;
 
   GameObject::GameObject() {
+	bodyDef.type = b2_dynamicBody;
+	bodyDef.position = {300,300};
+	body = Engine::CreateBody(&bodyDef);
+	
+	b2ShapeDef shapeDef = b2DefaultShapeDef();
+	shapeDef.density = 1.0f;
+	shapeDef.friction = 0.3f;
+	b2Polygon polygon = b2MakeBox(5,5);
+	shape = b2CreatePolygonShape(body, &shapeDef, &polygon);
+
+	std::vector<b2ShapeId> shapes{};
+	int shapesAmount = b2Body_GetShapeCount(body);
+	shapes.reserve(shapesAmount);
+	b2Body_GetShapes(body, shapes.data(), shapesAmount);
+
+	
+	
 	ID = IDs++;
   }
 
@@ -41,6 +60,15 @@ namespace fe
 
   b2Rot GameObject::GetRotation() const {
 	return b2Body_GetRotation(body);
+  }
+
+  void GameObject::Render() {
+	
+
+  }
+
+  const b2BodyId& GameObject::GetBody() const {
+	return body;
   }
 
 }

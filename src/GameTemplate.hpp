@@ -18,15 +18,6 @@ namespace fe
    protected:
 	ResourceManager& ResourceManager = resourceManager;
 	
-	/* Settings for the engine. */
-	Settings settings{};
-
-	/* Applies all settings in the settings member.*/
-	void ApplyAllSettings() const;
-
-	/* Applies settings selected with the flags.*/
-	void ApplySettings(uint8_t _flags) const;
-
    public:
 	/* Called when the game is started by the engine. */
 	virtual void Start() = 0;
@@ -36,8 +27,5 @@ namespace fe
 	
 	/* Called at the end of the game. */
 	virtual void Stop() = 0;
-
-	/* Settings that the engine can use. */
-	const Settings& Settings = settings;
   };
 }

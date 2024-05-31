@@ -2,16 +2,15 @@
 #include "TestObject.hpp"
 
 #define GLM_ENABLE_EXPERIMENTAL
-#include <gtx/string_cast.hpp>
+#include "gtx/string_cast.hpp"
 
 float timePassed;
 
 Game::Game()
 {
   // Good place to alter settings
-  settings.windowTitle = "Test title!";
-  settings.windowHeight = 1000;
-  settings.windowWidth = 1000;
+  fe::Engine::SetWindowTitle("Test Title!");
+  fe::Engine::SetWindowSize(1000, 1000);
 }
 
 void Game::Start() {
