@@ -17,6 +17,7 @@ Game::Game()
 void Game::Start() {
 
   texture = fe::ResourceManager::LoadTexture("resources/textures/awesomeface.png");
+  
 
   camera.NearPlane = -1.0f;
 

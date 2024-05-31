@@ -6,7 +6,6 @@
 #include <memory>
 
 #include "Behaviour.hpp"
-#include "Transform.hpp"
 
 template<class T, class U>
 concept Derived = std::is_base_of<U, T>::value;
@@ -20,6 +19,8 @@ namespace fe
 
 	std::vector<Behaviour*> behaviours{};
 
+	b2Body* body;
+
    protected:
 	/* Called after the behaviours are added and started. */
 	virtual void OnStart() {};
@@ -28,7 +29,6 @@ namespace fe
 	virtual void OnUpdate(float _deltaTime) {};
 
    public:
-	Transform Transform{this};
 
 	void Start();
 	void Update(float _deltaTime);
@@ -37,6 +37,9 @@ namespace fe
 	virtual ~GameObject();
 
 	[[nodiscard]] uint32_t GetID() const;
+	
+	b2Vec2 Position = body->GetPosition();
+	float RotationRad = body->GetAngle();
 
 	template<Derived<Behaviour> T>
 	T* AddBehaviour() {

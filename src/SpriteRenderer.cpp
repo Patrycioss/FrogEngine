@@ -39,21 +39,22 @@ namespace fe
 	glBindVertexArray(0);
   }
 
-  void SpriteRenderer::DrawSprite(Texture* _texture, ShaderRef _shader, glm::vec2 _position, glm::vec2 _size, float _rotate, glm::vec3 _colour) {
+  void SpriteRenderer::DrawSprite(Texture* _texture, ShaderRef _shader, b2Vec2 _position, b2Vec2 _size, float _rotate, b2Vec3 _colour) {
+	
 	Shader::Use(_shader);
 
 	glm::mat4 model = glm::mat4(1.0f);
-	model = glm::translate(model, glm::vec3(_position, 0.0f));
+	model = glm::translate(model, glm::vec3(glm::vec2{_position.x, _position.y}, 0.0f));
 
 	model = glm::translate(model, glm::vec3(0.5f * _size.x, 0.5f * _size.y, 0.0f));
 	model = glm::rotate(model, glm::radians(_rotate), glm::vec3(0.0f, 0.0f, 1.0f));
 	model = glm::translate(model, glm::vec3(-0.5f * _size.x, -0.5f * _size.y, 0.0f));
 
-	model = glm::scale(model, glm::vec3(_size, 1.0f));
+	model = glm::scale(model, glm::vec3(glm::vec2{_size.x, _size.y}, 1.0f));
 
 	Shader::SetMatrix4(_shader, "model", model);
 	Shader::SetMatrix4(_shader, "projection", Engine::Camera.GetProjectionMatrix());
-	Shader::SetVec3(_shader, "spriteColor", _colour);
+	Shader::SetVec3(_shader, "spriteColor", glm::vec3{_colour.x, _colour.y, _colour.z});
 
 	glActiveTexture(GL_TEXTURE0);
 	_texture->Bind();
@@ -67,7 +68,7 @@ namespace fe
 	glDeleteVertexArrays(1, &VAO);
   }
 
-  void SpriteRenderer::DrawSprite(Texture* _texture, glm::vec2 _position, glm::vec2 _size, float _rotate, glm::vec3 _colour) {
+  void SpriteRenderer::DrawSprite(Texture* _texture, b2Vec2 _position, b2Vec2 _size, float _rotate, b2Vec3 _colour) {
 	DrawSprite(_texture, defaultShader, _position, _size, _rotate, _colour);
   }
 }

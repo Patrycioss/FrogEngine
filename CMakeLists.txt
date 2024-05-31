@@ -34,7 +34,6 @@ add_executable(
         src/GameObject.cpp
         testgame/Behaviours/TestBehaviour.cpp
         src/Util.cpp
-        src/Transform.cpp
         src/Scene.cpp
         testgame/TestObject.cpp
         src/Camera.cpp
