@@ -12,9 +12,9 @@ namespace fe
 
    public:
 	Behaviour() = default;
-	virtual void Start() = 0;
-	virtual void Update(float _deltaTime) = 0;
-	virtual void Render() = 0;
+	virtual void Start(){};
+	virtual void Update(float _deltaTime){};
+	virtual void Render(){};
 	virtual ~Behaviour() = default;
   };
 
