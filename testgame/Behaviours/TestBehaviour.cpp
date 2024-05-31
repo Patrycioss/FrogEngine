@@ -5,11 +5,11 @@ void TestBehaviour::Start() {
 }
 
 void TestBehaviour::Update(float _deltaTime) {
-  printf("Update test behaviour.\n");
+//  printf("Update test behaviour.\n");
 }
 
 void TestBehaviour::Render() {
-  printf("Rendering test behaviour.\n");
+//  printf("Rendering test behaviour.\n");
 }
 
 TestBehaviour::~TestBehaviour() {

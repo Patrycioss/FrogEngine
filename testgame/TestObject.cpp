@@ -3,6 +3,8 @@
 TestObject::TestObject() {
   testBehaviour = AddBehaviour<TestBehaviour>();
   std::cout << "Test Object Constructed \n";
+  
+  texture = fe::ResourceManager::LoadTexture("resources/textures/awesomeface.png");
 }
 
 void TestObject::OnStart() {
@@ -10,7 +12,9 @@ void TestObject::OnStart() {
 }
 
 void TestObject::OnUpdate(float _deltaTime) {
-  std::cout << "Test Object Update \n";
+//  std::cout << "Test Object Update \n";
+  
+  fe::SpriteRenderer::DrawSprite(texture, Transform.Position, {512,512});
 }
 
 TestObject::~TestObject() {
