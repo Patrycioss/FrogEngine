@@ -1,12 +1,19 @@
 ﻿#include "SpriteRenderer.hpp"
+#include "ResourceManager.hpp"
+#include "Engine.hpp"
 
 #include <glad/glad.h>
 
 namespace fe
 {
   uint32_t SpriteRenderer::VAO{};
+  ShaderRef SpriteRenderer::defaultShader;
+  Camera SpriteRenderer::camera{};
   
   void SpriteRenderer::Initialize() {
+	
+	defaultShader = ResourceManager::CreateShader("default", "resources/shaders/vertex.glsl", "resources/shaders/fragment.glsl");
+	
 	uint32_t VBO;
 	float vertices[] = {
 		// pos      // tex
@@ -32,7 +39,7 @@ namespace fe
 	glBindVertexArray(0);
   }
 
-  void SpriteRenderer::DrawSprite(Texture& _texture, ShaderRef _shader, glm::vec2 _position, glm::vec2 _size, float _rotate, glm::vec3 _colour) {
+  void SpriteRenderer::DrawSprite(Texture* _texture, ShaderRef _shader, glm::vec2 _position, glm::vec2 _size, float _rotate, glm::vec3 _colour) {
 	Shader::Use(_shader);
 
 	glm::mat4 model = glm::mat4(1.0f);
@@ -45,10 +52,11 @@ namespace fe
 	model = glm::scale(model, glm::vec3(_size, 1.0f));
 
 	Shader::SetMatrix4(_shader, "model", model);
+	Shader::SetMatrix4(_shader, "projection", Engine::Camera.GetProjectionMatrix());
 	Shader::SetVec3(_shader, "spriteColor", _colour);
 
 	glActiveTexture(GL_TEXTURE0);
-	_texture.Bind();
+	_texture->Bind();
 
 	glBindVertexArray(VAO);
 	glDrawArrays(GL_TRIANGLES, 0, 6);
@@ -57,5 +65,9 @@ namespace fe
 
   void SpriteRenderer::Cleanup() {
 	glDeleteVertexArrays(1, &VAO);
+  }
+
+  void SpriteRenderer::DrawSprite(Texture* _texture, glm::vec2 _position, glm::vec2 _size, float _rotate, glm::vec3 _colour) {
+	DrawSprite(_texture, defaultShader, _position, _size, _rotate, _colour);
   }
 }
