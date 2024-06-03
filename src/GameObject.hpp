@@ -21,8 +21,6 @@ namespace fe
 
    protected:
 	b2BodyId body;
-	b2BodyDef bodyDef = b2DefaultBodyDef();
-	b2ShapeId shape;
 
    protected:
 	/* Called after the behaviours are added and started. */
@@ -41,9 +39,9 @@ namespace fe
 	virtual ~GameObject();
 
 	[[nodiscard]] uint32_t GetID() const;
-	
-	b2Vec2 GetPosition() const;
-	b2Rot GetRotation() const;
+	[[nodiscard]] b2Vec2 GetPosition() const;
+	[[nodiscard]] b2Rot GetRotation() const;
+	[[nodiscard]] const b2BodyId& GetBody() const;
 
 	template<Derived<Behaviour> T>
 	T* AddBehaviour() {
@@ -74,7 +72,6 @@ namespace fe
 	  }
 	  return nullptr;
 	};
-	const b2BodyId& GetBody() const;
   };
 
   inline bool operator==(const GameObject& _left, const GameObject& _right) {

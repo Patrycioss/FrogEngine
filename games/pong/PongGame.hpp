@@ -4,10 +4,13 @@
 #include "Paddle.hpp"
 
 class PongGame : public fe::GameTemplate {
-  Paddle paddleLeft{{200,200}, b2MakeRot(90.0f)};
-  Paddle paddleRight{{300,300}};
+  Paddle* paddleLeft;
+  Paddle* paddleRight;
+  
+  bool hasBeenPressed;
   
  public:
+  PongGame();
   void Start() override;
   void Update(float _deltaTime) override;
   void Stop() override;

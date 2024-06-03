@@ -8,23 +8,24 @@ namespace fe
   uint32_t GameObject::IDs = 0;
 
   GameObject::GameObject() {
+	b2BodyDef bodyDef = b2DefaultBodyDef();
 	bodyDef.type = b2_dynamicBody;
-	bodyDef.position = {300,300};
+	bodyDef.position = {300, 300};
 	body = Engine::CreateBody(&bodyDef);
-	
+
+	printf("Created body with id: %i \n", body.index1);
+
 	b2ShapeDef shapeDef = b2DefaultShapeDef();
 	shapeDef.density = 1.0f;
 	shapeDef.friction = 0.3f;
-	b2Polygon polygon = b2MakeBox(5,5);
-	shape = b2CreatePolygonShape(body, &shapeDef, &polygon);
+	b2Polygon polygon = b2MakeBox(5, 5);
+	b2CreatePolygonShape(body, &shapeDef, &polygon);
 
 	std::vector<b2ShapeId> shapes{};
 	int shapesAmount = b2Body_GetShapeCount(body);
 	shapes.reserve(shapesAmount);
 	b2Body_GetShapes(body, shapes.data(), shapesAmount);
 
-	
-	
 	ID = IDs++;
   }
 
@@ -36,6 +37,8 @@ namespace fe
 	for (auto& behaviour : behaviours) {
 	  delete behaviour;
 	}
+
+	b2DestroyBody(body);
   }
 
   void GameObject::Start() {
@@ -63,7 +66,6 @@ namespace fe
   }
 
   void GameObject::Render() {
-	
 
   }
 

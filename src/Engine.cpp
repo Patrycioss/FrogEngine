@@ -13,7 +13,7 @@ namespace fe
   GLFWwindow* Engine::window;
   Settings Engine::currentSettings{};
   Camera Engine::camera{};
-  std::unordered_map<int32_t, GameObject*> Engine::objectRegistry;
+  std::unordered_map<int32_t, std::unique_ptr<GameObject>> Engine::objectRegistry;
 
   const Settings& Engine::CurrentSettings = Engine::currentSettings;
   const Camera& Engine::Camera = Engine::camera;
@@ -29,7 +29,6 @@ namespace fe
 	worldDef.gravity = currentSettings.gravity;
 
 	world = b2CreateWorld(&worldDef);
-	
 
 	glfwInit();
 	window = glfwCreateWindow(currentSettings.windowWidth, currentSettings.windowHeight, currentSettings.windowTitle, nullptr, nullptr);
@@ -68,6 +67,9 @@ namespace fe
 	int subStepCount = 4;
 
 	_gameTemplate.Start();
+	for (const auto& a : objectRegistry) {
+	  a.second->Start();
+	}
 
 	double lastTime = glfwGetTime();
 	float deltaTime = 0;
@@ -76,18 +78,26 @@ namespace fe
 	  glfwPollEvents();
 //	  ImGuiManager::NewFrame();
 
+	  glClearColor(0.5f, 0.5f, 0.5f, 1.0f);              // background color
+	  glClear(GL_COLOR_BUFFER_BIT);
+
 	  double nowTime = glfwGetTime();
 	  deltaTime = (float)(nowTime - lastTime);
 	  lastTime = nowTime;
 
+	  b2World_Step(world, timeStep, subStepCount);
+
 	  _gameTemplate.Update(deltaTime);
-	  for (auto& a : objectRegistry){
+	  for (auto& a : objectRegistry) {
 		a.second->Update(deltaTime);
 	  }
 
-	  b2World_Step(world, timeStep, subStepCount);
-
-	  b2World_OverlapAABB(world, {{0,0}, {(float)currentSettings.windowWidth, (float)currentSettings.windowHeight}}, b2DefaultQueryFilter(), &ScreenQueryCallback, nullptr);
+	  // Render
+	  b2World_OverlapAABB(world,
+						  {{0, 0}, {(float)currentSettings.windowWidth, (float)currentSettings.windowHeight}},
+						  b2DefaultQueryFilter(),
+						  &ScreenQueryCallback,
+						  nullptr);
 
 	  int display_w, display_h;
 	  glfwGetFramebufferSize(window, &display_w, &display_h);
@@ -100,6 +110,10 @@ namespace fe
 
 	_gameTemplate.Stop();
 
+	// Always clear objects before destroying world.
+	// Otherwise, objects can't clean themselves up properly.
+	objectRegistry.clear();
+	b2DestroyWorld(world);
 	SpriteRenderer::Cleanup();
 	glfwDestroyWindow(window);
 	glfwTerminate();
@@ -146,16 +160,17 @@ namespace fe
 	b2World_SetGravity(world, currentSettings.gravity);
   }
 
-  void Engine::RegisterObject(GameObject* _object) {
-	objectRegistry.emplace(_object->GetBody().index1, _object);
-  }
-
   bool Engine::ScreenQueryCallback(b2ShapeId _shape, void* something) {
 	objectRegistry[_shape.index1]->Render();
 	return true;
   }
 
   bool Engine::IsKeyPressed(Key _key) {
-	return glfwGetKey(window, (int) _key) == GLFW_PRESS;
+	return glfwGetKey(window, (int)_key) == GLFW_PRESS;
+  }
+
+  void Engine::Destroy(GameObject* _object) {
+	printf("Destroying object with body id: %i \n", _object->GetBody().index1);
+	objectRegistry.erase(_object->GetBody().index1);
   }
 }

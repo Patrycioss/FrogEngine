@@ -10,17 +10,18 @@
 #include "Camera.hpp"
 #include "GameObject.hpp"
 #include "Key.hpp"
+#include "games/pong/Paddle.hpp"
 
 namespace fe
 {
   class Engine {
    public:
-	enum class State{
+	enum class State {
 	  None,
 	  Initialize,
 	  Start
 	};
-	
+
    private:
 
 	static State state;
@@ -29,42 +30,47 @@ namespace fe
 	static b2WorldDef worldDef;
 	static Settings currentSettings;
 	static Camera camera;
-	
+
 	/* Uses the index from the body ID to find Objects. */
-	static std::unordered_map<int32_t, GameObject*> objectRegistry;
-	
+	static std::unordered_map<int32_t, std::unique_ptr<GameObject>> objectRegistry;
+
 	static bool ScreenQueryCallback(b2ShapeId _shape, void* something);
 
    public:
 	/* Initialize the game */
 	static void Initialize();
-	
+
 	/* Start the game using a GameTemplate */
 	static void Start(GameTemplate& _gameTemplate);
-	
+
 	/* Stop the game. */
 	static void Stop();
-	
+
 	/* Settings that are currently in use by the engine. */
 	static const Settings& CurrentSettings;
-	
+
 	static const Camera& Camera;
-	
+
 	static b2WorldId& World;
-	
-	static void RegisterObject(GameObject* _object);
-	
-	
+
+	static void Destroy(GameObject* _object);
+
+	template<Derived<GameObject> T, typename... Args>
+	static T* CreateObject(Args... args) {
+	  auto a = std::unique_ptr<T>(new T(std::move(args)...));
+	  auto pair = objectRegistry.emplace(a->GetBody().index1, std::move(a));
+	  return (T*)pair.first->second.get();
+	}
+
 	[[nodiscard]] static b2BodyId CreateBody(b2BodyDef* _bodyDef);
-	
+
 	static void SetWindowSize(uint16_t _width, uint16_t _height);
 	static void EnableVsync(bool _enable);
 	static void EnableFaceCulling(bool _enable);
 	static void SetWindowTitle(const char* _title);
 	static void SetGravity(b2Vec2 _gravity);
-	
-	
+
 	static bool IsKeyPressed(Key _key);
-	
+
   };
 }
