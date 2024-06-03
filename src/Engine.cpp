@@ -154,4 +154,8 @@ namespace fe
 	objectRegistry[_shape.index1]->Render();
 	return true;
   }
+
+  bool Engine::IsKeyPressed(Key _key) {
+	return glfwGetKey(window, (int) _key) == GLFW_PRESS;
+  }
 }

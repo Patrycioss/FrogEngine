@@ -9,6 +9,7 @@
 #include "GameTemplate.hpp"
 #include "Camera.hpp"
 #include "GameObject.hpp"
+#include "Key.hpp"
 
 namespace fe
 {
@@ -61,6 +62,9 @@ namespace fe
 	static void EnableFaceCulling(bool _enable);
 	static void SetWindowTitle(const char* _title);
 	static void SetGravity(b2Vec2 _gravity);
+	
+	
+	static bool IsKeyPressed(Key _key);
 	
   };
 }
