@@ -40,10 +40,8 @@ add_executable(
         games/testgame/TestObject.cpp
         src/Camera.cpp
         src/Colour.cpp
-        games/pong/PongGame.hpp
         games/pong/PongGame.cpp
         games/pong/Paddle.cpp
-        games/pong/Paddle.hpp
 )
 
 
