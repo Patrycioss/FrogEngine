@@ -30,6 +30,8 @@ namespace fe
 	static b2WorldDef worldDef;
 	static Settings currentSettings;
 	static Camera camera;
+	
+//	static std::vector<int32_t> objectsToDestroy;
 
 	/* Uses the index from the body ID to find Objects. */
 	static std::unordered_map<int32_t, std::unique_ptr<GameObject>> objectRegistry;

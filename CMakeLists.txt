@@ -36,12 +36,13 @@ add_executable(
         src/GameObject.cpp
         games/testgame/Components/TestComponent.cpp
         src/Util.cpp
-        src/Scene.cpp
         games/testgame/TestObject.cpp
         src/Camera.cpp
         src/Colour.cpp
         games/pong/PongGame.cpp
         games/pong/Paddle.cpp
+        games/pong/components/TestSpriteComponent.cpp
+        games/pong/components/TestSpriteComponent.hpp
 )
 
 

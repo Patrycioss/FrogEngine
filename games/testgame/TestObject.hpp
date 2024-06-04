@@ -1,7 +1,7 @@
 ﻿#pragma once
 
 #include "src/FrogEngine.hpp"
-#include "games/testgame/Behaviours/TestComponent.hpp"
+#include "games/testgame/Components/TestComponent.hpp"
 
 class TestObject : public fe::GameObject {
  private:

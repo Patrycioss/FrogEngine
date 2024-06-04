@@ -13,6 +13,7 @@ namespace fe
   GLFWwindow* Engine::window;
   Settings Engine::currentSettings{};
   Camera Engine::camera{};
+//  std::vector<int32_t> Engine::objectsToDestroy{};
   std::unordered_map<int32_t, std::unique_ptr<GameObject>> Engine::objectRegistry;
 
   const Settings& Engine::CurrentSettings = Engine::currentSettings;
@@ -106,6 +107,13 @@ namespace fe
 	  glfwSwapBuffers(window);
 
 //	  ImGuiManager::PostFrame();
+
+//	  // Destroy objects in queue:
+//	  for (const auto& index : objectsToDestroy) {
+//		printf("Destroying object with body id: %i \n", index);
+//		objectRegistry.erase(index);
+//	  }
+//	  objectsToDestroy.clear();
 	}
 
 	_gameTemplate.Stop();
@@ -161,7 +169,7 @@ namespace fe
   }
 
   bool Engine::ScreenQueryCallback(b2ShapeId _shape, void* something) {
-	objectRegistry[_shape.index1]->Render();
+	objectRegistry[b2Shape_GetBody(_shape).index1]->Render();
 	return true;
   }
 
@@ -170,7 +178,7 @@ namespace fe
   }
 
   void Engine::Destroy(GameObject* _object) {
-	printf("Destroying object with body id: %i \n", _object->GetBody().index1);
+//	objectsToDestroy.push_back(_object->GetBody().index1);
 	objectRegistry.erase(_object->GetBody().index1);
   }
 }

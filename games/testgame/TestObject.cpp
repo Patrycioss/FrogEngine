@@ -1,6 +1,6 @@
 ﻿#include "TestObject.hpp"
 
-TestObject::TestObject() {
+TestObject::TestObject() : fe::GameObject(b2_staticBody) {
   testBehaviour = AddComponent<TestComponent>();
   std::cout << "Test Object Constructed \n";
   

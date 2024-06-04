@@ -33,5 +33,9 @@ namespace fe
   void Texture::Bind() const {
 	glBindTexture(GL_TEXTURE_2D, ID);
   }
+
+  b2Vec2 Texture::GetSize() const {
+	return {(float) width, (float) height};
+  }
 }
 

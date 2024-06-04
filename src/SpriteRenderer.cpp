@@ -49,7 +49,7 @@ namespace fe
 	model = glm::translate(model, glm::vec3(glm::vec2{_position.x, _position.y}, 0.0f));
 
 	model = glm::translate(model, glm::vec3(0.5f * _size.x, 0.5f * _size.y, 0.0f));
-	model = glm::rotate(model, glm::radians(_rotate), glm::vec3(0.0f, 0.0f, 1.0f));
+	model = glm::rotate(model, _rotate, glm::vec3(0.0f, 0.0f, 1.0f));
 	model = glm::translate(model, glm::vec3(-0.5f * _size.x, -0.5f * _size.y, 0.0f));
 
 	model = glm::scale(model, glm::vec3(glm::vec2{_size.x, _size.y}, 1.0f));

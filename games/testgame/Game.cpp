@@ -20,14 +20,10 @@ void Game::Start() {
 
   camera.NearPlane = -1.0f;
 
-  fe::GameObject* test = scene.AddObject<TestObject>();
-  scene.Start();
 }
 
 void Game::Update(float _deltaTime) {
   fe::Util::ClearScreen({0.45f, 0.55f, 0.60f, 1.00f});
-  
-  scene.Update(_deltaTime);
   
 //  camera.Zoom += 0.001f;
 //  fe::Shader::SetMatrix4(shader, "projection", camera.GetProjectionMatrix());

@@ -7,7 +7,6 @@ class Game final : public fe::GameTemplate {
  private:
   fe::GameObject* gameObject{};
   fe::Texture* texture = nullptr;
-  fe::Scene scene;
   
   fe::Camera camera;
 

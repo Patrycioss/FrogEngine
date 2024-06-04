@@ -17,7 +17,10 @@ namespace fe
 	static uint32_t IDs;
 	uint32_t ID;
 
-	std::vector<Component*> components{};
+	std::vector<std::unique_ptr<Component>> components{};
+	
+	float scale = 1.0f;
+	bool wasRenderedThisFrame{};
 
    protected:
 	b2BodyId body{};
@@ -29,32 +32,40 @@ namespace fe
 
 	/* Called every frame. */
 	virtual void OnUpdate(float _deltaTime) {};
-
-	void AddShape(const b2Polygon& _polygon);
-	void AddShape(const b2ShapeDef& _shapeDef, b2Polygon _polygon);
+	
+	/* Called every frame after update if on the screen. */
+	virtual void OnRender(){};
 
    public:
 
 	void Start();
 	void Update(float _deltaTime);
-	virtual void Render();
+	void Render();
 
-	GameObject();
+	void AddShape(const b2Polygon& _polygon);
+	void AddShape(const b2ShapeDef& _shapeDef, const b2Polygon& _polygon);
+	
+	explicit GameObject(b2BodyType _b2BodyType);
 	virtual ~GameObject();
 
 	[[nodiscard]] uint32_t GetID() const;
 	[[nodiscard]] b2Vec2 GetPosition() const;
 	[[nodiscard]] b2Rot GetRotation() const;
 	[[nodiscard]] const b2BodyId& GetBody() const;
-
+	[[nodiscard]] float GetScale() const;
+	
+	// The angle of the body in Radians.
+	[[nodiscard]] float GetAngle() const;
+	
 	void SetPosition(const b2Vec2& _position);
 	void SetRotation(const b2Rot& _rotation);
 	void SetTransform(const b2Vec2& _position, const b2Rot& _rotation);
+	void SetScale(float _scale);
 
-	template<Derived<Component> Component>
-	Component* AddComponent() {
-	  components.emplace_back(new Component());
-	  Component * component = dynamic_cast<Component*>(components.back());
+	template<Derived<Component> T, typename... Args>
+	T* AddComponent(Args... args) {
+	  components.push_back(std::unique_ptr<T>(new T(std::move(args)...)));
+	  T* component = (T*) components.back().get();
 	  component->GameObject = this;
 	  return component;
 	}
@@ -65,7 +76,6 @@ namespace fe
 		T* a = dynamic_cast<T*>(*iterator.base());
 		if (a != nullptr) {
 		  components.erase(iterator);
-		  delete a;
 		}
 	  }
 	};
@@ -73,7 +83,7 @@ namespace fe
 	template<class T>
 	T* GetComponent() {
 	  for (auto& component : components) {
-		T* a = dynamic_cast<T*>(component);
+		T* a = dynamic_cast<T*>(component.get());
 		if (a != nullptr) {
 		  return a;
 		}
