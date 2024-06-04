@@ -1,6 +1,6 @@
 ﻿#include "Paddle.hpp"
 
-const float Paddle::MOVE_SPEED = 1.0f;
+const float Paddle::MOVE_SPEED = 500.0f;
 
 void Paddle::OnStart() {
 
@@ -18,14 +18,13 @@ void Paddle::OnUpdate(float _deltaTime) {
 	direction += {0, 1};
   }
 
-//  b2Body_ApplyForce(body, direction * (MOVE_SPEED * _deltaTime), b2Body_GetPosition(body), true);
-
-
+  SetPosition(GetPosition() + direction * ( MOVE_SPEED * _deltaTime));
 }
 
 Paddle::Paddle(b2Vec2 _position, b2Rot _rotation)
 	: keyUp(fe::Key::UP), keyDown(fe::Key::DOWN), texture(fe::ResourceManager::LoadTexture("resources/textures/awesomeface.png")) {
-  b2Body_SetTransform(body, _position, b2Rot_GetAngle(_rotation));
+  SetTransform(_position, _rotation);
+  AddShape(b2MakeBox(50,50));
 }
 
 void Paddle::Render() {

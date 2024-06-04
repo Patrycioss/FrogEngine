@@ -7,7 +7,9 @@ namespace fe
 {
   uint32_t GameObject::IDs = 0;
 
-  GameObject::GameObject() {
+  GameObject::GameObject() :
+	  shapeDef(b2DefaultShapeDef())
+  {
 	b2BodyDef bodyDef = b2DefaultBodyDef();
 	bodyDef.type = b2_dynamicBody;
 	bodyDef.position = {300, 300};
@@ -15,11 +17,9 @@ namespace fe
 
 	printf("Created body with id: %i \n", body.index1);
 
-	b2ShapeDef shapeDef = b2DefaultShapeDef();
-	shapeDef.density = 1.0f;
-	shapeDef.friction = 0.3f;
+//	shapeDef.density = 1.0f;
+//	shapeDef.friction = 0.3f;
 	b2Polygon polygon = b2MakeBox(5, 5);
-	b2CreatePolygonShape(body, &shapeDef, &polygon);
 
 //	std::vector<b2ShapeId> shapes{};
 //	int shapesAmount = b2Body_GetShapeCount(body);
@@ -73,4 +73,23 @@ namespace fe
 	return body;
   }
 
+  void GameObject::AddShape(const b2ShapeDef& _shapeDef, b2Polygon _polygon) {
+	b2CreatePolygonShape(body, &_shapeDef, &_polygon);
+  }
+
+  void GameObject::AddShape(const b2Polygon& _polygon) {
+	b2CreatePolygonShape(body, &shapeDef, &_polygon);
+  }
+
+  void GameObject::SetPosition(const b2Vec2& _position) {
+	b2Body_SetTransform(body, _position, b2Rot_GetAngle(GetRotation()));
+  }
+  
+  void GameObject::SetRotation(const b2Rot _rotation){
+	b2Body_SetTransform(body, GetPosition(), b2Rot_GetAngle(_rotation));
+  }
+  
+  void GameObject::SetTransform(const b2Vec2& _position, const b2Rot _rotation){
+	b2Body_SetTransform(body, _position, b2Rot_GetAngle(_rotation));
+  }
 }

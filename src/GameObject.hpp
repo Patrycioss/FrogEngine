@@ -20,7 +20,8 @@ namespace fe
 	std::vector<Behaviour*> behaviours{};
 
    protected:
-	b2BodyId body;
+	b2BodyId body{};
+	b2ShapeDef shapeDef;
 
    protected:
 	/* Called after the behaviours are added and started. */
@@ -28,6 +29,9 @@ namespace fe
 
 	/* Called every frame. */
 	virtual void OnUpdate(float _deltaTime) {};
+	
+	void AddShape(const b2Polygon& _polygon);
+	void AddShape(const b2ShapeDef& _shapeDef, b2Polygon _polygon);
 
    public:
 
@@ -42,6 +46,8 @@ namespace fe
 	[[nodiscard]] b2Vec2 GetPosition() const;
 	[[nodiscard]] b2Rot GetRotation() const;
 	[[nodiscard]] const b2BodyId& GetBody() const;
+	
+	void SetPosition(const b2Vec2& _position);
 
 	template<Derived<Behaviour> T>
 	T* AddBehaviour() {
@@ -72,6 +78,8 @@ namespace fe
 	  }
 	  return nullptr;
 	};
+	void SetRotation(const b2Rot _rotation);
+	void SetTransform(const b2Vec2& _position, const b2Rot _rotation);
   };
 
   inline bool operator==(const GameObject& _left, const GameObject& _right) {
