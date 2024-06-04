@@ -56,7 +56,7 @@ namespace fe
 	static void Destroy(GameObject* _object);
 
 	template<Derived<GameObject> T, typename... Args>
-	static T* CreateObject(Args... args) {
+	static T* Create(Args... args) {
 	  auto a = std::unique_ptr<T>(new T(std::move(args)...));
 	  auto pair = objectRegistry.emplace(a->GetBody().index1, std::move(a));
 	  return (T*)pair.first->second.get();

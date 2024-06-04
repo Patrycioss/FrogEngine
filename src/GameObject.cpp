@@ -21,10 +21,10 @@ namespace fe
 	b2Polygon polygon = b2MakeBox(5, 5);
 	b2CreatePolygonShape(body, &shapeDef, &polygon);
 
-	std::vector<b2ShapeId> shapes{};
-	int shapesAmount = b2Body_GetShapeCount(body);
-	shapes.reserve(shapesAmount);
-	b2Body_GetShapes(body, shapes.data(), shapesAmount);
+//	std::vector<b2ShapeId> shapes{};
+//	int shapesAmount = b2Body_GetShapeCount(body);
+//	shapes.reserve(shapesAmount);
+//	b2Body_GetShapes(body, shapes.data(), shapesAmount);
 
 	ID = IDs++;
   }
