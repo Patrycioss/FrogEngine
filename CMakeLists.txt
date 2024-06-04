@@ -34,7 +34,7 @@ add_executable(
         games/testgame/Game.cpp
         src/Engine.cpp
         src/GameObject.cpp
-        games/testgame/Behaviours/TestBehaviour.cpp
+        games/testgame/Components/TestComponent.cpp
         src/Util.cpp
         src/Scene.cpp
         games/testgame/TestObject.cpp

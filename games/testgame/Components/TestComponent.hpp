@@ -2,11 +2,11 @@
 
 #include "src/FrogEngine.hpp"
 
- class TestBehaviour : public fe::Behaviour{
+ class TestComponent : public fe::Component{
  public:
-  TestBehaviour() = default;
+  TestComponent() = default;
   void Start() override;
   void Update(float _deltaTime) override;
   void Render() override;
-  ~TestBehaviour() override;
+  ~TestComponent() override;
 };

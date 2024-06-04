@@ -1,11 +1,11 @@
 ﻿#pragma once
 
 #include "src/FrogEngine.hpp"
-#include "games/testgame/Behaviours/TestBehaviour.hpp"
+#include "games/testgame/Behaviours/TestComponent.hpp"
 
 class TestObject : public fe::GameObject {
  private:
-  TestBehaviour* testBehaviour;
+  TestComponent* testBehaviour;
   fe::Texture* texture;
 
  protected:

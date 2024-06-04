@@ -34,23 +34,23 @@ namespace fe
   }
 
   GameObject::~GameObject() {
-	for (auto& behaviour : behaviours) {
-	  delete behaviour;
+	for (auto& component : components) {
+	  delete component;
 	}
 
 	b2DestroyBody(body);
   }
 
   void GameObject::Start() {
-	for (auto& behaviour : behaviours) {
-	  behaviour->Start();
+	for (auto& component : components) {
+	  component->Start();
 	}
 
 	OnStart();
   }
 
   void GameObject::Update(float _deltaTime) {
-	for (auto& behaviour : behaviours) {
+	for (auto& behaviour : components) {
 	  behaviour->Update(_deltaTime);
 	}
 
@@ -85,11 +85,11 @@ namespace fe
 	b2Body_SetTransform(body, _position, b2Rot_GetAngle(GetRotation()));
   }
   
-  void GameObject::SetRotation(const b2Rot _rotation){
+  void GameObject::SetRotation(const b2Rot& _rotation){
 	b2Body_SetTransform(body, GetPosition(), b2Rot_GetAngle(_rotation));
   }
   
-  void GameObject::SetTransform(const b2Vec2& _position, const b2Rot _rotation){
+  void GameObject::SetTransform(const b2Vec2& _position, const b2Rot& _rotation){
 	b2Body_SetTransform(body, _position, b2Rot_GetAngle(_rotation));
   }
 }

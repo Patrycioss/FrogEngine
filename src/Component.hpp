@@ -4,18 +4,18 @@ namespace fe
 {
   class GameObject;
 
-  class Behaviour {
+  class Component {
 	friend GameObject;
 
    protected:
 	GameObject* GameObject = nullptr;
 
    public:
-	Behaviour() = default;
+	Component() = default;
 	virtual void Start(){};
 	virtual void Update(float _deltaTime){};
 	virtual void Render(){};
-	virtual ~Behaviour() = default;
+	virtual ~Component() = default;
   };
 
 }

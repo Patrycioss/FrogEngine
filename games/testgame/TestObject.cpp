@@ -1,7 +1,7 @@
 ﻿#include "TestObject.hpp"
 
 TestObject::TestObject() {
-  testBehaviour = AddBehaviour<TestBehaviour>();
+  testBehaviour = AddComponent<TestComponent>();
   std::cout << "Test Object Constructed \n";
   
   texture = fe::ResourceManager::LoadTexture("resources/textures/awesomeface.png");

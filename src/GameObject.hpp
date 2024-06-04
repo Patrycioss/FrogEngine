@@ -5,7 +5,7 @@
 #include <concepts>
 #include <memory>
 
-#include "Behaviour.hpp"
+#include "Component.hpp"
 
 template<class T, class U>
 concept Derived = std::is_base_of<U, T>::value;
@@ -17,7 +17,7 @@ namespace fe
 	static uint32_t IDs;
 	uint32_t ID;
 
-	std::vector<Behaviour*> behaviours{};
+	std::vector<Component*> components{};
 
    protected:
 	b2BodyId body{};
@@ -29,7 +29,7 @@ namespace fe
 
 	/* Called every frame. */
 	virtual void OnUpdate(float _deltaTime) {};
-	
+
 	void AddShape(const b2Polygon& _polygon);
 	void AddShape(const b2ShapeDef& _shapeDef, b2Polygon _polygon);
 
@@ -46,23 +46,25 @@ namespace fe
 	[[nodiscard]] b2Vec2 GetPosition() const;
 	[[nodiscard]] b2Rot GetRotation() const;
 	[[nodiscard]] const b2BodyId& GetBody() const;
-	
-	void SetPosition(const b2Vec2& _position);
 
-	template<Derived<Behaviour> T>
-	T* AddBehaviour() {
-	  behaviours.emplace_back(new T());
-	  T * behaviour = dynamic_cast<T*>(behaviours.back());
-	  behaviour->GameObject = this;
-	  return behaviour;
+	void SetPosition(const b2Vec2& _position);
+	void SetRotation(const b2Rot& _rotation);
+	void SetTransform(const b2Vec2& _position, const b2Rot& _rotation);
+
+	template<Derived<Component> Component>
+	Component* AddComponent() {
+	  components.emplace_back(new Component());
+	  Component * component = dynamic_cast<Component*>(components.back());
+	  component->GameObject = this;
+	  return component;
 	}
 
 	template<class T>
-	void RemoveBehavioursOfType() {
-	  for (auto iterator = behaviours.begin(); iterator < behaviours.end(); iterator++) {
+	void RemoveComponentsOfType() {
+	  for (auto iterator = components.begin(); iterator < components.end(); iterator++) {
 		T* a = dynamic_cast<T*>(*iterator.base());
 		if (a != nullptr) {
-		  behaviours.erase(iterator);
+		  components.erase(iterator);
 		  delete a;
 		}
 	  }
@@ -70,16 +72,15 @@ namespace fe
 
 	template<class T>
 	T* GetComponent() {
-	  for (auto& behaviour : behaviours) {
-		T* a = dynamic_cast<T*>(behaviour);
+	  for (auto& component : components) {
+		T* a = dynamic_cast<T*>(component);
 		if (a != nullptr) {
 		  return a;
 		}
 	  }
 	  return nullptr;
 	};
-	void SetRotation(const b2Rot _rotation);
-	void SetTransform(const b2Vec2& _position, const b2Rot _rotation);
+
   };
 
   inline bool operator==(const GameObject& _left, const GameObject& _right) {
