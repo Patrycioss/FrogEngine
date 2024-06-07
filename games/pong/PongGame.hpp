@@ -6,9 +6,7 @@
 class PongGame : public fe::GameTemplate {
   Paddle* paddleLeft;
   Paddle* paddleRight;
-  
-  bool hasBeenPressed;
-  
+
  public:
   PongGame();
   void Start() override;

@@ -3,7 +3,9 @@
 #include <glad/glad.h>
 
 //#include "ImGuiManager.hpp"
-#include "SpriteRenderer.hpp"
+#include "Renderer.hpp"
+#include "Input.hpp"
+#include "Box2DDebug.hpp"
 
 namespace fe
 {
@@ -28,12 +30,18 @@ namespace fe
 	state = State::Initialize;
 
 	worldDef.gravity = currentSettings.gravity;
-
 	world = b2CreateWorld(&worldDef);
 
 	glfwInit();
 	window = glfwCreateWindow(currentSettings.windowWidth, currentSettings.windowHeight, currentSettings.windowTitle, nullptr, nullptr);
 	glfwMakeContextCurrent(window);
+
+	glfwSetKeyCallback(window, Input::KeyCallback);
+	glfwSetMouseButtonCallback(window, Input::MouseCallback);
+	glfwSetCursorPosCallback(window, Input::CursorPosCallback);
+	glfwSetWindowSizeCallback(window, Engine::WindowResizeCallback);
+	
+	Input::Initialize();
 
 	//vsync
 	glfwSwapInterval(currentSettings.enableVsync); // Enable: 1, Disable: 0
@@ -49,7 +57,8 @@ namespace fe
 
 	glfwShowWindow(window);
 
-	SpriteRenderer::Initialize();
+	Renderer::Initialize();
+	Box2DDebug::Initialize();
   }
 
   void Engine::Start(GameTemplate& _gameTemplate) {
@@ -100,6 +109,12 @@ namespace fe
 						  &ScreenQueryCallback,
 						  nullptr);
 
+	  if (Box2DDebug::enabled){
+		b2World_Draw(world, &Box2DDebug::debugDraw);
+	  }
+	  
+	  Renderer::Render();
+
 	  int display_w, display_h;
 	  glfwGetFramebufferSize(window, &display_w, &display_h);
 	  glad_glViewport(0, 0, display_w, display_h);
@@ -114,6 +129,8 @@ namespace fe
 //		objectRegistry.erase(index);
 //	  }
 //	  objectsToDestroy.clear();
+
+	  Input::Reset();
 	}
 
 	_gameTemplate.Stop();
@@ -122,7 +139,7 @@ namespace fe
 	// Otherwise, objects can't clean themselves up properly.
 	objectRegistry.clear();
 	b2DestroyWorld(world);
-	SpriteRenderer::Cleanup();
+	Renderer::Cleanup();
 	glfwDestroyWindow(window);
 	glfwTerminate();
   }
@@ -141,6 +158,7 @@ namespace fe
   void Engine::SetWindowSize(uint16_t _width, uint16_t _height) {
 	currentSettings.windowWidth = _width;
 	currentSettings.windowHeight = _height;
+	Box2DDebug::SetDrawingBounds({{0, 0}, {(float)_width, (float)_height}});
 	glfwSetWindowSize(window, currentSettings.windowWidth, currentSettings.windowHeight);
   }
 
@@ -173,12 +191,15 @@ namespace fe
 	return true;
   }
 
-  bool Engine::IsKeyPressed(Key _key) {
-	return glfwGetKey(window, (int)_key) == GLFW_PRESS;
-  }
-
   void Engine::Destroy(GameObject* _object) {
 //	objectsToDestroy.push_back(_object->GetBody().index1);
 	objectRegistry.erase(_object->GetBody().index1);
+  }
+
+  
+
+  void Engine::WindowResizeCallback(GLFWwindow* _window, int _width, int _height) {
+	currentSettings.windowWidth = _width;
+	currentSettings.windowHeight = _height;
   }
 }

@@ -29,7 +29,7 @@ add_executable(
         main.cpp
         src/Shader.cpp
         src/ResourceManager.cpp
-        src/SpriteRenderer.cpp
+        src/Renderer.cpp
         src/Texture.cpp
         games/testgame/Game.cpp
         src/Engine.cpp
@@ -41,8 +41,11 @@ add_executable(
         src/Colour.cpp
         games/pong/PongGame.cpp
         games/pong/Paddle.cpp
-        games/pong/components/TestSpriteComponent.cpp
-        games/pong/components/TestSpriteComponent.hpp
+        src/SpriteRenderer.cpp
+        src/Input.cpp
+        src/MouseButton.hpp
+        src/Box2DDebug.cpp
+        src/Box2DDebug.hpp
 )
 
 

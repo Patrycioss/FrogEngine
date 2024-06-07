@@ -26,10 +26,11 @@ namespace fe
 
 	static State state;
 	static GLFWwindow* window;
-	static b2WorldId world;
-	static b2WorldDef worldDef;
 	static Settings currentSettings;
 	static Camera camera;
+
+	static b2WorldId world;
+	static b2WorldDef worldDef;
 	
 //	static std::vector<int32_t> objectsToDestroy;
 
@@ -71,8 +72,7 @@ namespace fe
 	static void EnableFaceCulling(bool _enable);
 	static void SetWindowTitle(const char* _title);
 	static void SetGravity(b2Vec2 _gravity);
-
-	static bool IsKeyPressed(Key _key);
-
+	static void WindowResizeCallback(GLFWwindow* _window, int _width, int _height);
+	
   };
 }

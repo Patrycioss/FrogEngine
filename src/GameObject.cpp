@@ -76,12 +76,12 @@ namespace fe
 	return body;
   }
 
-  void GameObject::AddShape(const b2ShapeDef& _shapeDef, const b2Polygon& _polygon) {
-	b2CreatePolygonShape(body, &_shapeDef, &_polygon);
+  b2ShapeId GameObject::AddShape(const b2ShapeDef& _shapeDef, const b2Polygon& _polygon) {
+	return b2CreatePolygonShape(body, &_shapeDef, &_polygon);
   }
 
-  void GameObject::AddShape(const b2Polygon& _polygon) {
-	b2CreatePolygonShape(body, &shapeDef, &_polygon);
+  b2ShapeId GameObject::AddShape(const b2Polygon& _polygon) {
+	return b2CreatePolygonShape(body, &shapeDef, &_polygon);
   }
 
   void GameObject::SetPosition(const b2Vec2& _position) {

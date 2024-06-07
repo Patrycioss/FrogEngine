@@ -125,7 +125,8 @@ namespace fe::Shader
 	glUniform3f(GetUniformLocation(_ref, _name), _value.x, _value.y, _value.z);
   }
 
-  void SetVec4(ShaderRef _ref, const char* _name, const glm::vec4& _value) {
+  void 
+  SetVec4(ShaderRef _ref, const char* _name, const glm::vec4& _value) {
 	glUniform4f(GetUniformLocation(_ref, _name), _value.x, _value.y, _value.z, _value.a);
   }
 

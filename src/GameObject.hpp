@@ -42,8 +42,8 @@ namespace fe
 	void Update(float _deltaTime);
 	void Render();
 
-	void AddShape(const b2Polygon& _polygon);
-	void AddShape(const b2ShapeDef& _shapeDef, const b2Polygon& _polygon);
+	b2ShapeId AddShape(const b2Polygon& _polygon);
+	b2ShapeId AddShape(const b2ShapeDef& _shapeDef, const b2Polygon& _polygon);
 	
 	explicit GameObject(b2BodyType _b2BodyType);
 	virtual ~GameObject();

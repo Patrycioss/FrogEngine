@@ -1,81 +1,58 @@
 ﻿#include "SpriteRenderer.hpp"
-#include "ResourceManager.hpp"
-#include "Engine.hpp"
-
-#include <glad/glad.h>
+#include "Renderer.hpp"
+#include "GameObject.hpp"
 
 namespace fe
 {
-  uint32_t SpriteRenderer::VAO{};
-  ShaderRef SpriteRenderer::defaultShader;
-  Camera SpriteRenderer::camera{};
-  
-  // TODO: Experiment with altering the z axis in the vertex buffer to do rendering with priority.
-  
-  void SpriteRenderer::Initialize() {
-	
-	defaultShader = ResourceManager::CreateShader("default", "resources/shaders/vertex.glsl", "resources/shaders/fragment.glsl");
-	
-	uint32_t VBO;
-	float vertices[] = {
-		// pos      // tex
-		0.0f, 1.0f, 0.0f, 1.0f,
-		1.0f, 0.0f, 1.0f, 0.0f,
-		0.0f, 0.0f, 0.0f, 0.0f,
-
-		0.0f, 1.0f, 0.0f, 1.0f,
-		1.0f, 1.0f, 1.0f, 1.0f,
-		1.0f, 0.0f, 1.0f, 0.0f
-	};
-
-	glGenVertexArrays(1, &VAO);
-	glGenBuffers(1, &VBO);
-
-	glBindBuffer(GL_ARRAY_BUFFER, VBO);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-
-	glBindVertexArray(VAO);
-	glEnableVertexAttribArray(0);
-	glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)0);
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
-	glBindVertexArray(0);
+  void SpriteRenderer::Render() {
+	if (!show){
+	  return;
+	}
+	fe::Renderer::DrawSprite(texture,
+							 GameObject->GetPosition() + offset,
+							 size * GameObject->GetScale(),
+							 GameObject->GetAngle(),
+							 colour);
   }
 
-  void SpriteRenderer::DrawSprite(Texture* _texture, ShaderRef _shader, b2Vec2 _position, b2Vec2 _size, float _rotate, Colour _colour) {
-	
-	Shader::Use(_shader);
-
-	glm::mat4 model = glm::mat4(1.0f);
-	model = glm::translate(model, glm::vec3(glm::vec2{_position.x, _position.y}, 0.0f));
-
-	model = glm::translate(model, glm::vec3(0.5f * _size.x, 0.5f * _size.y, 0.0f));
-	model = glm::rotate(model, _rotate, glm::vec3(0.0f, 0.0f, 1.0f));
-	model = glm::translate(model, glm::vec3(-0.5f * _size.x, -0.5f * _size.y, 0.0f));
-
-	model = glm::scale(model, glm::vec3(glm::vec2{_size.x, _size.y}, 1.0f));
-
-	Shader::SetMatrix4(_shader, "model", model);
-	Shader::SetMatrix4(_shader, "projection", Engine::Camera.GetProjectionMatrix());
-	Shader::SetVec4(_shader, "spriteColor", glm::vec4{_colour.r, _colour.g, _colour.b, _colour.a});
-
-	glActiveTexture(GL_TEXTURE0);
-	_texture->Bind();
-
-	glBindVertexArray(VAO);
-	glDrawArrays(GL_TRIANGLES, 0, 6);
-	glBindVertexArray(0);
+  void SpriteRenderer::Start() {
+	if (makeShape) {
+//	  printf("X: %f, Y: %f\n", GameObject->GetPosition().x, GameObject->GetPosition().y);
+	  b2Polygon polygon = b2MakeBox(size.x / 2.0f, size.y / 2.0f);
+	  b2ShapeId  id = GameObject->AddShape(polygon);
+	  
+//	  for (int i = 0; i < polygon.count; i++){
+//		printf("%i: %f, %f\n", i, polygon.vertices[i].x, polygon.vertices[i].y);
+//	  }
+//	  
+//	  printf("%f, %f \n", GameObject->GetPosition().x, GameObject->GetPosition().y);
+	  
+	}
   }
 
-  void SpriteRenderer::Cleanup() {
-	glDeleteVertexArrays(1, &VAO);
+  SpriteRenderer::SpriteRenderer(fe::Texture* _texture, const b2Vec2& _size, bool _makeShape, bool _show)
+	  : texture(_texture), offset({0, 0}), colour(fe::Colour::WHITE), makeShape(_makeShape), size({0, 0}), show(_show) {
+
+	if (_size.x < 0 && _size.y < 0) {
+	  size = _texture->GetSize();
+	} else {
+	  size = _size;
+	}
   }
 
-  void SpriteRenderer::DrawSprite(Texture* _texture, b2Vec2 _position, b2Vec2 _size, float _rotate, Colour _colour) {
-	DrawSprite(_texture, defaultShader, _position, _size, _rotate, _colour);
+  void SpriteRenderer::SetOffset(const b2Vec2& _offset) {
+	offset = _offset;
   }
 
-  void SpriteRenderer::DrawSprite(Texture* _texture, b2Transform& _transform, b2Vec2 _size, Colour _colour) {
-	DrawSprite(_texture, _transform.p, _size, b2Rot_GetAngle(_transform.q), _colour);
+  void SpriteRenderer::SetColour(const fe::Colour& _colour) {
+	colour = _colour;
+  }
 
+  void SpriteRenderer::Update(float _deltaTime) {
+
+  }
+
+  void SpriteRenderer::Show(bool _value) {
+	show = _value;
   }
 }

@@ -1,37 +1,29 @@
 ﻿#pragma once
 
-#include <glm.hpp>
-#include <ext/matrix_transform.hpp>
-#include <box2d/box2d.h>
-
+#include "Component.hpp"
 #include "Texture.hpp"
-#include "Shader.hpp"
-#include "Camera.hpp"
 #include "Colour.hpp"
 
 namespace fe
 {
-  class SpriteRenderer {
+  class SpriteRenderer : public fe::Component {
    private:
-	static uint32_t VAO;
-	static ShaderRef defaultShader;
-	static Camera camera;
+	fe::Texture* texture;
+	b2Vec2 offset;
+	fe::Colour colour;
+	bool makeShape;
+	b2Vec2 size;
+	bool show;
 
    public:
-	static void Initialize();
-	
-	static void DrawSprite(Texture* _texture, b2Transform& _transform, b2Vec2 _size, Colour _colour);
-	
-	// Rotation in radians.
-	static void DrawSprite(Texture* _texture, ShaderRef _shader, b2Vec2 _position,
-						   b2Vec2 _size = {10.0f, 10.0f}, float _rotate = 0.0f,
-						   Colour _colour = {1.0f, 1.0f, 1.0f});
+	explicit SpriteRenderer(fe::Texture* _texture, const b2Vec2& _size = {-1, -1}, bool _makeShape = true, bool _show = true);
 
-	// Rotation in radians.
-	static void DrawSprite(Texture* _texture, b2Vec2 _position,
-						   b2Vec2 _size = {10.0f, 10.0f}, float _rotate = 0.0f,
-						   Colour _colour = {1.0f, 1.0f, 1.0f});
-	
-	static void Cleanup();
+	void Start() override;
+	void Update(float _deltaTime) override;
+	void Render() override;
+
+	void SetOffset(const b2Vec2& _offset);
+	void SetColour(const fe::Colour& _colour);
+	void Show(bool _value);
   };
 }
