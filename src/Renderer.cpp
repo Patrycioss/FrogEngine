@@ -60,22 +60,22 @@ namespace fe
 	glBindVertexArray(0);
   }
 
-  void Renderer::DrawSprite(Texture* _texture, ShaderRef _shader, b2Vec2 _position, b2Vec2 _size, float _rotate, Colour _colour) {
+  void Renderer::DrawSprite(Texture* _texture, ShaderRef _shader, const SpriteSettings& _spriteSettings) {
 
 	Shader::Use(_shader);
 
 	glm::mat4 model = glm::mat4(1.0f);
-	model = glm::translate(model, glm::vec3(glm::vec2{_position.x, _position.y}, 0.0f));
+	model = glm::translate(model, glm::vec3(glm::vec2{_spriteSettings.position.x, _spriteSettings.position.y}, 0.0f));
 
-	model = glm::translate(model, glm::vec3(0.5f * _size.x, 0.5f * _size.y, 0.0f));
-	model = glm::rotate(model, _rotate, glm::vec3(0.0f, 0.0f, 1.0f));
-	model = glm::translate(model, glm::vec3(-0.5f * _size.x, -0.5f * _size.y, 0.0f));
+	model = glm::translate(model, glm::vec3(0.5f * _spriteSettings.size.x, 0.5f * _spriteSettings.size.y, 0.0f));
+	model = glm::rotate(model, _spriteSettings.angle, glm::vec3(0.0f, 0.0f, 1.0f));
+	model = glm::translate(model, glm::vec3(-0.5f * _spriteSettings.size.x, -0.5f * _spriteSettings.size.y, 0.0f));
 
-	model = glm::scale(model, glm::vec3(glm::vec2{_size.x, _size.y}, 1.0f));
+	model = glm::scale(model, glm::vec3(glm::vec2{_spriteSettings.size.x, _spriteSettings.size.y}, 1.0f));
 
 	Shader::SetMatrix4(_shader, "model", model);
 	Shader::SetMatrix4(_shader, "projection", Engine::Camera.GetProjectionMatrix());
-	Shader::SetVec4(_shader, "spriteColor", _colour.GetGLReady());
+	Shader::SetVec4(_shader, "spriteColor", _spriteSettings.colour.GetGLReady());
 
 	glActiveTexture(GL_TEXTURE0);
 	_texture->Bind();
@@ -91,8 +91,8 @@ namespace fe
 	glDeleteVertexArrays(1, &spriteVAO);
   }
 
-  void Renderer::DrawSprite(Texture* _texture, b2Vec2 _position, b2Vec2 _size, float _rotate, Colour _colour) {
-	DrawSprite(_texture, spriteShader, _position, _size, _rotate, _colour);
+  void Renderer::DrawSprite(Texture* _texture, const SpriteSettings& _spriteSettings) {
+	DrawSprite(_texture, spriteShader, _spriteSettings);
   }
 
   void Renderer::DrawPolygon(b2Vec2* _vertices, int _vertexCount, Colour _colour) {
@@ -142,30 +142,22 @@ namespace fe
 	polygonsToDraw.clear();
   }
 
-  void Renderer::DrawAnimationSprite(Texture* _texture, const AnimationSettings& _animationSettings, float _timeSeconds) {
+  void Renderer::DrawAnimationSprite(Texture* _texture, const AnimationSettings& _animationSettings, const SpriteSettings& _spriteSettings, float _timeSeconds) {
 
 	Shader::Use(animationShader);
 	
-	b2Vec2 _position = {300,300};
-	b2Vec2 _size = _texture->GetSize();
-	_size.x /= (float) _animationSettings.columns;
-	_size.y /= (float) _animationSettings.rows;
-	
-	float _rotate = 0;
-	Colour _colour = Colour::WHITE;
-
 	glm::mat4 model = glm::mat4(1.0f);
-	model = glm::translate(model, glm::vec3(glm::vec2{_position.x, _position.y}, 0.0f));
+	model = glm::translate(model, glm::vec3(glm::vec2{_spriteSettings.position.x, _spriteSettings.position.y}, 0.0f));
 
-	model = glm::translate(model, glm::vec3(0.5f * _size.x, 0.5f * _size.y, 0.0f));
-	model = glm::rotate(model, _rotate, glm::vec3(0.0f, 0.0f, 1.0f));
-	model = glm::translate(model, glm::vec3(-0.5f * _size.x, -0.5f * _size.y, 0.0f));
+	model = glm::translate(model, glm::vec3(0.5f * _spriteSettings.size.x, 0.5f * _spriteSettings.size.y, 0.0f));
+	model = glm::rotate(model, _spriteSettings.angle, glm::vec3(0.0f, 0.0f, 1.0f));
+	model = glm::translate(model, glm::vec3(-0.5f * _spriteSettings.size.x, -0.5f * _spriteSettings.size.y, 0.0f));
 
-	model = glm::scale(model, glm::vec3(glm::vec2{_size.x, _size.y}, 1.0f));
+	model = glm::scale(model, glm::vec3(glm::vec2{_spriteSettings.size.x, _spriteSettings.size.y}, 1.0f));
 
 	Shader::SetMatrix4(animationShader, "model", model);
 	Shader::SetMatrix4(animationShader, "projection", Engine::Camera.GetProjectionMatrix());
-	Shader::SetVec4(animationShader, "spriteColor", _colour.GetGLReady());
+	Shader::SetVec4(animationShader, "spriteColor", _spriteSettings.colour.GetGLReady());
 	Shader::SetInt(animationShader, "columns", _animationSettings.columns);
 	Shader::SetInt(animationShader, "rows", _animationSettings.rows);
 	Shader::SetFloat(animationShader, "time", _timeSeconds);

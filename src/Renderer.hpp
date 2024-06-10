@@ -10,6 +10,7 @@
 #include "Camera.hpp"
 #include "Colour.hpp"
 #include "AnimationSettings.hpp"
+#include "SpriteSettings.hpp"
 
 namespace fe
 {
@@ -41,18 +42,14 @@ namespace fe
 	
 	
 	// Rotation in radians.
-	static void DrawSprite(Texture* _texture, ShaderRef _shader, b2Vec2 _position,
-						   b2Vec2 _size = {10.0f, 10.0f}, float _rotate = 0.0f,
-						   Colour _colour = {255, 255, 255});
+	static void DrawSprite(Texture* _texture, ShaderRef _shader, const SpriteSettings& _spriteSettings);
 
 	// Rotation in radians.
-	static void DrawSprite(Texture* _texture, b2Vec2 _position,
-						   b2Vec2 _size = {10.0f, 10.0f}, float _rotate = 0.0f,
-						   Colour _colour = {255, 255, 255});
+	static void DrawSprite(Texture* _texture, const SpriteSettings& _spriteSettings);
 	
 	static void DrawPolygon(b2Vec2* _vertices, int _vertexCount, Colour _colour = Colour::WHITE);
 	
-	static void DrawAnimationSprite(Texture* _texture, const AnimationSettings& _animationSettings, float _timeSeconds);
+	static void DrawAnimationSprite(Texture* _texture, const AnimationSettings& _animationSettings, const SpriteSettings& _spriteSettings, float _timeSeconds);
 	
 	
 	static void Cleanup();
