@@ -117,8 +117,12 @@ namespace fe::Shader
 	return ShaderRef{ID};
   }
 
-  void SetInteger(ShaderRef _ref, const char* _name, int _value) {
+  void SetInt(ShaderRef _ref, const char* _name, int _value) {
 	glUniform1i(GetUniformLocation(_ref, _name), _value);
+  }
+
+  void SetFloat(ShaderRef _ref, const char* _name, float _value) {
+	glUniform1f(GetUniformLocation(_ref, _name), _value);
   }
 
   void SetVec3(ShaderRef _ref, const char* _name, const glm::vec3& _value) {

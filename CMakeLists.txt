@@ -41,11 +41,12 @@ add_executable(
         src/Colour.cpp
         games/pong/PongGame.cpp
         games/pong/Paddle.cpp
-        src/SpriteRenderer.cpp
+        src/Sprite.cpp
         src/Input.cpp
-        src/MouseButton.hpp
         src/Box2DDebug.cpp
-        src/Box2DDebug.hpp
+        src/AnimatedSprite.cpp
+        src/Time.cpp
+        games/animation_demo/AnimationDemo.cpp
 )
 
 

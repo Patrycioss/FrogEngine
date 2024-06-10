@@ -10,8 +10,8 @@ namespace fe
   class Texture {
    private:
 	uint32_t ID{};
-	uint32_t width = 0;
-	uint32_t height = 0;
+	int width = 0;
+	int height = 0;
 	uint32_t internalFormat;
 	uint32_t imageFormat;
 
@@ -19,7 +19,8 @@ namespace fe
 	explicit Texture(uint32_t _imageFormat, uint32_t _internalFormat);
 	[[nodiscard]] const uint32_t& GetID() const;
 	[[nodiscard]] b2Vec2 GetSize() const;
-	void Generate(unsigned int _width, unsigned int _height, unsigned char* _data);
+	void Generate(int _imageWidth, int _imageHeight, unsigned char* _data);
+	void Generate(int _imageWidth, int _imageHeight, unsigned char* _data, int _x, int _y, int _frameWidth, int _frameHeight);
 	void Bind() const;
   };
 }

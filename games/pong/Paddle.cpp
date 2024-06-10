@@ -1,5 +1,4 @@
 ﻿#include "Paddle.hpp"
-#include "src/SpriteRenderer.hpp"
 
 const float Paddle::MOVE_SPEED = 500.0f;
 
@@ -8,7 +7,6 @@ void Paddle::OnStart() {
 }
 
 void Paddle::OnUpdate(float _deltaTime) {
-
   b2Vec2 direction = {0, 0};
 
   if (fe::Input::GetKey(keyUp)) {
@@ -26,7 +24,8 @@ Paddle::Paddle(b2Vec2 _position, b2Rot _rotation)
 	: keyUp(fe::Key::UP), keyDown(fe::Key::DOWN), baseX(_position.x), fe::GameObject(b2_staticBody) {
   
   fe::Texture* texture = fe::ResourceManager::LoadTexture("resources/textures/awesomeface.png");
-  fe::SpriteRenderer* spriteRenderer = AddComponent<fe::SpriteRenderer>(texture, b2Vec2(20, 100));
+  fe::Sprite* spriteRenderer = AddComponent<fe::Sprite>(texture, b2Vec2(20,100));
+
   spriteRenderer->Show(false);
   
   SetTransform(_position, _rotation);

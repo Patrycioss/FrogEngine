@@ -55,6 +55,10 @@ namespace fe
 	  glDisable(GL_CULL_FACE);
 	}
 
+	// Enable alpha transparency
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	glEnable(GL_BLEND);
+
 	glfwShowWindow(window);
 
 	Renderer::Initialize();

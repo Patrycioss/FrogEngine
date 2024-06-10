@@ -9,6 +9,7 @@
 #include "Shader.hpp"
 #include "Camera.hpp"
 #include "Colour.hpp"
+#include "AnimationSettings.hpp"
 
 namespace fe
 {
@@ -26,6 +27,7 @@ namespace fe
 	
 	static ShaderRef spriteShader;
 	static ShaderRef shapeShader;
+	static ShaderRef animationShader;
 	static Camera camera;
 	
 	static std::vector<Polygon> polygonsToDraw;
@@ -49,6 +51,8 @@ namespace fe
 						   Colour _colour = {255, 255, 255});
 	
 	static void DrawPolygon(b2Vec2* _vertices, int _vertexCount, Colour _colour = Colour::WHITE);
+	
+	static void DrawAnimationSprite(Texture* _texture, const AnimationSettings& _animationSettings, float _timeSeconds);
 	
 	
 	static void Cleanup();

@@ -10,7 +10,6 @@
 #include "Camera.hpp"
 #include "GameObject.hpp"
 #include "Key.hpp"
-#include "games/pong/Paddle.hpp"
 
 namespace fe
 {

@@ -1,10 +1,10 @@
-﻿#include "SpriteRenderer.hpp"
+﻿#include "Sprite.hpp"
 #include "Renderer.hpp"
 #include "GameObject.hpp"
 
 namespace fe
 {
-  void SpriteRenderer::Render() {
+  void Sprite::Render() {
 	if (!show){
 	  return;
 	}
@@ -15,7 +15,7 @@ namespace fe
 							 colour);
   }
 
-  void SpriteRenderer::Start() {
+  void Sprite::Start() {
 	if (makeShape) {
 //	  printf("X: %f, Y: %f\n", GameObject->GetPosition().x, GameObject->GetPosition().y);
 	  b2Polygon polygon = b2MakeBox(size.x / 2.0f, size.y / 2.0f);
@@ -30,7 +30,7 @@ namespace fe
 	}
   }
 
-  SpriteRenderer::SpriteRenderer(fe::Texture* _texture, const b2Vec2& _size, bool _makeShape, bool _show)
+  Sprite::Sprite(fe::Texture* _texture, const b2Vec2& _size, bool _makeShape, bool _show)
 	  : texture(_texture), offset({0, 0}), colour(fe::Colour::WHITE), makeShape(_makeShape), size({0, 0}), show(_show) {
 
 	if (_size.x < 0 && _size.y < 0) {
@@ -40,19 +40,19 @@ namespace fe
 	}
   }
 
-  void SpriteRenderer::SetOffset(const b2Vec2& _offset) {
+  void Sprite::SetOffset(const b2Vec2& _offset) {
 	offset = _offset;
   }
 
-  void SpriteRenderer::SetColour(const fe::Colour& _colour) {
+  void Sprite::SetColour(const fe::Colour& _colour) {
 	colour = _colour;
   }
 
-  void SpriteRenderer::Update(float _deltaTime) {
+  void Sprite::Update(float _deltaTime) {
 
   }
 
-  void SpriteRenderer::Show(bool _value) {
+  void Sprite::Show(bool _value) {
 	show = _value;
   }
 }

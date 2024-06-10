@@ -6,7 +6,7 @@
 
 namespace fe
 {
-  class SpriteRenderer : public fe::Component {
+  class Sprite : public fe::Component {
    private:
 	fe::Texture* texture;
 	b2Vec2 offset;
@@ -16,7 +16,7 @@ namespace fe
 	bool show;
 
    public:
-	explicit SpriteRenderer(fe::Texture* _texture, const b2Vec2& _size = {-1, -1}, bool _makeShape = true, bool _show = true);
+	explicit Sprite(fe::Texture* _texture, const b2Vec2& _size = {-1, -1}, bool _makeShape = true, bool _show = true);
 
 	void Start() override;
 	void Update(float _deltaTime) override;

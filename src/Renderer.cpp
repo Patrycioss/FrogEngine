@@ -9,6 +9,7 @@ namespace fe
   uint32_t Renderer::spriteVAO{};
   ShaderRef Renderer::spriteShader;
   ShaderRef Renderer::shapeShader;
+  ShaderRef Renderer::animationShader;
   Camera Renderer::camera{};
   std::vector<Renderer::Polygon> Renderer::polygonsToDraw;
 
@@ -18,6 +19,7 @@ namespace fe
 
 	spriteShader = ResourceManager::CreateShader("default", "resources/shaders/sprite/vertex.glsl", "resources/shaders/sprite/fragment.glsl");
 	shapeShader = ResourceManager::CreateShader("shape", "resources/shaders/line/vertex.glsl", "resources/shaders/line/fragment.glsl");
+	animationShader = ResourceManager::CreateShader("animation", "resources/shaders/animation/vertex.glsl", "resources/shaders/animation/fragment.glsl");
 
 	InitializeSprite();
   }
@@ -138,5 +140,46 @@ namespace fe
 	}
 
 	polygonsToDraw.clear();
+  }
+
+  void Renderer::DrawAnimationSprite(Texture* _texture, const AnimationSettings& _animationSettings, float _timeSeconds) {
+
+	Shader::Use(animationShader);
+	
+	b2Vec2 _position = {300,300};
+	b2Vec2 _size = _texture->GetSize();
+	_size.x /= (float) _animationSettings.columns;
+	_size.y /= (float) _animationSettings.rows;
+	
+	float _rotate = 0;
+	Colour _colour = Colour::WHITE;
+
+	glm::mat4 model = glm::mat4(1.0f);
+	model = glm::translate(model, glm::vec3(glm::vec2{_position.x, _position.y}, 0.0f));
+
+	model = glm::translate(model, glm::vec3(0.5f * _size.x, 0.5f * _size.y, 0.0f));
+	model = glm::rotate(model, _rotate, glm::vec3(0.0f, 0.0f, 1.0f));
+	model = glm::translate(model, glm::vec3(-0.5f * _size.x, -0.5f * _size.y, 0.0f));
+
+	model = glm::scale(model, glm::vec3(glm::vec2{_size.x, _size.y}, 1.0f));
+
+	Shader::SetMatrix4(animationShader, "model", model);
+	Shader::SetMatrix4(animationShader, "projection", Engine::Camera.GetProjectionMatrix());
+	Shader::SetVec4(animationShader, "spriteColor", _colour.GetGLReady());
+	Shader::SetInt(animationShader, "columns", _animationSettings.columns);
+	Shader::SetInt(animationShader, "rows", _animationSettings.rows);
+	Shader::SetFloat(animationShader, "time", _timeSeconds);
+	Shader::SetFloat(animationShader, "animationSpeed", _animationSettings.fps);
+	Shader::SetInt(animationShader, "cycleStartFrame", _animationSettings.cycleStartFrame);
+	Shader::SetInt(animationShader, "frameCount", _animationSettings.cycleFrameCount);
+
+	glActiveTexture(GL_TEXTURE0);
+	_texture->Bind();
+
+	glBindVertexArray(spriteVAO);
+	glDrawArrays(GL_TRIANGLES, 0, 6);
+	glBindVertexArray(0);
+
+	glActiveTexture(0);
   }
 }
