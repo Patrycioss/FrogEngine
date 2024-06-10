@@ -17,9 +17,9 @@ namespace fe
 
   void Renderer::Initialize() {
 
-	spriteShader = ResourceManager::CreateShader("default", "resources/shaders/sprite/vertex.glsl", "resources/shaders/sprite/fragment.glsl");
-	shapeShader = ResourceManager::CreateShader("shape", "resources/shaders/shape/vertex.glsl", "resources/shaders/shape/fragment.glsl");
-	animationShader = ResourceManager::CreateShader("animation", "resources/shaders/animation/vertex.glsl", "resources/shaders/animation/fragment.glsl");
+	spriteShader = ResourceManager::CreateShader("default", "resources/shaders/sprite.vert", "resources/shaders/sprite.frag");
+	shapeShader = ResourceManager::CreateShader("shape", "resources/shaders/shape.vert", "resources/shaders/shape.frag");
+	animationShader = ResourceManager::CreateShader("animation", "resources/shaders/animation.vert", "resources/shaders/animation.frag");
 
 	InitializeSprite();
   }
@@ -61,6 +61,7 @@ namespace fe
 	model = glm::translate(model, glm::vec3(0.5f * _spriteSettings.size.x, 0.5f * _spriteSettings.size.y, 0.0f));
 	model = glm::rotate(model, _spriteSettings.angle, glm::vec3(0.0f, 0.0f, 1.0f));
 	model = glm::translate(model, glm::vec3(-0.5f * _spriteSettings.size.x, -0.5f * _spriteSettings.size.y, 0.0f));
+	
 
 	model = glm::scale(model, glm::vec3(glm::vec2{_spriteSettings.size.x, _spriteSettings.size.y}, 1.0f));
 
