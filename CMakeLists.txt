@@ -17,26 +17,14 @@ add_executable(
         FrogEngine
 
         ${EXT_LIB_PATH}/glad/src/glad.c
-
-        ${EXT_LIB_PATH}/imgui/src/imgui.cpp
-        ${EXT_LIB_PATH}/imgui/src/imgui_demo.cpp
-        ${EXT_LIB_PATH}/imgui/src/imgui_draw.cpp
-        ${EXT_LIB_PATH}/imgui/src/imgui_tables.cpp
-        ${EXT_LIB_PATH}/imgui/src/imgui_widgets.cpp
-        ${EXT_LIB_PATH}/imgui/src/imgui_impl_glfw.cpp
-        ${EXT_LIB_PATH}/imgui/src/imgui_impl_opengl3.cpp
-
+        
         main.cpp
         src/Shader.cpp
         src/ResourceManager.cpp
         src/Renderer.cpp
         src/Texture.cpp
-        games/testgame/Game.cpp
         src/Engine.cpp
         src/GameObject.cpp
-        games/testgame/Components/TestComponent.cpp
-        src/Util.cpp
-        games/testgame/TestObject.cpp
         src/Camera.cpp
         src/Colour.cpp
         games/pong/PongGame.cpp
@@ -65,7 +53,6 @@ target_include_directories(
         ${EXT_LIB_PATH}/glad/include
         ${EXT_LIB_PATH}/glfw/include
         ${EXT_LIB_PATH}/box2D/include
-        ${EXT_LIB_PATH}/imgui/include
         ${EXT_LIB_PATH}/stb/include
         ${EXT_LIB_PATH}/glm
 )

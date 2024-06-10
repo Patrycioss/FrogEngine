@@ -2,10 +2,10 @@
 
 #include <glad/glad.h>
 
-//#include "ImGuiManager.hpp"
 #include "Renderer.hpp"
 #include "Input.hpp"
 #include "Box2DDebug.hpp"
+#include "GameTemplate.hpp"
 
 namespace fe
 {
@@ -15,7 +15,6 @@ namespace fe
   GLFWwindow* Engine::window;
   Settings Engine::currentSettings{};
   Camera Engine::camera{};
-//  std::vector<int32_t> Engine::objectsToDestroy{};
   std::unordered_map<int32_t, std::unique_ptr<GameObject>> Engine::objectRegistry;
 
   const Settings& Engine::CurrentSettings = Engine::currentSettings;
@@ -90,7 +89,6 @@ namespace fe
 
 	while (!glfwWindowShouldClose(window)) {
 	  glfwPollEvents();
-//	  ImGuiManager::NewFrame();
 
 	  glClearColor(0.5f, 0.5f, 0.5f, 1.0f);              // background color
 	  glClear(GL_COLOR_BUFFER_BIT);
@@ -124,15 +122,6 @@ namespace fe
 	  glad_glViewport(0, 0, display_w, display_h);
 
 	  glfwSwapBuffers(window);
-
-//	  ImGuiManager::PostFrame();
-
-//	  // Destroy objects in queue:
-//	  for (const auto& index : objectsToDestroy) {
-//		printf("Destroying object with body id: %i \n", index);
-//		objectRegistry.erase(index);
-//	  }
-//	  objectsToDestroy.clear();
 
 	  Input::Reset();
 	}

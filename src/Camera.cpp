@@ -1,4 +1,8 @@
 ﻿#include "Camera.hpp"
+
+#include <ext/matrix_clip_space.hpp>
+#include <ext/matrix_transform.hpp>
+
 #include "Engine.hpp"
 
 fe::Camera::Camera() : Zoom(1.0f) {}

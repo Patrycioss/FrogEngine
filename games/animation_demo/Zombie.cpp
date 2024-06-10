@@ -4,10 +4,9 @@ namespace AnimationDemo
 {
   Zombie::Zombie() : currentState(State::Standing),fe::GameObject(b2_staticBody) {
 	
-	auto* texture = fe::ResourceManager::LoadTexture("resources/spritesheets/zombie/sheet.png");
+	fe::Texture* texture = fe::ResourceManager::LoadTexture("resources/spritesheets/zombie/sheet.png");
 	fe::AnimationSettings animationSettings{9, 5};
-	animationSettings.cycleStartFrame = 0;
-	animationSettings.cycleFrameCount = 1;
+	animationSettings.SetCycle(0,1);
 	animationSettings.fps = 12;
 	sprite = AddComponent<fe::AnimatedSprite>(texture, animationSettings);
   }

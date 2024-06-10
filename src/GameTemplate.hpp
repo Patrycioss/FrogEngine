@@ -5,18 +5,17 @@
 #define GLFW_INCLUDE_NONE
 #include <glfw/glfw3.h>
 
-#include "ResourceManager.hpp"
-#include "Settings.hpp"
-
 namespace fe
 {
   class GameTemplate {
    private:
-	ResourceManager resourceManager{};
 	GLFWwindow* window = nullptr;
 
    protected:
-	ResourceManager& ResourceManager = resourceManager;
+	template<Derived<GameObject> T, typename... Args>
+	T* Instantiate(Args... args) {
+	  return Engine::Instantiate<T>(args...);
+	}
 	
    public:
 	/* Called when the game is started by the engine. */

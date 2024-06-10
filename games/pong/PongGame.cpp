@@ -1,8 +1,8 @@
 ﻿#include "PongGame.hpp"
 
 PongGame::PongGame() :
-	paddleLeft(fe::Engine::Create<Paddle>(b2Vec2(200, 200))),
-	paddleRight(fe::Engine::Create<Paddle>(b2Vec2(300, 300))) {
+	paddleLeft(Instantiate<Paddle>(b2Vec2(200, 200))),
+	paddleRight(Instantiate<Paddle>(b2Vec2(300, 300))) {
 
   printf("Paddle left id: %i \n", paddleLeft->GetBody().index1);
   paddleLeft->SetControls(fe::Key::W, fe::Key::S);

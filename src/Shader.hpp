@@ -2,7 +2,6 @@
 
 #include <string>
 #include <glm.hpp>
-#include <gtc/type_ptr.hpp>
 
 namespace fe
 {

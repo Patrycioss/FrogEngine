@@ -13,7 +13,6 @@ namespace fe
 											float _radius,
 											b2HexColor _color,
 											void* _context) {
-	
 
 	b2Vec2 vertices[_vertexCount];
 
@@ -27,7 +26,6 @@ namespace fe
 	  vertices[i].y = -(2 * pos.y / windowHeight - 1);
 	}
 
-	printf("1");
 	Renderer::DrawPolygon(vertices, _vertexCount, Colour::FromHex(_color));
   }
 
@@ -68,5 +66,4 @@ namespace fe
 
 	Renderer::DrawPolygon(vertices, _vertexCount, Colour::FromHex(_colour));
   }
-
 }

@@ -5,14 +5,16 @@
 
 #include <box2d/box2d.h>
 #include <glm.hpp>
+#include <unordered_map>
 
-#include "GameTemplate.hpp"
+#include "Settings.hpp"
 #include "Camera.hpp"
 #include "GameObject.hpp"
 #include "Key.hpp"
 
 namespace fe
 {
+  class GameTemplate;
   class Engine {
    public:
 	enum class State {
@@ -58,7 +60,7 @@ namespace fe
 	static void Destroy(GameObject* _object);
 
 	template<Derived<GameObject> T, typename... Args>
-	static T* Create(Args... args) {
+	static T* Instantiate(Args... args) {
 	  auto a = std::unique_ptr<T>(new T(std::move(args)...));
 	  auto pair = objectRegistry.emplace(a->GetBody().index1, std::move(a));
 	  return (T*)pair.first->second.get();

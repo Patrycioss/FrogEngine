@@ -3,8 +3,7 @@
 namespace AnimationDemo
 {
   AnimationDemo::AnimationDemo(){
-	zombie = fe::Engine::Create<Zombie>();
-
+	zombie = Instantiate<Zombie>();
   }
 
   void AnimationDemo::Start() {

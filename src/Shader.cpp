@@ -3,6 +3,7 @@
 #include <stdexcept>
 #include <fstream>
 #include <glad/glad.h>
+#include <gtc/type_ptr.hpp>
 
 namespace fe::Shader
 {
