@@ -7,3 +7,4 @@ int main() {
   AnimationDemo::AnimationDemo animationDemo;
   fe::Engine::Start(animationDemo);
   return 0;
+}
