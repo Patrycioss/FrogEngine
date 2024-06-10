@@ -47,6 +47,7 @@ add_executable(
         src/AnimatedSprite.cpp
         src/Time.cpp
         games/animation_demo/AnimationDemo.cpp
+        games/animation_demo/Zombie.cpp
 )
 
 

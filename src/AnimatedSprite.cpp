@@ -10,14 +10,7 @@ namespace fe
   }
 
   void AnimatedSprite::Render() {
-	Renderer::DrawAnimationSprite(texture, animationSettings,
-								  {
-									  GameObject->GetPosition() + offset,
-									  GameObject->GetAngle(),
-									  size * GameObject->GetScale(),
-									  colour
-								  },
-								  Time::GetTimeSeconds());
+	Renderer::DrawAnimationSprite(texture, animationSettings, spriteSettings, Time::GetTimeSeconds());
   }
 
   void AnimatedSprite::SetCycle(int _startFrame, int _frameCount) {

@@ -8,28 +8,23 @@ namespace fe
 	if (!show) {
 	  return;
 	}
-	fe::Renderer::DrawSprite(texture, {
-		GameObject->GetPosition() + offset,
-		GameObject->GetAngle(),
-		size * GameObject->GetScale(),
-		colour
-	});
+	fe::Renderer::DrawSprite(texture, spriteSettings);
   }
 
   void Sprite::Start() {
-	if (size.x < 0 && size.y < 0) {
-	  size = GetDefaultSize();
+	if (spriteSettings.size.x < 0 && spriteSettings.size.y < 0) {
+	  spriteSettings.size = GetDefaultSize();
 	}
 	
 	if (makeShape) {
-	  b2Polygon polygon = b2MakeBox(size.x / 2.0f, size.y / 2.0f);
+	  b2Polygon polygon = b2MakeBox(spriteSettings.size.x / 2.0f, spriteSettings.size.y / 2.0f);
 	  GameObject->AddShape(polygon);
 	}
   }
 
   Sprite::Sprite(fe::Texture* _texture, const b2Vec2& _size, bool _makeShape)
-	  : texture(_texture), offset({0, 0}), colour(fe::Colour::WHITE), makeShape(_makeShape), size(_size), show(true) {
-	
+	  : texture(_texture), offset({0, 0}), spriteSettings(), makeShape(_makeShape), show(true) {
+	spriteSettings.size = _size;
   }
 
   void Sprite::SetOffset(const b2Vec2& _offset) {
@@ -37,10 +32,13 @@ namespace fe
   }
 
   void Sprite::SetColour(const fe::Colour& _colour) {
-	colour = _colour;
+	spriteSettings.colour = _colour;
   }
 
-  void Sprite::Update(float _deltaTime) {}
+  void Sprite::Update(float _deltaTime) {
+	spriteSettings.position = GameObject->GetPosition();
+	spriteSettings.angle = GameObject->GetAngle();
+  }
 
   void Sprite::Show(bool _value) {
 	show = _value;
@@ -48,5 +46,13 @@ namespace fe
 
   b2Vec2 Sprite::GetDefaultSize() {
 	return texture->GetSize();
+  }
+
+  void Sprite::FlipHorizontal(bool _value) {
+	spriteSettings.flipHorizontal = _value;
+  }
+
+  void Sprite::FlipVertical(bool _value) {
+	spriteSettings.flipVertical = _value;
   }
 }

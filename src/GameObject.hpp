@@ -19,7 +19,6 @@ namespace fe
 
 	std::vector<std::unique_ptr<Component>> components{};
 	
-	float scale = 1.0f;
 	bool wasRenderedThisFrame{};
 
    protected:
@@ -52,7 +51,6 @@ namespace fe
 	[[nodiscard]] b2Vec2 GetPosition() const;
 	[[nodiscard]] b2Rot GetRotation() const;
 	[[nodiscard]] const b2BodyId& GetBody() const;
-	[[nodiscard]] float GetScale() const;
 	
 	// The angle of the body in Radians.
 	[[nodiscard]] float GetAngle() const;
@@ -60,7 +58,6 @@ namespace fe
 	void SetPosition(const b2Vec2& _position);
 	void SetRotation(const b2Rot& _rotation);
 	void SetTransform(const b2Vec2& _position, const b2Rot& _rotation);
-	void SetScale(float _scale);
 
 	template<Derived<Component> T, typename... Args>
 	T* AddComponent(Args... args) {

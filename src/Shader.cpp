@@ -117,6 +117,10 @@ namespace fe::Shader
 	return ShaderRef{ID};
   }
 
+  void SetBool(ShaderRef _ref, const char* _name, bool _value) {
+	glUniform1i(GetUniformLocation(_ref, _name), _value);
+  }
+
   void SetInt(ShaderRef _ref, const char* _name, int _value) {
 	glUniform1i(GetUniformLocation(_ref, _name), _value);
   }

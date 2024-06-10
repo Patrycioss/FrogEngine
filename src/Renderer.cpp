@@ -18,7 +18,7 @@ namespace fe
   void Renderer::Initialize() {
 
 	spriteShader = ResourceManager::CreateShader("default", "resources/shaders/sprite/vertex.glsl", "resources/shaders/sprite/fragment.glsl");
-	shapeShader = ResourceManager::CreateShader("shape", "resources/shaders/line/vertex.glsl", "resources/shaders/line/fragment.glsl");
+	shapeShader = ResourceManager::CreateShader("shape", "resources/shaders/shape/vertex.glsl", "resources/shaders/shape/fragment.glsl");
 	animationShader = ResourceManager::CreateShader("animation", "resources/shaders/animation/vertex.glsl", "resources/shaders/animation/fragment.glsl");
 
 	InitializeSprite();
@@ -27,17 +27,8 @@ namespace fe
   void Renderer::InitializeSprite() {
 	uint32_t VBO;
 	float vertices[] = {
-		// pos      // tex
-		// Draw From Top Left
-//		0.0f, 1.0f, 0.0f, 1.0f,
-//		1.0f, 0.0f, 1.0f, 0.0f,
-//		0.0f, 0.0f, 0.0f, 0.0f,
-
-//		0.0f, 1.0f, 0.0f, 1.0f,
-//		1.0f, 1.0f, 1.0f, 1.0f,
-//		1.0f, 0.0f, 1.0f, 0.0f
-
 		// Draw From Center
+		// pos      // tex
 		-0.5f, 0.5f, 0.0f, 1.0f,
 		0.5f, -0.5f, 1.0f, 0.0f,
 		-0.5f, -0.5f, 0.0f, 0.0f,
@@ -76,6 +67,8 @@ namespace fe
 	Shader::SetMatrix4(_shader, "model", model);
 	Shader::SetMatrix4(_shader, "projection", Engine::Camera.GetProjectionMatrix());
 	Shader::SetVec4(_shader, "spriteColor", _spriteSettings.colour.GetGLReady());
+	Shader::SetBool(_shader, "flipHorizontal", _spriteSettings.flipHorizontal);
+	Shader::SetBool(_shader, "flipVertical", _spriteSettings.flipVertical);
 
 	glActiveTexture(GL_TEXTURE0);
 	_texture->Bind();
@@ -164,6 +157,8 @@ namespace fe
 	Shader::SetFloat(animationShader, "animationSpeed", _animationSettings.fps);
 	Shader::SetInt(animationShader, "cycleStartFrame", _animationSettings.cycleStartFrame);
 	Shader::SetInt(animationShader, "frameCount", _animationSettings.cycleFrameCount);
+	Shader::SetBool(animationShader, "flipHorizontal", _spriteSettings.flipHorizontal);
+	Shader::SetBool(animationShader, "flipVertical", _spriteSettings.flipVertical);
 
 	glActiveTexture(GL_TEXTURE0);
 	_texture->Bind();

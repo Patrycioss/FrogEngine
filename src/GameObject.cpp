@@ -1,6 +1,4 @@
-﻿#include <iostream>
-
-#include "GameObject.hpp"
+﻿#include "GameObject.hpp"
 #include "Engine.hpp"
 
 namespace fe
@@ -13,14 +11,6 @@ namespace fe
 	bodyDef.type = _b2BodyType;
 	bodyDef.position = {300, 300};
 	body = Engine::CreateBody(&bodyDef);
-
-	printf("Created body with id: %i \n", body.index1);
-
-//	std::vector<b2ShapeId> shapes{};
-//	int shapesAmount = b2Body_GetShapeCount(body);
-//	shapes.reserve(shapesAmount);
-//	b2Body_GetShapes(body, shapes.data(), shapesAmount);
-
 	ID = IDs++;
   }
 
@@ -94,13 +84,5 @@ namespace fe
 
   void GameObject::SetTransform(const b2Vec2& _position, const b2Rot& _rotation) {
 	b2Body_SetTransform(body, _position, b2Rot_GetAngle(_rotation));
-  }
-
-  float GameObject::GetScale() const {
-	return scale;
-  }
-
-  void GameObject::SetScale(float _scale) {
-
   }
 }

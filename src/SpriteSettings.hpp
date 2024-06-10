@@ -10,5 +10,7 @@ namespace fe{
 	float angle{};
 	b2Vec2 size{};
 	Colour colour = Colour::WHITE;
+	bool flipVertical = false;
+	bool flipHorizontal = false;
   };
 }
