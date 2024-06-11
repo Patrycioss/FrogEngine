@@ -46,7 +46,7 @@ namespace fe
 	glfwSwapInterval(currentSettings.enableVsync); // Enable: 1, Disable: 0
 
 	gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
-
+	
 	//face culling
 	if (currentSettings.enableFaceCulling) {
 	  glEnable(GL_CULL_FACE);
@@ -90,8 +90,10 @@ namespace fe
 	while (!glfwWindowShouldClose(window)) {
 	  glfwPollEvents();
 
-	  glClearColor(0.5f, 0.5f, 0.5f, 1.0f);              // background color
+	  glClearColor(0.5f, 0.5f, 0.5f, 1.0f); // background color
+//	  glClearDepth(1.0f);
 	  glClear(GL_COLOR_BUFFER_BIT);
+//	  glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	  double nowTime = glfwGetTime();
 	  deltaTime = (float)(nowTime - lastTime);

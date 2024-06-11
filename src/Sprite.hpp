@@ -30,5 +30,6 @@ namespace fe
 	void FlipHorizontal(bool _value);
 	void FlipVertical(bool _value);
 	void Show(bool _value);
+	void SetZIndex(float _value);
   };
 }

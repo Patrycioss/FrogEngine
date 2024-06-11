@@ -29,11 +29,8 @@ namespace fe
 	static GLFWwindow* window;
 	static Settings currentSettings;
 	static Camera camera;
-
 	static b2WorldId world;
 	static b2WorldDef worldDef;
-	
-//	static std::vector<int32_t> objectsToDestroy;
 
 	/* Uses the index from the body ID to find Objects. */
 	static std::unordered_map<int32_t, std::unique_ptr<GameObject>> objectRegistry;
