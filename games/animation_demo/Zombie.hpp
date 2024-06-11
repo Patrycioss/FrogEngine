@@ -14,12 +14,15 @@ namespace AnimationDemo
    State currentState;
    fe::AnimatedSprite* sprite;
    
+   fe::Key leftKey;
+   fe::Key rightKey;
+   
    void SetState(State _state);
    
   protected:
    void OnUpdate(float _deltaTime) override;
    
   public:
-   Zombie();
+   Zombie(float _z, fe::Key _leftKey, fe::Key _rightKey);
   };
 }
