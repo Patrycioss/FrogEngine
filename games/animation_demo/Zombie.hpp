@@ -23,6 +23,6 @@ namespace AnimationDemo
    void OnUpdate(float _deltaTime) override;
    
   public:
-   Zombie(float _z, fe::Key _leftKey, fe::Key _rightKey);
+   Zombie(fe::Key _leftKey, fe::Key _rightKey);
   };
 }

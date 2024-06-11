@@ -3,8 +3,8 @@
 namespace AnimationDemo
 {
   AnimationDemo::AnimationDemo(){
-	zombie = Instantiate<Zombie>(2, fe::Key::A, fe::Key::D);
-	Instantiate<Zombie>(3, fe::Key::LEFT, fe::Key::RIGHT);
+	zombie = Instantiate<Zombie>(fe::Key::A, fe::Key::D);
+	Instantiate<Zombie>(fe::Key::LEFT, fe::Key::RIGHT);
   }
 
   void AnimationDemo::Start() {

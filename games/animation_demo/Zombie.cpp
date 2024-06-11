@@ -2,7 +2,7 @@
 
 namespace AnimationDemo
 {
-  Zombie::Zombie(float _z, fe::Key _leftKey, fe::Key _rightKey) :
+  Zombie::Zombie(fe::Key _leftKey, fe::Key _rightKey) :
   leftKey(_leftKey), rightKey(_rightKey),
   currentState(State::Standing),
   fe::GameObject(b2_staticBody) {
