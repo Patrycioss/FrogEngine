@@ -12,7 +12,6 @@ namespace AnimationDemo
 	animationSettings.SetCycle(0,1);
 	animationSettings.fps = 12;
 	sprite = AddComponent<fe::AnimatedSprite>(texture, animationSettings);
-	sprite->SetZIndex(_z);
   }
 
   void Zombie::OnUpdate(float _deltaTime) {
