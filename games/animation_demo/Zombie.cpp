@@ -7,14 +7,14 @@ namespace AnimationDemo
   currentState(State::Standing),
   fe::GameObject(b2_staticBody) {
 	
-	fe::Texture* texture = fe::ResourceManager::LoadTexture("resources/spritesheets/zombie/sheet.png");
+	fe::Texture* texture = fe::AssetManager::LoadTexture("resources/spritesheets/zombie/sheet.png");
 	fe::AnimationSettings animationSettings{9, 5};
 	animationSettings.SetCycle(0,1);
 	animationSettings.fps = 12;
 	sprite = AddComponent<fe::AnimatedSprite>(texture, animationSettings);
   }
 
-  void Zombie::OnUpdate(float _deltaTime) {
+  void Zombie::Update(float _deltaTime) {
 	if (fe::Input::GetKey(rightKey)){
 	  sprite->FlipHorizontal(false);
 	  SetState(State::Walking);

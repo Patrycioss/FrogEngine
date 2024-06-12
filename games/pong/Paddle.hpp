@@ -15,6 +15,6 @@ class Paddle : public fe::GameObject {
   explicit Paddle(b2Vec2 _position, b2Rot _angle = b2Rot_identity);
   void SetControls(fe::Key _keyUp, fe::Key _keyDown);
 
-  void OnStart() override;
-  void OnUpdate(float _deltaTime) override;
+  void Start() override;
+  void Update(float _deltaTime) override;
 };

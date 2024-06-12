@@ -17,25 +17,40 @@ add_executable(
         FrogEngine
 
         ${EXT_LIB_PATH}/glad/src/glad.c
-        
+
         main.cpp
-        src/Shader.cpp
-        src/ResourceManager.cpp
-        src/Renderer.cpp
-        src/Texture.cpp
-        src/Engine.cpp
-        src/GameObject.cpp
-        src/Camera.cpp
-        src/Colour.cpp
+        
+        # components
+        src/components/AnimatedSprite.cpp
+        src/components/Sprite.cpp
+
+        # core
+        src/core/AssetManager.cpp
+        src/core/Box2DDebug.cpp
+        src/core/Engine.cpp
+        src/core/GameObject.cpp
+        src/core/Renderer.cpp
+        src/core/Time.cpp
+
+        # data
+        src/data/Colour.cpp
+        src/data/Shader.cpp
+        src/data/Texture.cpp
+
+        # fileIO
+        src/fileIO/FileUtils.cpp
+        
+        # input
+        src/input/Input.cpp
+        
+        # pong game
         games/pong/PongGame.cpp
         games/pong/Paddle.cpp
-        src/Sprite.cpp
-        src/Input.cpp
-        src/Box2DDebug.cpp
-        src/AnimatedSprite.cpp
-        src/Time.cpp
+        
+        # animation demo
         games/animation_demo/AnimationDemo.cpp
         games/animation_demo/Zombie.cpp
+
 )
 
 

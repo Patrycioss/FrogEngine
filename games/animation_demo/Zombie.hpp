@@ -20,7 +20,7 @@ namespace AnimationDemo
    void SetState(State _state);
    
   protected:
-   void OnUpdate(float _deltaTime) override;
+   void Update(float _deltaTime) override;
    
   public:
    Zombie(fe::Key _leftKey, fe::Key _rightKey);
