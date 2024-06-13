@@ -92,8 +92,9 @@ namespace fe
   b2ShapeId GameObject::AddShape(const b2ShapeDef& _shapeDef, const b2Polygon& _polygon) {
 	return b2CreatePolygonShape(body, &_shapeDef, &_polygon);
   }
-
+  
   b2ShapeId GameObject::AddShape(const b2Polygon& _polygon) {
+	// Todo: Allow for setting the position of the shape.
 	return b2CreatePolygonShape(body, &shapeDef, &_polygon);
   }
 }

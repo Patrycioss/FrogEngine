@@ -2,8 +2,7 @@
 
 #include <box2d/box2d.h>
 
-#define GLFW_INCLUDE_NONE
-#include <GLFW/glfw3.h>
+#include "src/core/Engine.hpp"
 
 namespace fe
 {
@@ -11,10 +10,23 @@ namespace fe
    * Inherit from this for your own game. Used by the engine.
    */
   class GameTemplate {
-   private:
-	GLFWwindow* window = nullptr;
-
+	friend Engine;
    protected:
+	/**
+     * Called when the game is started by the engine. 
+     */
+	virtual void Start() {};
+
+	/** 
+	 * Called every frame by the engine. 
+	 */
+	virtual void Update(float _deltaTime) {};
+
+	/** 
+	 * Called at the end of the game. 
+	 */
+	virtual void Stop() {};
+
 	/**
 	 * Create a GameObject that is then managed by the engine. Shortcut for Engine::Instantiate.
 	 * @tparam T Type of GameObject to create, this should always inherit from GameObject.
@@ -25,21 +37,5 @@ namespace fe
 	T* Instantiate(Args... args) {
 	  return Engine::Instantiate<T>(args...);
 	}
-	
-   public:
-	/**
-	 * Called when the game is started by the engine. 
-	 */
-	virtual void Start(){};
-	
-	/** 
-	 * Called every frame by the engine. 
-	 */
-	virtual void Update(float _deltaTime){};
-	
-	/** 
-	 * Called at the end of the game. 
-	 */
-	virtual void Stop(){};
   };
 }

@@ -35,15 +35,6 @@ namespace fe
 	AnimatedSprite(fe::Texture* _texture, const AnimationSettings& _animationSettings, bool _makeShape);
 
 	/**
-	 * Constructs an AnimatedSprite.
-	 * @param _texture A Texture of a sprite sheet.
-	 * @param _animationSettings The settings to use for the animation.
-	 * @param _size The size of the Sprite. By default it will be the dimensions of one frame.
-	 * @remark Adds a Box2D shape with the size of the Sprite.
-	 */
-	AnimatedSprite(fe::Texture* _texture, const AnimationSettings& _animationSettings, const b2Vec2& _size);
-
-	/**
 	 * Sets the animation cycle.
 	 * @param _startFrame The first frame of the cycle, take note that indexing frames starts at 0.
 	 * @param _frameCount The amount of frames that the cycle lasts.

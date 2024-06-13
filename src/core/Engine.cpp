@@ -29,6 +29,7 @@ namespace fe
 
 	worldDef.gravity = currentSettings.gravity;
 	world = b2CreateWorld(&worldDef);
+	
 
 	glfwInit();
 	window = glfwCreateWindow(currentSettings.windowWidth, currentSettings.windowHeight, currentSettings.windowTitle, nullptr, nullptr);

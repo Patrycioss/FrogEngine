@@ -8,9 +8,7 @@ file(COPY resources DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
 
 add_subdirectory(${EXT_LIB_PATH}/glm)
 
-add_library(box2D STATIC IMPORTED
-        games/pong/PongGame.cpp
-        games/pong/PongGame.hpp)
+add_library(box2D STATIC IMPORTED)
 SET_TARGET_PROPERTIES(box2D PROPERTIES IMPORTED_LOCATION ${EXT_LIB_PATH}/box2D/libbox2d.a)
 
 add_executable(

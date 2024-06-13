@@ -18,7 +18,7 @@ namespace fe
 	spriteShader = Shader::Create("resources/shaders/sprite.vert", "resources/shaders/sprite.frag");
 	shapeShader = Shader::Create("resources/shaders/shape.vert", "resources/shaders/shape.frag");
 	animationShader = Shader::Create("resources/shaders/animation.vert", "resources/shaders/animation.frag");
-
+	
 	SetupGLData();
   }
 

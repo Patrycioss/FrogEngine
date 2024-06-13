@@ -19,7 +19,9 @@ namespace fe
    * Drives all the underlying functionality to make the game work.
    */
   class Engine {
+	// Todo: Look at this mess.
 	friend Renderer;
+
    public:
 	enum class State {
 	  None,
@@ -33,6 +35,8 @@ namespace fe
 	static Settings currentSettings;
 	static b2WorldId world;
 	static b2WorldDef worldDef;
+	
+	// Todo: Move to renderer.
 	static glm::mat4 projectionMatrix;
 
 	// Uses the index from the body ID to find Objects.
@@ -40,8 +44,8 @@ namespace fe
 	
 	static bool ScreenQueryCallback(b2ShapeId _shape, void* something);
 	static void WindowResizeCallback(GLFWwindow* _window, int _width, int _height);
-	static void RecalculateProjectionMatrix();	
-   
+	static void RecalculateProjectionMatrix();
+	
    public:
 	/**
 	 * Initializes the engine. Should always be called before constructing the user's game.
@@ -68,7 +72,7 @@ namespace fe
 	 * Box2D world that the game uses.
 	 */
 	static const b2WorldId& GetWorldId();
-
+	
 	/**
 	 * Create a GameObject that is then managed by the engine.
 	 * @tparam T Type of GameObject to create, this should always inherit from GameObject.

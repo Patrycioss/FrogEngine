@@ -17,10 +17,6 @@ namespace fe
 	  : Sprite(_texture, _makeShape, {-1, -1}), animationSettings(_animationSettings) {
   }
 
-  AnimatedSprite::AnimatedSprite(fe::Texture* _texture, const AnimationSettings& _animationSettings, const b2Vec2& _size)
-	  : Sprite(_texture, true, _size), animationSettings(_animationSettings) {
-  }
-
   void AnimatedSprite::Render() {
 	Renderer::DrawAnimationSprite(texture, animationSettings, spriteSettings);
   }
