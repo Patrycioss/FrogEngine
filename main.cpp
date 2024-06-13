@@ -1,10 +1,9 @@
 ﻿#include "src/FrogEngine.hpp"
-#include "games/pong/PongGame.hpp"
-#include "games/animation_demo/AnimationDemo.hpp"
+#include "games/game_demo/GameDemo.hpp"
 
 int main() {
   fe::Engine::Initialize();
-  AnimationDemo::AnimationDemo animationDemo;
+  GameDemo::GameDemo animationDemo;
   fe::Engine::Start(animationDemo);
   return 0;
 }

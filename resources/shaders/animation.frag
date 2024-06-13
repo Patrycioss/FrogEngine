@@ -38,5 +38,6 @@ void main()
     float colorX = factorX + pos.x * (1.0 / columns);
     float colorY =  factorY + pos.y * (1.0 / rows);
     
-    color = spriteColor * texture(image, vec2(colorX, colorY));
+    // + 0.001f for floating point rounding errors to ensure there's nothing coming through from other frames.
+    color = spriteColor * texture(image, vec2(colorX, colorY + 0.001f));
 }  

@@ -42,7 +42,7 @@ namespace fe
 	// Uses the index from the body ID to find Objects.
 	static std::unordered_map<int32_t, std::unique_ptr<GameObject>> objectRegistry;
 	
-	static bool ScreenQueryCallback(b2ShapeId _shape, void* something);
+	static bool ScreenQueryCallback(b2ShapeId _shape, void* context);
 	static void WindowResizeCallback(GLFWwindow* _window, int _width, int _height);
 	static void RecalculateProjectionMatrix();
 	
@@ -72,6 +72,11 @@ namespace fe
 	 * Box2D world that the game uses.
 	 */
 	static const b2WorldId& GetWorldId();
+	
+	/**
+	 * @return The window size from the current settings. 
+	 */
+	static b2Vec2 GetWindowSize();
 	
 	/**
 	 * Create a GameObject that is then managed by the engine.

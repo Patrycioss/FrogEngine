@@ -41,13 +41,9 @@ add_executable(
         # input
         src/input/Input.cpp
         
-        # pong game
-        games/pong/PongGame.cpp
-        games/pong/Paddle.cpp
-        
         # animation demo
-        games/animation_demo/AnimationDemo.cpp
-        games/animation_demo/Zombie.cpp
+        games/game_demo/GameDemo.cpp
+        games/game_demo/Zombie.cpp
 
 )
 

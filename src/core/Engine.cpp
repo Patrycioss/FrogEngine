@@ -143,7 +143,7 @@ namespace fe
 	}
   }
 
-  bool Engine::ScreenQueryCallback(b2ShapeId _shape, void* something) {
+  bool Engine::ScreenQueryCallback(b2ShapeId _shape, void* context) {
 	objectRegistry[b2Shape_GetBody(_shape).index1]->InternalRender();
 	return true;
   }
@@ -172,6 +172,10 @@ namespace fe
 
   const b2WorldId& Engine::GetWorldId() {
 	return world;
+  }
+
+  [[nodiscard]] b2Vec2 Engine::GetWindowSize() {
+	return {(float) currentSettings.windowWidth, (float) currentSettings.windowHeight};
   }
 
   b2BodyId Engine::CreateBody(b2BodyDef* _bodyDef) {

@@ -2,7 +2,7 @@
 
 #include <src/FrogEngine.hpp>
 
-namespace AnimationDemo
+namespace GameDemo
 {
  class Zombie : public fe::GameObject {
   private:
