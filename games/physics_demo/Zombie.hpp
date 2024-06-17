@@ -2,7 +2,7 @@
 
 #include <src/FrogEngine.hpp>
 
-namespace GameDemo
+namespace PhysicsDemo
 {
  class Zombie : public fe::GameObject {
   private:
@@ -23,6 +23,6 @@ namespace GameDemo
    void Update(float _deltaTime) override;
    
   public:
-   Zombie(fe::Key _leftKey, fe::Key _rightKey);
+   Zombie(fe::Key _leftKey, fe::Key _rightKey, b2Vec2 _position);
   };
 }

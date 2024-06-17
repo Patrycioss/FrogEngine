@@ -13,11 +13,6 @@ namespace fe
 	spriteSettings.size = _size;
   }
 
-  Sprite::Sprite(fe::Texture* _texture, bool _makeShape)
-	  : texture(_texture), offset({0, 0}), spriteSettings(), makeShape(_makeShape), show(true) {
-	spriteSettings.size = {-1, -1};
-  }
-
   Sprite::Sprite(fe::Texture* _texture, const b2Vec2& _size)
 	  : texture(_texture), offset({0, 0}), spriteSettings(), makeShape(true), show(true) {
 	spriteSettings.size = _size;

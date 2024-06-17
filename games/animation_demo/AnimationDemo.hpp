@@ -4,16 +4,15 @@
 
 #include "Zombie.hpp"
 
-namespace GameDemo
+namespace AnimationDemo
 {
 
- class GameDemo : public fe::GameTemplate {
+ class AnimationDemo : public fe::GameTemplate {
   private:
    Zombie* zombie;
-   fe::GameObject* staticRect;
    
   public:
-   GameDemo();
+   AnimationDemo();
    void Start() override;
    void Update(float _deltaTime) override;
    void Stop() override;

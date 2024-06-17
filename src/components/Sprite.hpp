@@ -53,14 +53,6 @@ namespace fe
 	/**
 	 * Sprite Constructor.
 	 * @param _texture The Texture to render.
-	 * @param _makeShape Whether to add a Box2D shape with the size of the Sprite.
-	 * @remark The size of the Sprite will be the dimensions of the Texture.
-	 */
-	explicit Sprite(fe::Texture* _texture, bool _makeShape);
-
-	/**
-	 * Sprite Constructor.
-	 * @param _texture The Texture to render.
 	 * @param _size The size of the Sprite. By default it will use the dimensions of the Texture.
 	 * @remark Adds a Box2D shape with the size of the Sprite.
 	 */

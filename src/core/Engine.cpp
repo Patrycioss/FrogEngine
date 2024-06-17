@@ -28,6 +28,7 @@ namespace fe
 	state = State::Initialize;
 
 	worldDef.gravity = currentSettings.gravity;
+	worldDef.enableContinous = true;
 	world = b2CreateWorld(&worldDef);
 	
 
@@ -73,8 +74,8 @@ namespace fe
 
 	state = State::Start;
 
-	float timeStep = 1.0f / 60.0f;
-	int subStepCount = 4;
+	float timeStep = 1.0f / 120.0f;
+	int subStepCount = 10;
 
 	_gameTemplate.Start();
 	for (const auto& a : objectRegistry) {
@@ -97,11 +98,13 @@ namespace fe
 	  lastTime = nowTime;
 
 	  b2World_Step(world, timeStep, subStepCount);
-
+	  
+	  
 	  _gameTemplate.Update(deltaTime);
 	  for (auto& a : objectRegistry) {
 		a.second->InternalUpdate(deltaTime);
 	  }
+	  
 
 	  // Render
 	  b2World_OverlapAABB(world,

@@ -5,14 +5,14 @@ namespace fe
 {
   uint32_t GameObject::IDs = 0;
   
-  GameObject::GameObject(b2BodyType _b2BodyType) :
+  GameObject::GameObject(b2BodyType _b2BodyType, const b2Vec2& _position) :
 	  ID(IDs++), wasRenderedThisFrame(false),
 	  components(), body(),
 	  shapeDef(b2DefaultShapeDef()) {
 
 	b2BodyDef bodyDef = b2DefaultBodyDef();
 	bodyDef.type = _b2BodyType;
-	bodyDef.position = {0,0};
+	bodyDef.position = _position;
 	body = Engine::CreateBody(&bodyDef);
 	ID = IDs++;
   }
@@ -65,6 +65,10 @@ namespace fe
 	return body;
   }
 
+  b2ShapeDef& GameObject::GetShapeDef() {
+	return shapeDef;
+  }
+
   uint32_t GameObject::GetID() const {
 	return ID;
   }
@@ -94,7 +98,6 @@ namespace fe
   }
   
   b2ShapeId GameObject::AddShape(const b2Polygon& _polygon) {
-	// Todo: Allow for setting the position of the shape.
 	return b2CreatePolygonShape(body, &shapeDef, &_polygon);
   }
 }

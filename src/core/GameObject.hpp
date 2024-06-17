@@ -65,10 +65,11 @@ namespace fe
    public:
 
 	/**
- * Constructor of the GameObject.
- * @param _b2BodyType The type of the body that the GameObject will make, i.e: static, dynamic, kinematic.
- */
-	explicit GameObject(b2BodyType _b2BodyType);
+     * Constructor of the GameObject.
+     * @param _b2BodyType The type of the body that the GameObject will make, i.e: static, dynamic, kinematic.
+     *@param _position The initial position of the GameObject, defaults to {0,0}. 
+     */
+	explicit GameObject(b2BodyType _b2BodyType, const b2Vec2& _position = {0,0});
 
 	/**
 	 * Destructor of the GameObject.
@@ -79,6 +80,11 @@ namespace fe
 	 * @return The b2BodyId of the body associated with the GameObject. 
 	 */
 	[[nodiscard]] const b2BodyId& GetBody() const;
+	
+	/**
+	 * @return The default Shape definition used to make shapes. 
+	 */
+	b2ShapeDef& GetShapeDef(); 
 
 	/**
 	 * @return The position of the GameObject. 

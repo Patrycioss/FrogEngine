@@ -42,9 +42,16 @@ add_executable(
         src/input/Input.cpp
         
         # animation demo
-        games/game_demo/GameDemo.cpp
-        games/game_demo/Zombie.cpp
-
+        games/animation_demo/AnimationDemo.cpp
+        games/animation_demo/Zombie.cpp
+        
+        # physics demo
+        games/physics_demo/PhysicsDemo.cpp
+        games/physics_demo/Rope.cpp
+        games/physics_demo/RopeSegment.cpp
+        games/physics_demo/Zombie.cpp
+        games/physics_demo/MovablePlatform.cpp
+        games/physics_demo/MovablePlatform.hpp
 )
 
 

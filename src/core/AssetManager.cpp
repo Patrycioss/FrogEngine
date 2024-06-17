@@ -22,10 +22,17 @@ namespace fe
 	  throw std::runtime_error("Path: '" + _path + "' is invalid!");
 	}
 	
-	auto ref = loadedTextures.emplace(_path, Texture{GL_RGBA});
 
 	int width, height, nrChannels;
 	unsigned char* data = stbi_load(_path.c_str(), &width, &height, &nrChannels, 0);
+	
+	uint32_t format = GL_RGB;
+	if (nrChannels > 3){
+	  format = GL_RGBA;
+	}
+
+	auto ref = loadedTextures.emplace(_path, Texture{format});
+	
 	ref.first->second.Generate(width, height, data);
 	stbi_image_free(data);
 	return &ref.first->second;
