@@ -15,7 +15,7 @@ namespace fe
 	/**
 	 * The GameObject this Component is attached to.
 	 */
-	GameObject* GameObject = nullptr;
+	GameObject* gameObject = nullptr;
 
 	/**
  	 * Called before the GameObject's Start() is called.

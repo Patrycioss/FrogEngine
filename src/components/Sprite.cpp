@@ -25,13 +25,13 @@ namespace fe
 
 	if (makeShape) {
 	  b2Polygon polygon = b2MakeBox(spriteSettings.size.x / 2.0f, spriteSettings.size.y / 2.0f);
-	  GameObject->AddShape(polygon);
+	  gameObject->AddShape(polygon);
 	}
   }
 
   void Sprite::Update(float _deltaTime) {
-	spriteSettings.position = GameObject->GetPosition();
-	spriteSettings.angle = GameObject->GetAngle();
+	spriteSettings.position = gameObject->GetPosition();
+	spriteSettings.angle = gameObject->GetAngle();
   }
 
   void Sprite::Render() {

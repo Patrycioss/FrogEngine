@@ -163,7 +163,7 @@ namespace fe
 	T* AddComponent(Args... args) {
 	  components.push_back(std::unique_ptr<T>(new T(std::move(args)...)));
 	  T* component = (T*)components.back().get();
-	  component->GameObject = this;
+	  component->gameObject = this;
 	  return component;
 	}
 
