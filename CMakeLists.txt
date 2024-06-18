@@ -12,9 +12,6 @@ project(
 
 set(EXT_LIB_PATH ${CMAKE_CURRENT_SOURCE_DIR}/ext)
 
-
-
-
 # External libraries
 add_subdirectory(${EXT_LIB_PATH}/glm)
 
@@ -25,6 +22,7 @@ add_library(glfw STATIC IMPORTED)
 SET_TARGET_PROPERTIES(glfw PROPERTIES IMPORTED_LOCATION ${EXT_LIB_PATH}/glfw/libglfw3.a)
 
 add_library(glad ${EXT_LIB_PATH}/glad/src/glad.c)
+SET_TARGET_PROPERTIES(glad PROPERTIES LINKER_LANGUAGE CXX)
 target_include_directories(glad PUBLIC ${EXT_LIB_PATH}/glad/include)
 
 # FrogEngine Library
