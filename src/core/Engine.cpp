@@ -3,11 +3,12 @@
 #include <glad/glad.h>
 #include <ext/matrix_clip_space.hpp>
 #include <ext/matrix_transform.hpp>
+#include <stdexcept>
 
-#include "src/Core/Renderer.hpp"
+#include "src/core/Renderer.hpp"
 #include "src/input/Input.hpp"
-#include "src/Core/Box2DDebug.hpp"
-#include "src/Core/GameTemplate.hpp"
+#include "src/core/Box2DDebug.hpp"
+#include "src/core/GameTemplate.hpp"
 
 namespace fe
 {
