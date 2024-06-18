@@ -15,9 +15,11 @@ namespace fe
 
   void Renderer::Initialize() {
 
-	spriteShader = Shader::Create("resources/shaders/sprite.vert", "resources/shaders/sprite.frag");
-	shapeShader = Shader::Create("resources/shaders/shape.vert", "resources/shaders/shape.frag");
-	animationShader = Shader::Create("resources/shaders/animation.vert", "resources/shaders/animation.frag");
+	std::string basePath = std::string(ENGINE_RESOURCES) + "/shaders";
+	
+	spriteShader = Shader::Create(basePath + "/sprite.vert", basePath + "/sprite.frag");
+	shapeShader = Shader::Create(basePath + "/shape.vert", basePath + "/shape.frag");
+	animationShader = Shader::Create(basePath + "/animation.vert", basePath + "/animation.frag");
 	
 	SetupGLData();
   }
