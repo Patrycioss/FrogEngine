@@ -13,15 +13,15 @@ namespace fe
 
   Colour Colour::FromHex(int32_t _value) {
 	Colour colour(
-		((_value >> 16) & 0xFF) / 255,
-		((_value >> 8) & 0xFF) / 225,
-		((_value >> 0xFF) & 0xFF) / 255
+		(_value >> 16 & 0xFF) / 255,
+		(_value >> 8 & 0xFF) / 255,
+		(_value >> 0xFF & 0xFF) / 255
 	);
 
 	return colour;
   }
 
   glm::vec4 Colour::GetGLReady() const {
-	return {r / 255, g / 255, b / 255, a};
+	return {(float) r / 255.0f, (float) g / 255.0f, (float) b / 255.0f, a};
   }
 }
