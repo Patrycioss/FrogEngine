@@ -1,4 +1,4 @@
-﻿#include "src/core/Renderer.hpp"
+#include "src/core/Renderer.hpp"
 #include "src/core/Engine.hpp"
 #include "src/core/Time.hpp"
 

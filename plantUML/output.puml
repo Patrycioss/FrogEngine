@@ -1,0 +1,34 @@
+@startuml
+
+
+
+
+
+/' Objects '/
+
+namespace fe {
+	class ShaderRef {
+		+ID : uint32_t
+	}
+}
+
+
+
+
+
+/' Inheritance relationships '/
+
+
+
+
+/' Aggregation relationships '/
+
+
+
+
+
+/' Nested objects '/
+
+
+
+@enduml

@@ -1,4 +1,4 @@
-﻿#include "src/core/GameObject.hpp"
+#include "src/core/GameObject.hpp"
 #include "src/core/Engine.hpp"
 
 namespace fe

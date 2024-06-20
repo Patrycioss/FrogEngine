@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 
 #include "src/core/Engine.hpp"
 #include "src/components/AnimatedSprite.hpp"

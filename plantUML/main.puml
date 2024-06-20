@@ -1,0 +1,222 @@
+@startuml
+
+namespace Core{
+    class Engine {
+        +{static} GetCurrentSettings() : Settings&
+        +{static} GetWindowSize() : b2Vec2
+        +{static} GetWorldId() : b2WorldId&
+        +{static} Initialize() : void
+        +{static} Start(GameTemplate& _gameTemplate) : void
+        +{static} Stop() : void
+        +{static} Instantiate(Args... args) : T*
+        +{static} Destroy(GameObject* _object) : void
+        +{static} CreateBody(b2BodyDef* _bodyDef) : b2BodyId
+        +{static} SetFarPlane(float _value) : void
+        +{static} SetGravity(b2Vec2 _gravity) : void
+        +{static} SetNearPlane(float _value) : void
+        +{static} SetWindowSize(uint16_t _width, uint16_t _height) : void
+        +{static} SetWindowTitle(const char* _title) : void
+        +{static} SetZoom(float _value) : void
+        +{static} ToggleVsync(bool _enable) : void
+    }
+    
+    class GameTemplate {
+        #Instantiate(Args ... args) : T*
+        #Start() : void
+        #Stop() : void
+        #Update(float _deltaTime) : void
+    }
+    
+    class GameObject {
+        #body : b2BodyId
+        #shapeDef : b2ShapeDef
+        +GameObject(b2BodyType _b2BodyType, const b2Vec2& _position)
+        +~GameObject()
+        +AddComponent(Args ... args) : T*
+        +GetComponent() : T*
+        +RemoveComponent(Component* _component) : bool
+        +RemoveComponentsOfType() : void
+        +AddShape(const b2Polygon& _polygon) : b2ShapeId
+        +AddShape(const b2ShapeDef& _shapeDef, const b2Polygon& _polygon) : b2ShapeId
+        +GetBody() : b2BodyId& {query}
+        +GetShapeDef() : b2ShapeDef&
+        +GetPosition() : b2Vec2 {query}
+        +GetRotation() : b2Rot {query}
+        +GetAngle() : float {query}
+        +GetID() : uint32_t {query}
+        +SetPosition(const b2Vec2& _position) : void
+        +SetRotation(const b2Rot& _rotation) : void
+        +SetAngle(float _angle) : void
+        +SetTransform(const b2Vec2& _position, float _angle) : void
+        +SetTransform(const b2Vec2& _position, const b2Rot& _rotation) : void
+        #Start() : void
+        #Update(float _deltaTime) : void
+        #Render() : void
+    }
+    
+    class Component {
+        +Component()
+        +~Component()
+        #GameObject : GameObject*
+        #Start() : void
+        #Update(float _deltaTime) : void
+        #Render() : void
+    }
+    
+    class Renderer {
+        +{static} DrawAnimationSprite(Texture* _texture, const AnimationSettings& _animationSettings, const SpriteSettings& _spriteSettings) : void
+        +{static} DrawPolygon(b2Vec2* _vertices, int _vertexCount, Colour _colour) : void
+        +{static} DrawSprite(Texture* _texture, const SpriteSettings& _spriteSettings) : void
+    }
+    
+    class Input {
+        +{static} GetKey(Key _key) : bool
+        +{static} GetKeyDown(Key _key) : bool
+        +{static} GetKeyUp(Key _key) : bool
+        +{static} GetAnyKeyDown() : bool
+        +{static} GetMouse(MouseButton _button) : bool
+        +{static} GetMouseDown(MouseButton _button) : bool
+        +{static} GetMouseUp(MouseButton _button) : bool
+        +{static} GetMousePos() : b2Vec2
+    }
+    
+   
+    
+    class Box2DDebug {
+        +{static} IsEnabled() : bool
+        +{static} Enable(bool _value) : void
+    }
+    
+    class Time{
+        +{static} GetTimeSeconds() : float
+    }
+}
+
+
+namespace Data{
+    class Texture {
+        +Texture(uint32_t _imageFormat)
+        +Generate(int _imageWidth, int _imageHeight, unsigned char* _data) : void
+        +Bind() : void {query}
+        +GetID() : uint32_t& {query}
+        +GetSize() : b2Vec2 {query}
+    }
+    
+   class Colour {
+   		+r : int
+   		+g : int
+   		+b : int
+   		+a : float
+   		+Colour(int _r, int _g, int _b, float _a)
+   		+GetGLReady() : glm::vec4 {query}
+   		+{static} FromHex(int32_t _value) : Colour
+   }
+   
+   class Shader
+}
+
+namespace Components{
+    class AnimatedSprite {
+        +AnimatedSprite(fe::Texture* _texture, const AnimationSettings& _animationSettings, const b2Vec2& _size, bool _makeShape)
+        +AnimatedSprite(fe::Texture* _texture, const AnimationSettings& _animationSettings, bool _makeShape)
+        +GetTotalFrameCount() : int {query}
+        +SetCycle(int _startFrame, int _frameCount) : void
+        #GetDefaultSize() : b2Vec2
+        #Render() : void
+    }
+
+    class Sprite {
+        +Sprite(fe::Texture* _texture, bool _makeShape, const b2Vec2& _size)
+        +Sprite(fe::Texture* _texture, const b2Vec2& _size)
+        +GetSpriteSettings() : SpriteSettings& {query}
+        #spriteSettings : SpriteSettings
+        #offset : b2Vec2
+        #texture : fe::Texture*
+        +FlipHorizontal(bool _value) : void
+        +FlipVertical(bool _value) : void
+        +SetColour(const fe::Colour& _colour) : void
+        +SetOffset(const b2Vec2& _offset) : void
+        +SetSpriteSettings(const SpriteSettings& _spriteSettings) : void
+        +Show(bool _value) : void
+        #Start() : void
+        #Update(float _deltaTime) : void
+        #Render() : void
+        #GetDefaultSize() : b2Vec2
+    }
+}
+
+namespace Settings{
+    class EngineSettings {
+        +gravity : b2Vec2
+        +gravity : b2Vec2
+        +enableVsync : bool
+        +windowTitle : const char*
+        +farPlane : float
+        +nearPlane : float
+        +zoom : float
+        +windowHeight : uint16_t
+        +windowWidth : uint16_t
+    }
+    
+    class SpriteSettings {
+        +colour : Colour
+        +position : b2Vec2
+        +size : b2Vec2
+        +flipHorizontal : bool
+        +flipVertical : bool
+        +angle : float
+    }
+    
+    class AnimationSettings {
+        +AnimationSettings(int _cols, int _rows, int _numFrames)
+        +fps : float
+        +columns : int
+        +cycleFrameCount : int
+        +cycleStartFrame : int
+        +rows : int
+        +totalFrameCount : int
+        +SetCycle(int _cycleStartFrame, int _cycleFrameCount) : void
+    }
+}
+
+namespace FileIO {
+    class AssetManager {
+        +{static} LoadTexture(const std::string& _path) : Texture*
+        +{static} UnloadTexture(const std::string& _path) : bool
+    }
+
+    class FileUtils {
+        +{static} Exists(const std::string& _path) : bool
+        +{static} ReadTextFile(const std::string& _path) : std::string
+    }
+}
+
+AssetManager <-- Texture
+AssetManager <-- FileUtils
+
+Engine *-- GameObject
+Engine *-- GameTemplate
+Engine *-- EngineSettings
+Engine <-- Input
+Engine <-- Box2DDebug
+Engine <-- Renderer
+Engine <-- Time
+
+GameObject *-- Component
+
+Component <|-- Sprite
+Component o-- GameObject
+
+Renderer *-- Shader
+
+Sprite <|-- AnimatedSprite
+Sprite *-- SpriteSettings
+Sprite o-- Texture
+Sprite <-- Renderer
+
+SpriteSettings *-- Colour
+
+AnimatedSprite *-- AnimationSettings
+
+
+@enduml

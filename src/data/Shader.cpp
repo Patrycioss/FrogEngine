@@ -1,4 +1,4 @@
-﻿#include "src/data/Shader.hpp"
+#include "src/data/Shader.hpp"
 
 #include <stdexcept>
 #include <glad/glad.h>

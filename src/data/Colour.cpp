@@ -1,4 +1,4 @@
-﻿#include "src/data/Colour.hpp"
+#include "src/data/Colour.hpp"
 
 namespace fe
 {

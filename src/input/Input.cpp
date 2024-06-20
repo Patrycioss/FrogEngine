@@ -1,4 +1,4 @@
-﻿#include "src/input/Input.hpp"
+#include "src/input/Input.hpp"
 
 namespace fe
 {

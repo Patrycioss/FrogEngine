@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 
 #include "src/core/Component.hpp"
 #include "src/data/Texture.hpp"

@@ -1,4 +1,4 @@
-﻿#include "src/fileIO/FileUtils.hpp"
+#include "src/fileIO/FileUtils.hpp"
 
 namespace fe{
   bool FileUtils::Exists(const std::string& _path) {

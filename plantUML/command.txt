@@ -1,0 +1,1 @@
+hpp2plantuml -i "src/components/*.hpp" -i "src/core/*.hpp" -i "src/data/*.hpp" -i "src/fileIO/*.hpp" -i "src/input/*.hpp" -i "src/settings/*.hpp" -i "src/FrogEngine.hpp" -o plantUML/output.puml

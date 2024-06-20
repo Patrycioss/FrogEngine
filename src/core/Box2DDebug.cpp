@@ -1,4 +1,4 @@
-﻿#include "src/core/Box2DDebug.hpp"
+#include "src/core/Box2DDebug.hpp"
 #include "src/core/Renderer.hpp"
 #include "src/core/Engine.hpp"
 

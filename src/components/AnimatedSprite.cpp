@@ -1,4 +1,4 @@
-﻿#include "src/components/AnimatedSprite.hpp"
+#include "src/components/AnimatedSprite.hpp"
 #include "src/core/Renderer.hpp"
 #include "src/core/GameObject.hpp"
 

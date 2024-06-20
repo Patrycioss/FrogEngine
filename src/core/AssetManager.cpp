@@ -1,4 +1,4 @@
-﻿#include "src/core/AssetManager.hpp"
+#include "src/core/AssetManager.hpp"
 
 #include <stdexcept>
 #include <glad/glad.h>

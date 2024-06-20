@@ -1,4 +1,4 @@
-﻿#include "src/core/Engine.hpp"
+#include "src/core/Engine.hpp"
 
 #include <glad/glad.h>
 #include <ext/matrix_clip_space.hpp>
