@@ -89,7 +89,8 @@ namespace fe
 	while (!glfwWindowShouldClose(window)) {
 	  glfwPollEvents();
 
-	  glClearColor(0.5f, 0.5f, 0.5f, 1.0f); // background color
+	  glm::vec4 backgroundColour = currentSettings.backgroundColour.GetGLReady();
+	  glClearColor(backgroundColour.r, backgroundColour.g, backgroundColour.b, backgroundColour.a); // background color
 //	  glClearDepth(1.0f);
 	  glClear(GL_COLOR_BUFFER_BIT);
 //	  glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -210,6 +211,10 @@ namespace fe
 
   void Engine::Destroy(GameObject* _object) {
 	objectRegistry.erase(_object->GetBody().index1);
+  }
+
+  void Engine::SetBackgroundColour(const Colour& _colour) {
+	currentSettings.backgroundColour = _colour;
   }
 
   void Engine::SetZoom(float _value) {

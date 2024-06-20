@@ -129,6 +129,11 @@ namespace fe
 	static void SetGravity(b2Vec2 _gravity);
 	
 	/**
+	 * Sets the background colour used to clear the screen every render loop.
+	 */
+	static void SetBackgroundColour(const Colour& _colour);
+	
+	/**
 	 * Sets the zoom factor for the rendering.
 	 */
 	static void SetZoom(float _value);

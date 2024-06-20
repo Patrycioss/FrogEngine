@@ -1,6 +1,7 @@
 ﻿#pragma once
 
 #include <box2d/box2d.h>
+#include "data/Colour.hpp"
 
 namespace fe{
   /**
@@ -32,6 +33,11 @@ namespace fe{
 	 * The gravity used for physics simulations in the game.
 	 */
 	b2Vec2 gravity = {0,0};
+	
+	/**
+	 * Background colour, used to clear the screen at the start of every render loop.
+	 */
+	Colour backgroundColour = fe::Colour::BLUE;
 	
 	/**
 	 * The near plane of the render projection. By default -1.
