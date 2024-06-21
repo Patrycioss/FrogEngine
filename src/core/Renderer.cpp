@@ -53,6 +53,11 @@ namespace fe
 
   void Renderer::RenderQueued() {
 	Shader::Use(shapeShader);
+	
+	printf("Size: %llu\n", polygonsToDraw.size());
+	
+	std::vector<std::pair<uint32_t,uint32_t>> graphicsMemory{};
+	graphicsMemory.reserve(polygonsToDraw.size());
 
 	for (const Polygon& polygon : polygonsToDraw) {
 
@@ -72,6 +77,8 @@ namespace fe
 
 		glGenVertexArrays(1, &VAO);
 		glGenBuffers(1, &VBO);
+		
+		graphicsMemory.push_back({VAO,VBO});
 
 		glBindVertexArray(VAO);
 		glBindBuffer(GL_ARRAY_BUFFER, VBO);
@@ -81,6 +88,11 @@ namespace fe
 
 		glDrawArrays(GL_LINES, 0, 2);
 	  }
+	}
+	
+	for (const std::pair<uint32_t, uint32_t>& pair : graphicsMemory){
+	  glDeleteVertexArrays(1, &pair.first);
+	  glDeleteBuffers(1, &pair.second);
 	}
 
 	polygonsToDraw.clear();
