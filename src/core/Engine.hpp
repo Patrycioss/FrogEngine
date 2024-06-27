@@ -9,6 +9,7 @@
 
 #include "src/settings/Settings.hpp"
 #include "src/core/GameObject.hpp"
+#include "src/World.hpp"
 
 namespace fe
 {
@@ -33,7 +34,7 @@ namespace fe
 	static State state;
 	static GLFWwindow* window;
 	static Settings currentSettings;
-	static b2WorldId world;
+	static World world;
 	static b2WorldDef worldDef;
 
 	// Delete constructors
@@ -74,9 +75,9 @@ namespace fe
 	static const Settings& GetCurrentSettings();
 
 	/**
-	 * Box2D world that the game uses.
+	 * Physics world that the game uses.
 	 */
-	static const b2WorldId& GetWorldId();
+	static World& GetWorld();
 	
 	/**
 	 * @return The window size from the current settings. 
@@ -103,13 +104,6 @@ namespace fe
 	static void Destroy(GameObject* _object);
 
 	/**
-	 * Creates a Box2D body.
-	 * @param _bodyDef Definition of the body.
-	 * @return A b2BodyId that can be used to alter the created body.
-	 */
-	[[nodiscard]] static b2BodyId CreateBody(b2BodyDef* _bodyDef);
-
-	/**
 	 * Sets the window size.
 	 * @param _width The width of the window.
 	 * @param _height The height of the window.
@@ -126,12 +120,6 @@ namespace fe
 	 * @param _title The desired title.
 	 */
 	static void SetWindowTitle(const char* _title);
-	
-	/**
-	 * Sets the gravity that the engine uses for its physics.
-	 * @param _gravity The gravity as a 2D vector.
-	 */
-	static void SetGravity(b2Vec2 _gravity);
 	
 	/**
 	 * Sets the background colour used to clear the screen every render loop.

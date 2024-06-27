@@ -30,11 +30,6 @@ namespace fe{
 	const char* windowTitle = "My Game";
 	
 	/**
-	 * The gravity used for physics simulations in the game.
-	 */
-	b2Vec2 gravity = {0,0};
-	
-	/**
 	 * Background colour, used to clear the screen at the start of every render loop.
 	 */
 	Colour backgroundColour = fe::Colour::BLUE;

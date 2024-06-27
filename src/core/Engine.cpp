@@ -15,8 +15,8 @@ namespace fe
   Engine::State Engine::state;
   GLFWwindow* Engine::window;
   Settings Engine::currentSettings{};
-  b2WorldId Engine::world;
   b2WorldDef Engine::worldDef = b2DefaultWorldDef();
+  World Engine::world{};
   glm::mat4 Engine::projectionMatrix;
 
   std::unordered_map<int32_t, std::unique_ptr<GameObject>> Engine::objectRegistry;
@@ -27,11 +27,6 @@ namespace fe
 	}
 
 	state = State::Initialize;
-
-	worldDef.gravity = currentSettings.gravity;
-	worldDef.enableContinous = true;
-	world = b2CreateWorld(&worldDef);
-	
 
 	glfwInit();
 	window = glfwCreateWindow(currentSettings.windowWidth, currentSettings.windowHeight, currentSettings.windowTitle, nullptr, nullptr);
@@ -75,9 +70,6 @@ namespace fe
 
 	state = State::Start;
 
-	float timeStep = 1.0f / 120.0f;
-	int subStepCount = 10;
-
 	_gameTemplate.Start();
 	for (const auto& a : objectRegistry) {
 	  a.second->InternalStart();
@@ -99,24 +91,22 @@ namespace fe
 	  deltaTime = (float)(nowTime - lastTime);
 	  lastTime = nowTime;
 
-	  b2World_Step(world, timeStep, subStepCount);
-	  
-	  
+	  world.Step();
+
 	  _gameTemplate.Update(deltaTime);
 	  for (auto& a : objectRegistry) {
 		a.second->InternalUpdate(deltaTime);
 	  }
-	  
 
 	  // Render
-	  b2World_OverlapAABB(world,
-						  {{0, 0}, {(float)currentSettings.windowWidth, (float)currentSettings.windowHeight}},
-						  b2DefaultQueryFilter(),
-						  &ScreenQueryCallback,
-						  nullptr);
+	  world.OverlapAABB(
+		  {{0, 0}, {(float)currentSettings.windowWidth, (float)currentSettings.windowHeight}},
+		  b2DefaultQueryFilter(),
+		  &ScreenQueryCallback,
+		  nullptr);
 
 	  if (Box2DDebug::enabled) {
-		b2World_Draw(world, &Box2DDebug::debugDraw);
+		world.Draw(Box2DDebug::debugDraw);
 	  }
 
 	  Renderer::RenderQueued();
@@ -135,7 +125,6 @@ namespace fe
 	// Always clear objects before destroying world.
 	// Otherwise, objects can't clean themselves up properly.
 	objectRegistry.clear();
-	b2DestroyWorld(world);
 	Renderer::Cleanup();
 	glfwDestroyWindow(window);
 	glfwTerminate();
@@ -175,16 +164,12 @@ namespace fe
 	return currentSettings;
   }
 
-  const b2WorldId& Engine::GetWorldId() {
+  World& Engine::GetWorld() {
 	return world;
   }
 
   [[nodiscard]] b2Vec2 Engine::GetWindowSize() {
-	return {(float) currentSettings.windowWidth, (float) currentSettings.windowHeight};
-  }
-
-  b2BodyId Engine::CreateBody(b2BodyDef* _bodyDef) {
-	return b2CreateBody(world, _bodyDef);
+	return {(float)currentSettings.windowWidth, (float)currentSettings.windowHeight};
   }
 
   void Engine::SetWindowSize(uint16_t _width, uint16_t _height) {
@@ -202,11 +187,6 @@ namespace fe
   void Engine::SetWindowTitle(const char* _title) {
 	currentSettings.windowTitle = _title;
 	glfwSetWindowTitle(window, currentSettings.windowTitle);
-  }
-
-  void Engine::SetGravity(b2Vec2 _gravity) {
-	currentSettings.gravity = _gravity;
-	b2World_SetGravity(world, currentSettings.gravity);
   }
 
   void Engine::Destroy(GameObject* _object) {

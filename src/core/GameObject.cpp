@@ -13,7 +13,7 @@ namespace fe
 	b2BodyDef bodyDef = b2DefaultBodyDef();
 	bodyDef.type = _b2BodyType;
 	bodyDef.position = _position;
-	body = Engine::CreateBody(&bodyDef);
+	body = Engine::GetWorld().CreateBody(bodyDef);
 	ID = IDs++;
   }
 
