@@ -54,8 +54,6 @@ namespace fe
   void Renderer::RenderQueued() {
 	Shader::Use(shapeShader);
 	
-	printf("Size: %llu\n", polygonsToDraw.size());
-	
 	std::vector<std::pair<uint32_t,uint32_t>> graphicsMemory{};
 	graphicsMemory.reserve(polygonsToDraw.size());
 
