@@ -32,3 +32,8 @@ void fe::World::OverlapAABB(const b2AABB& aabb, const b2QueryFilter& filter, b2O
 fe::World::~World() {
   b2DestroyWorld(id);
 }
+
+//TEMPORARY
+b2WorldId& fe::World::ID() {
+  return id;
+}

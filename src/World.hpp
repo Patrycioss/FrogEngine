@@ -73,6 +73,9 @@ namespace fe
 	 * @param context The user context.
 	 */
 	void OverlapAABB(const b2AABB& aabb, const b2QueryFilter& filter, b2OverlapResultFcn* function, void* context);
+	
+	//TEMPORARY
+	b2WorldId& ID();
   };
 }
 
