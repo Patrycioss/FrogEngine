@@ -93,7 +93,7 @@ namespace fe
 	template<Derived<GameObject> T, typename... Args>
 	static T* Instantiate(Args... args) {
 	  auto a = std::unique_ptr<T>(new T(std::move(args)...));
-	  auto pair = objectRegistry.emplace(a->GetBody().index1, std::move(a));
+	  auto pair = objectRegistry.emplace(a->GetBody().id.index1, std::move(a));
 	  return (T*)pair.first->second.get();
 	}
 	
