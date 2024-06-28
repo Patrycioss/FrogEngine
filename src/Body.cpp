@@ -49,4 +49,9 @@ namespace fe
   b2ShapeId Body::AddShape(const b2ShapeDef& _shapeDef, const b2Polygon& _polygon) {
 	return b2CreatePolygonShape(id, &_shapeDef, &_polygon);
   }
+
+  // TEMPORARY
+  b2BodyId& Body::ID() {
+	return id;
+  }
 }
