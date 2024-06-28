@@ -6,6 +6,7 @@
 #include <memory>
 
 #include "src/core/Component.hpp"
+#include "Body.hpp"
 
 namespace fe
 {
@@ -34,9 +35,9 @@ namespace fe
    protected:
 
 	/**
-	 * Box2D body in use by the GameObject.
+	 * Physics body in use by the GameObject.
 	 */
-	b2BodyId body;
+	Body body;
 
 	/**
 	 * Definition of the shape of the GameObject.
@@ -82,20 +83,6 @@ namespace fe
 	 */
 	b2ShapeDef& GetShapeDef(); 
 
-	/**
-	 * @return The position of the GameObject. 
-	 */
-	[[nodiscard]] b2Vec2 GetPosition() const;
-
-	/**
-	 * @return The rotation as a b2Rot of the GameObject. 
-	 */
-	[[nodiscard]] b2Rot GetRotation() const;
-
-	/**
-	 * @return The rotation of the body as an angle in radians. 
-	 */
-	[[nodiscard]] float GetAngle() const;
 
 	/**
 	  * @return The b2BodyId of the body associated with the GameObject. 
@@ -107,37 +94,7 @@ namespace fe
 	 */
 	[[nodiscard]] uint32_t GetID() const;
 
-	/**
-	 * Sets the transform of the GameObject.
-	 * @param _position The new position as a 2D vector.
-	 * @param _angle The new rotation as an angle in radians. 
-	 */
-	void SetTransform(const b2Vec2& _position, float _angle);
 
-	/**
-	 * Sets the transform of the GameObject.
-	 * @param _position The new position as a 2D vector.
-	 * @param _rotation The new rotation as a b2Rot.
-	 */
-	void SetTransform(const b2Vec2& _position, const b2Rot& _rotation);
-
-	/**
-	 * Sets the position of the GameObject.
-	 * @param _position A 2D vector for the new position.
-	 */
-	void SetPosition(const b2Vec2& _position);
-
-	/**
-	 * Sets the rotation of the GameObject.
-	 * @param _angle The new rotation as an angle in radians.
-	 */
-	void SetAngle(float _angle);
-
-	/**
-	 * Sets the rotation of the GameObject.
-	 * @param _rotation The new rotation as a b2Rot.
-	 */
-	void SetRotation(const b2Rot& _rotation);
 
 	/**
 	 * Adds a Box2D shape to the Body using the shape definition in the GameObject.

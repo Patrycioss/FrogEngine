@@ -7,19 +7,13 @@ namespace fe
   
   GameObject::GameObject(b2BodyType _b2BodyType, const b2Vec2& _position) :
 	  ID(IDs++), wasRenderedThisFrame(false),
-	  components(), body(),
+	  components(), body(_position, _b2BodyType),
 	  shapeDef(b2DefaultShapeDef()) {
 
-	b2BodyDef bodyDef = b2DefaultBodyDef();
-	bodyDef.type = _b2BodyType;
-	bodyDef.position = _position;
-	body = Engine::GetWorld().CreateBody(bodyDef);
 	ID = IDs++;
   }
 
-  GameObject::~GameObject() {
-	b2DestroyBody(body);
-  }
+  GameObject::~GameObject() = default;
 
   void GameObject::InternalStart() {
 	for (auto& component : components) {
@@ -73,31 +67,11 @@ namespace fe
 	return ID;
   }
 
-  void GameObject::SetTransform(const b2Vec2& _position, float _angle) {
-	b2Body_SetTransform(body, _position, _angle);
-  }
-
-  void GameObject::SetTransform(const b2Vec2& _position, const b2Rot& _rotation) {
-	SetTransform(_position, b2Rot_GetAngle(_rotation));
-  }
-
-  void GameObject::SetPosition(const b2Vec2& _position) {
-	SetTransform(_position, GetAngle());
-  }
-
-  void GameObject::SetAngle(float _angle) {
-	SetTransform(GetPosition(), _angle);
-  }
-
-  void GameObject::SetRotation(const b2Rot& _rotation) {
-	SetTransform(GetPosition(), _rotation);
-  }
-
   b2ShapeId GameObject::AddShape(const b2ShapeDef& _shapeDef, const b2Polygon& _polygon) {
-	return b2CreatePolygonShape(body, &_shapeDef, &_polygon);
+	return body.AddShape(_shapeDef, _polygon);
   }
   
   b2ShapeId GameObject::AddShape(const b2Polygon& _polygon) {
-	return b2CreatePolygonShape(body, &shapeDef, &_polygon);
+	return body.AddShape(shapeDef, _polygon);
   }
 }
