@@ -30,8 +30,9 @@ namespace fe
   }
 
   void Sprite::Update(float _deltaTime) {
-	spriteSettings.position = gameObject->GetPosition();
-	spriteSettings.angle = gameObject->GetAngle();
+	Body& body = gameObject->GetBody();
+	spriteSettings.position = body.GetPosition();
+	spriteSettings.angle = body.GetAngle();
   }
 
   void Sprite::Render() {

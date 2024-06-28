@@ -190,7 +190,7 @@ namespace fe
   }
 
   void Engine::Destroy(GameObject* _object) {
-	objectRegistry.erase(_object->GetBody().index1);
+	objectRegistry.erase(_object->GetBody().id.index1);
   }
 
   void Engine::SetBackgroundColour(const Colour& _colour) {
