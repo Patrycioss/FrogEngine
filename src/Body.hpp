@@ -70,5 +70,8 @@ namespace fe
 	 * @return The b2ShapeId associated with the shape.
 	 */
 	b2ShapeId AddShape(const b2ShapeDef& _shapeDef, const b2Polygon& _polygon);
+	
+	// Temporary
+	b2BodyId& ID();
   };
 }
