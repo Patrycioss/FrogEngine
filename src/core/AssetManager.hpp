@@ -12,6 +12,11 @@ namespace fe
    */
   class AssetManager {
    private:
+	// Delete constructors
+	AssetManager() = delete;
+	AssetManager(AssetManager& _assetManager) = delete;
+	AssetManager(AssetManager&& _assetManager) = delete;
+	
 	static std::unordered_map<std::string, Texture> loadedTextures;
 
    public:

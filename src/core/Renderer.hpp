@@ -29,6 +29,11 @@ namespace fe
 	static ShaderRef animationShader;
 	
 	static std::vector<Polygon> polygonsToDraw;
+	
+	// Delete constructors
+	Renderer() = delete;
+	Renderer(Renderer& _renderer) = delete;
+	Renderer(Renderer&& _renderer) = delete;
 
 	static void Initialize();
 	static void SetupGLData();

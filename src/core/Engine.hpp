@@ -35,6 +35,11 @@ namespace fe
 	static Settings currentSettings;
 	static b2WorldId world;
 	static b2WorldDef worldDef;
+
+	// Delete constructors
+	Engine() = delete;
+	Engine(Engine& engine) = delete;
+	Engine(Engine&& engine) = delete;
 	
 	// Todo: Move to renderer.
 	static glm::mat4 projectionMatrix;

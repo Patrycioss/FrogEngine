@@ -23,6 +23,11 @@ namespace fe
 	  bool Down;
 	};
 
+	// Delete constructors
+	Input() = delete;
+	Input(Input& _input) = delete;
+	Input(Input&& _input) = delete;
+
 	static bool anyKeyDown;
 	static b2Vec2 mousePosition;
 	static std::vector<StateInfo> stateInfos;

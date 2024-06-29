@@ -13,6 +13,11 @@ namespace fe
 	friend Engine;
 
    private:
+	// Delete constructors
+	Box2DDebug() = delete;
+	Box2DDebug(Box2DDebug& _box2DDebug) = delete;
+	Box2DDebug(Box2DDebug&& _box2DDebug) = delete;
+	
 	static b2DebugDraw debugDraw;
 	static bool enabled;
 	

@@ -8,6 +8,12 @@ namespace fe{
    * Utilities for interacting with files on disk.s
    */
   class FileUtils{
+   private:
+	// Delete constructors
+	FileUtils() = delete;
+	FileUtils(FileUtils& _fileUtils) = delete;
+	FileUtils(FileUtils&& _fileUtils) = delete;
+	
    public:
 	
 	/**

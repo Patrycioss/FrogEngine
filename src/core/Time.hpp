@@ -10,6 +10,11 @@ namespace fe
   class Time {
 	friend Engine;
 
+	// Delete constructors
+	Time() = delete;
+	Time(Time& _time) = delete;
+	Time(Time&& _time) = delete;
+
    public:
 	
 	/**
