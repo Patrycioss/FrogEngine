@@ -62,6 +62,7 @@ namespace fe
 	 */
 	virtual void Render() {};
 
+	
    public:
 
 	/**
@@ -76,11 +77,6 @@ namespace fe
 	 */
 	virtual ~GameObject();
 
-	/**
-	 * @return The b2BodyId of the body associated with the GameObject. 
-	 */
-	[[nodiscard]] const b2BodyId& GetBody() const;
-	
 	/**
 	 * @return The default Shape definition used to make shapes. 
 	 */
@@ -100,6 +96,11 @@ namespace fe
 	 * @return The rotation of the body as an angle in radians. 
 	 */
 	[[nodiscard]] float GetAngle() const;
+
+	/**
+	  * @return The b2BodyId of the body associated with the GameObject. 
+	  */
+	[[nodiscard]] const b2BodyId& GetBody() const;
 
 	/**
 	 * @return The ID of the GameObject. 

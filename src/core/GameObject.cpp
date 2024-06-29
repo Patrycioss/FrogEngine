@@ -61,12 +61,12 @@ namespace fe
 	return b2Body_GetAngle(body);
   }
 
-  const b2BodyId& GameObject::GetBody() const {
-	return body;
-  }
-
   b2ShapeDef& GameObject::GetShapeDef() {
 	return shapeDef;
+  }
+
+  const b2BodyId& GameObject::GetBody() const {
+	return body;
   }
 
   uint32_t GameObject::GetID() const {
