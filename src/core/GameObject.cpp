@@ -43,23 +43,11 @@ namespace fe
 	}
   }
 
-  b2Vec2 GameObject::GetPosition() const {
-	return b2Body_GetPosition(body);
-  }
-
-  b2Rot GameObject::GetRotation() const {
-	return b2Body_GetRotation(body);
-  }
-
-  float GameObject::GetAngle() const {
-	return b2Body_GetAngle(body);
-  }
-
   b2ShapeDef& GameObject::GetShapeDef() {
 	return shapeDef;
   }
 
-  const b2BodyId& GameObject::GetBody() const {
+  Body& GameObject::GetBody() {
 	return body;
   }
 
