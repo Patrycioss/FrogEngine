@@ -87,14 +87,12 @@ namespace fe
 	/**
 	  * @return The b2BodyId of the body associated with the GameObject. 
 	  */
-	[[nodiscard]] const b2BodyId& GetBody() const;
+	[[nodiscard]] Body& GetBody();
 
 	/**
 	 * @return The ID of the GameObject. 
 	 */
 	[[nodiscard]] uint32_t GetID() const;
-
-
 
 	/**
 	 * Adds a Box2D shape to the Body using the shape definition in the GameObject.
