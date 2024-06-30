@@ -54,8 +54,6 @@ namespace fe
   void Renderer::RenderQueued() {
 	Shader::Use(shapeShader);
 	
-	printf("Size: %llu\n", polygonsToDraw.size());
-	
 	std::vector<std::pair<uint32_t,uint32_t>> graphicsMemory{};
 	graphicsMemory.reserve(polygonsToDraw.size());
 
@@ -111,11 +109,7 @@ namespace fe
 
 	glm::mat4 model = glm::mat4(1.0f);
 	model = glm::translate(model, glm::vec3(glm::vec2{_spriteSettings.position.x, _spriteSettings.position.y}, 0.0f));
-
-	model = glm::translate(model, glm::vec3(0.5f * _spriteSettings.size.x, 0.5f * _spriteSettings.size.y, 0.0f));
 	model = glm::rotate(model, _spriteSettings.angle, glm::vec3(0.0f, 0.0f, 1.0f));
-	model = glm::translate(model, glm::vec3(-0.5f * _spriteSettings.size.x, -0.5f * _spriteSettings.size.y, 0.0f));
-
 	model = glm::scale(model, glm::vec3(glm::vec2{_spriteSettings.size.x, _spriteSettings.size.y}, 1.0f));
 
 	Shader::SetMatrix4(spriteShader, "model", model);
@@ -152,11 +146,7 @@ namespace fe
 
 	glm::mat4 model = glm::mat4(1.0f);
 	model = glm::translate(model, glm::vec3(glm::vec2{_spriteSettings.position.x, _spriteSettings.position.y}, 0.0f));
-
-	model = glm::translate(model, glm::vec3(0.5f * _spriteSettings.size.x, 0.5f * _spriteSettings.size.y, 0.0f));
 	model = glm::rotate(model, _spriteSettings.angle, glm::vec3(0.0f, 0.0f, 1.0f));
-	model = glm::translate(model, glm::vec3(-0.5f * _spriteSettings.size.x, -0.5f * _spriteSettings.size.y, 0.0f));
-
 	model = glm::scale(model, glm::vec3(glm::vec2{_spriteSettings.size.x, _spriteSettings.size.y}, 1.0f));
 
 	Shader::SetMatrix4(animationShader, "model", model);
