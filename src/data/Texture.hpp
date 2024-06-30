@@ -10,13 +10,14 @@ namespace fe
 	int width = 0;
 	int height = 0;
 	uint32_t imageFormat;
+	bool hardPixels;
 
    public:
 	/**
 	 * Construct a Texture.
 	 * @param _imageFormat The format of the image, e.g. RGB, RGBA...
 	 */
-	explicit Texture(uint32_t _imageFormat);
+	explicit Texture(uint32_t _imageFormat, bool _hardPixels);
 	
 	/**
 	 * @return The ID of the Texture.

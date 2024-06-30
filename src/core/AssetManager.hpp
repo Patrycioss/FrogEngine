@@ -25,7 +25,7 @@ namespace fe
 	 * @param _path The file path leading to the texture.
 	 * @return A pointer to the loaded texture.
 	 */
-	static Texture* LoadTexture(const std::string& _path);
+	static Texture* LoadTexture(const std::string& _path, bool _hardPixels = false);
 	
 	/**
 	 * Tries to unload a texture from memory.

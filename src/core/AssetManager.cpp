@@ -12,7 +12,7 @@ namespace fe
 {
   std::unordered_map<std::string, Texture> AssetManager::loadedTextures{};
   
-  Texture* AssetManager::LoadTexture(const std::string& _path) {
+  Texture* AssetManager::LoadTexture(const std::string& _path, bool _hardPixels) {
 
 	if (loadedTextures.contains(_path)){
 	  return &loadedTextures.at(_path);
@@ -31,7 +31,7 @@ namespace fe
 	  format = GL_RGBA;
 	}
 
-	auto ref = loadedTextures.emplace(_path, Texture{format});
+	auto ref = loadedTextures.emplace(_path, Texture{format, _hardPixels});
 	
 	ref.first->second.Generate(width, height, data);
 	stbi_image_free(data);

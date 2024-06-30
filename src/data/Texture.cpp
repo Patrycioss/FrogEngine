@@ -4,7 +4,7 @@
 
 namespace fe
 {
-  Texture::Texture(uint32_t _imageFormat)
+  Texture::Texture(uint32_t _imageFormat, bool _hardPixels)
 	  : imageFormat(_imageFormat) {
 	glGenTextures(1, &ID);
   }
@@ -26,8 +26,14 @@ namespace fe
 
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	
+	int pixelMode = GL_LINEAR;
+	if (hardPixels){
+	  pixelMode = GL_NEAREST;
+	}
+	
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, pixelMode);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, pixelMode);
 
 	glBindTexture(GL_TEXTURE_2D, 0);
   }
