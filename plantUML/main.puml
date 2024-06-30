@@ -88,7 +88,7 @@ namespace Core{
         +{static} IsShapesEnabled() : bool
         +{static} Enable(bool _value) : void
         +{static} EnableAABB(bool _value) : void
-        +{static} EnableShape(bool _value) : void
+        +{static} EnableShapes(bool _value) : void
     }
     
     class Time{
