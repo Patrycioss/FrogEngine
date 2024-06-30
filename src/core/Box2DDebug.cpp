@@ -1,4 +1,7 @@
 #include "src/core/Box2DDebug.hpp"
+
+#include <cerrno>
+
 #include "src/core/Renderer.hpp"
 #include "src/core/Engine.hpp"
 
@@ -6,10 +9,27 @@ namespace fe
 {
   b2DebugDraw Box2DDebug::debugDraw{};
   bool Box2DDebug::enabled = false;
+  
+  bool Box2DDebug::pointError = false;
+  bool Box2DDebug::capsuleError = false;
+  bool Box2DDebug::solidCapsuleError = false;
+  bool Box2DDebug::circleError = false;
+  bool Box2DDebug::solidCircleError = false;
+  bool Box2DDebug::segmentError = false;
+  bool Box2DDebug::stringError = false;
+  bool Box2DDebug::transformError = false;
 
   void Box2DDebug::Initialize() {
 	debugDraw.DrawSolidPolygon = DrawSolidPolygonCallback;
 	debugDraw.DrawPolygon = DrawPolygonCallback;
+	debugDraw.DrawPoint = DrawPoint;
+	debugDraw.DrawCapsule = DrawCapsule;
+	debugDraw.DrawCircle = DrawCircle;
+	debugDraw.DrawSegment = DrawSegment;
+	debugDraw.DrawSolidCapsule = DrawSolidCapsule;
+	debugDraw.DrawSolidCircle = DrawSolidCircle;
+	debugDraw.DrawString = DrawString;
+	debugDraw.DrawTransform = DrawTransform;
 	debugDraw.drawAABBs = true;
 	debugDraw.drawShapes = true;
 	debugDraw.drawingBounds = {{0, 0},
@@ -65,5 +85,63 @@ namespace fe
 
   bool Box2DDebug::IsEnabled() {
 	return enabled;
+  }
+
+  void Box2DDebug::DrawPoint(b2Vec2, float, b2HexColor, void*) {
+	
+	if (!pointError){
+	  pointError = true;
+	  perror("Draw point in Box2DDebug has not been implemented yet!");
+	}
+	
+  }
+
+  void Box2DDebug::DrawCapsule(b2Vec2, b2Vec2, float, b2HexColor, void*) {
+	if (!capsuleError){
+	  capsuleError = true;
+	  perror("Draw capsule in Box2DDebug has not been implemented yet!");
+	}
+  }
+
+  void Box2DDebug::DrawSolidCapsule(b2Vec2, b2Vec2, float, b2HexColor, void*) {
+	if (!solidCapsuleError){
+	  solidCapsuleError = true;
+	  perror("Draw solid capsule in Box2DDebug has not been implemented yet!");
+	}
+  }
+
+  void Box2DDebug::DrawCircle(b2Vec2, float, b2HexColor, void*) {
+	if (!circleError){
+	  circleError = true;
+	  perror("Draw circle error in Box2DDebug has not been implemented yet!");
+	}
+  }
+
+  void Box2DDebug::DrawSolidCircle(b2Transform, float, b2HexColor, void*) {
+	if (!solidCircleError){
+	  solidCircleError = true;
+	  perror("Draw solid circle in Box2DDebug has not been implemented yet!");
+	}
+  }
+
+  void Box2DDebug::DrawSegment(b2Vec2, b2Vec2, b2HexColor, void*) {
+	if (!segmentError){
+	  segmentError = true;
+	  perror("Draw segment in Box2DDebug has not been implemented yet!");
+	}
+  }
+
+  void Box2DDebug::DrawString(b2Vec2, const char*, void*) {
+	if (!stringError){
+	  stringError = true;
+	  perror("Draw string in Box2DDebug has not been implemented yet!");
+	}
+  }
+
+  void Box2DDebug::DrawTransform(b2Transform, void*) {
+	if (!transformError){
+	  transformError = true;
+	  perror("Draw transform in Box2DDebug has not been implemented yet!");
+	}
   }
 }
