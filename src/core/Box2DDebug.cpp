@@ -30,7 +30,7 @@ namespace fe
 	debugDraw.DrawSolidCircle = DrawSolidCircle;
 	debugDraw.DrawString = DrawString;
 	debugDraw.DrawTransform = DrawTransform;
-	debugDraw.drawAABBs = true;
+	debugDraw.drawAABBs = false;
 	debugDraw.drawShapes = true;
 	debugDraw.drawingBounds = {{0, 0},
 		{(float)fe::Engine::GetCurrentSettings().windowWidth, (float)fe::Engine::GetCurrentSettings().windowHeight}};
@@ -77,14 +77,6 @@ namespace fe
 	}
 
 	Renderer::DrawPolygon(vertices, _vertexCount, Colour::FromHex(_colour));
-  }
-
-  void Box2DDebug::Enable(bool _value) {
-	enabled = _value;
-  }
-
-  bool Box2DDebug::IsEnabled() {
-	return enabled;
   }
 
   void Box2DDebug::DrawPoint(b2Vec2, float, b2HexColor, void*) {
@@ -143,5 +135,29 @@ namespace fe
 	  transformError = true;
 	  perror("Draw transform in Box2DDebug has not been implemented yet!");
 	}
+  }
+
+  bool Box2DDebug::IsEnabled() {
+	return enabled;
+  }
+  
+  bool Box2DDebug::IsAABBEnabled() {
+	return debugDraw.drawAABBs;
+  }
+
+  bool Box2DDebug::IsShapesEnabled() {
+	return debugDraw.drawShapes;
+  }
+
+  void Box2DDebug::Enable(bool _value) {
+	enabled = _value;
+  }
+
+  void Box2DDebug::EnableAABB(bool _value) {
+	debugDraw.drawAABBs = _value;
+  }
+
+  void Box2DDebug::EnableShapes(bool _value) {
+	debugDraw.drawShapes = _value;
   }
 }
