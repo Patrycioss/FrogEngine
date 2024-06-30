@@ -84,7 +84,11 @@ namespace Core{
     
     class Box2DDebug {
         +{static} IsEnabled() : bool
+        +{static} IsAABBEnabled() : bool
+        +{static} IsShapesEnabled() : bool
         +{static} Enable(bool _value) : void
+        +{static} EnableAABB(bool _value) : void
+        +{static} EnableShape(bool _value) : void
     }
     
     class Time{
